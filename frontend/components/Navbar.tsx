@@ -46,7 +46,16 @@ export function Navbar() {
           <Link href="/cart" className="rounded-full border border-white/10 p-2 hover:border-gold-400">
             <ShoppingBag size={18} />
           </Link>
-          <Link href="/login" className="rounded-full border border-white/10 p-2 hover:border-gold-400">
+          <Link
+            href={
+              role === 'ADMIN' || role === 'STAFF'
+                ? '/admin'
+                : role
+                  ? '/account'
+                  : '/login'
+            }
+            className="rounded-full border border-white/10 p-2 hover:border-gold-400"
+          >
             <User size={18} />
           </Link>
         </div>
