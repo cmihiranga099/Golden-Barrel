@@ -21,7 +21,7 @@ export default function LoginPage() {
     if (payload?.role === 'ADMIN' || payload?.role === 'STAFF') {
       router.replace('/admin');
     } else {
-      router.replace('/account');
+      router.replace('/');
     }
   }, [router]);
 
@@ -38,7 +38,7 @@ export default function LoginPage() {
       if (payload?.role === 'ADMIN' || payload?.role === 'STAFF') {
         router.push('/admin');
       } else {
-        router.push('/account');
+        router.push('/');
       }
     } catch {
       push('Login failed. Check your credentials.');

@@ -1,7 +1,18 @@
+'use client';
+
 import Link from 'next/link';
 import { ShoppingBag, User, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export function Navbar() {
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem('gb_role');
+    setRole(stored);
+  }, []);
+
   return (
     <header className="fixed top-0 z-40 w-full border-b border-white/5 bg-black/40 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -13,6 +24,11 @@ export function Navbar() {
           <Link href="/products?category=whisky" className="text-sm hover:text-gold-200">Whisky</Link>
           <Link href="/products?category=wine" className="text-sm hover:text-gold-200">Wine</Link>
           <Link href="/account" className="text-sm hover:text-gold-200">Account</Link>
+          {(role === 'ADMIN' || role === 'STAFF') && (
+            <Link href="/admin" className="text-sm text-gold-200 hover:text-gold-200">
+              Dashboard
+            </Link>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <form

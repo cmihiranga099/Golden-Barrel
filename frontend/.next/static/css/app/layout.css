@@ -605,11 +605,11 @@ video {
 .w-2{
   width: 0.5rem;
 }
-.w-full{
-  width: 100%;
-}
 .w-60{
   width: 15rem;
+}
+.w-full{
+  width: 100%;
 }
 .max-w-4xl{
   max-width: 56rem;
@@ -620,14 +620,14 @@ video {
 .max-w-6xl{
   max-width: 72rem;
 }
+.max-w-7xl{
+  max-width: 80rem;
+}
 .max-w-lg{
   max-width: 32rem;
 }
 .max-w-md{
   max-width: 28rem;
-}
-.max-w-7xl{
-  max-width: 80rem;
 }
 @keyframes pulse{
 
@@ -805,6 +805,10 @@ video {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
 .py-12{
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -824,10 +828,6 @@ video {
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-.py-10{
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 .pb-3{
   padding-bottom: 0.75rem;
