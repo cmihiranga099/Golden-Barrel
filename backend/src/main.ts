@@ -4,12 +4,17 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true, rawBody: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+    rawBody: true,
+  });
 
   app.use(helmet());
   app.use(mongoSanitize());
@@ -25,6 +30,10 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
     credentials: true,
+  });
+
+  app.useStaticAssets(join(process.cwd(), process.env.LOCAL_UPLOAD_DIR || 'uploads'), {
+    prefix: `/${process.env.LOCAL_UPLOAD_DIR || 'uploads'}`,
   });
 
   app.setGlobalPrefix('api');

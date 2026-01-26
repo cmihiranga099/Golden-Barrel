@@ -35,12 +35,44 @@ export default async function ProductsPage({
           ))}
         </div>
       </div>
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
-        {products.length ? (
-          products.map((product) => <ProductCard key={product._id} product={product} />)
-        ) : (
-          <p className="text-sm text-[#8c8378]">No products found yet. Seed the database to see items.</p>
-        )}
+
+      <div className="mt-8 grid gap-8 md:grid-cols-[240px,1fr]">
+        <aside className="glass rounded-2xl p-4 text-sm text-[#cfc7bc]">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">Filters</p>
+          <div className="mt-4 space-y-4">
+            <div>
+              <p className="text-xs text-[#8c8378]">Category</p>
+              <div className="mt-2 space-y-1">
+                {['Whisky', 'Vodka', 'Rum', 'Wine', 'Beer'].map((cat) => (
+                  <Link key={cat} href={`/products?category=${cat.toLowerCase()}`} className="block hover:text-gold-200">
+                    {cat}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-[#8c8378]">Price Range</p>
+              <div className="mt-2 flex gap-2">
+                <input className="w-full rounded-md bg-black/40 p-2 text-xs" placeholder="$ min" />
+                <input className="w-full rounded-md bg-black/40 p-2 text-xs" placeholder="$ max" />
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-[#8c8378]">Alcohol %</p>
+              <div className="mt-2 flex gap-2">
+                <input className="w-full rounded-md bg-black/40 p-2 text-xs" placeholder="min" />
+                <input className="w-full rounded-md bg-black/40 p-2 text-xs" placeholder="max" />
+              </div>
+            </div>
+          </div>
+        </aside>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {products.length ? (
+            products.map((product) => <ProductCard key={product._id} product={product} />)
+          ) : (
+            <p className="text-sm text-[#8c8378]">No products found yet. Seed the database to see items.</p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function AccountPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
@@ -16,8 +18,12 @@ export default function AccountPage() {
           </button>
         </div>
         <div className="glass rounded-2xl p-6">
-          <h2 className="display text-xl text-gold-200">Addresses</h2>
-          <p className="mt-2 text-sm text-[#8c8378]">Add delivery addresses for fast checkout.</p>
+          <h2 className="display text-xl text-gold-200">Quick Links</h2>
+          <div className="mt-4 grid gap-3 text-sm">
+            <Link href="/account/orders" className="text-gold-200">Order History</Link>
+            <Link href="/account/wishlist" className="text-gold-200">Wishlist</Link>
+            <span className="text-[#8c8378]">Address Book (coming soon)</span>
+          </div>
         </div>
       </div>
     </div>
