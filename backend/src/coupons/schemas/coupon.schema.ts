@@ -6,22 +6,22 @@ export type CouponDocument = HydratedDocument<Coupon>;
 @Schema({ timestamps: true })
 export class Coupon {
   @Prop({ required: true, unique: true, uppercase: true })
-  code: string;
+  code!: string;
 
   @Prop({ required: true, enum: ['PERCENT', 'FIXED'] })
-  type: 'PERCENT' | 'FIXED';
+  type!: 'PERCENT' | 'FIXED';
 
   @Prop({ required: true })
-  value: number;
+  value!: number;
 
   @Prop({ required: true })
-  minSpend: number;
+  minSpend!: number;
 
   @Prop({ required: true })
-  expiresAt: Date;
+  expiresAt!: Date;
 
   @Prop({ default: true })
-  isActive: boolean;
+  isActive!: boolean;
 }
 
 export const CouponSchema = SchemaFactory.createForClass(Coupon);

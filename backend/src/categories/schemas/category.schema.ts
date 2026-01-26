@@ -6,10 +6,10 @@ export type CategoryDocument = HydratedDocument<Category>;
 @Schema({ timestamps: true })
 export class Category {
   @Prop({ required: true, unique: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true, unique: true })
-  slug: string;
+  slug!: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

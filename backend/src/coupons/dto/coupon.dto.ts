@@ -3,17 +3,17 @@ import { IsDateString, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateCouponDto {
   @IsString()
   @IsNotEmpty()
-  code: string;
+  code!: string;
 
   @IsString()
-  type: 'PERCENT' | 'FIXED';
+  type!: 'PERCENT' | 'FIXED';
 
   @IsNumber()
-  value: number;
+  value!: number;
 
   @IsNumber()
-  minSpend: number;
+  minSpend!: number;
 
   @IsDateString()
-  expiresAt: string;
+  expiresAt!: string;
 }
