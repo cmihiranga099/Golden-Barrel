@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 
 export type Product = {
   _id: string;
@@ -21,7 +21,7 @@ export type Product = {
 export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/products/${product.slug}`} className="group">
-      <div className="overflow-hidden rounded-2xl border border-white/5 bg-night-800">
+      <div className="overflow-hidden rounded-2xl border border-black/10 bg-white/90">
         <div className="h-64 w-full overflow-hidden">
           <img
             src={
@@ -34,14 +34,14 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="p-4">
           <h3 className="display text-lg text-gold-200">{product.name}</h3>
-          <p className="mt-1 text-xs text-[#8c8378]">
+          <p className="mt-1 text-xs text-[#6f6256]">
             {product.abv}% ABV | {product.volume}ml
           </p>
           <div className="mt-4 flex items-center gap-2">
             {product.discountPrice ? (
               <>
                 <span className="text-lg font-semibold text-gold-200">${product.discountPrice}</span>
-                <span className="text-xs text-[#8c8378] line-through">${product.price}</span>
+                <span className="text-xs text-[#6f6256] line-through">${product.price}</span>
               </>
             ) : (
               <span className="text-lg font-semibold text-gold-200">${product.price}</span>

@@ -21,7 +21,7 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
   if (!allowed) {
     return (
       <div className="mx-auto max-w-lg px-6 py-16">
-        <p className="text-sm text-[#8c8378]">Admin access required.</p>
+        <p className="text-sm text-[#6f6256]">Admin access required.</p>
         <Link href="/login" className="text-sm text-gold-200">Sign in</Link>
       </div>
     );

@@ -43,7 +43,7 @@ export default function AdminDashboard() {
             ['Customers', `${stats.customers}`],
           ].map(([label, value]) => (
             <div key={label} className="glass rounded-2xl p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">{label}</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">{label}</p>
               <p className="display mt-3 text-2xl text-gold-200">{value}</p>
             </div>
           ))}
@@ -53,24 +53,24 @@ export default function AdminDashboard() {
             <h2 className="display text-xl text-gold-200">Recent Orders</h2>
             <div className="mt-4 space-y-3 text-sm">
               {recentOrders.map((order) => (
-                <div key={order._id} className="flex items-center justify-between text-[#cfc7bc]">
+                <div key={order._id} className="flex items-center justify-between text-[#4f4338]">
                   <span>{order._id}</span>
-                  <span className="text-xs text-[#8c8378]">{order.status}</span>
+                  <span className="text-xs text-[#6f6256]">{order.status}</span>
                 </div>
               ))}
-              {recentOrders.length === 0 && <p className="text-xs text-[#8c8378]">No orders yet.</p>}
+              {recentOrders.length === 0 && <p className="text-xs text-[#6f6256]">No orders yet.</p>}
             </div>
           </div>
           <div className="glass rounded-2xl p-6">
             <h2 className="display text-xl text-gold-200">Low Stock Alerts</h2>
-            <div className="mt-4 space-y-3 text-sm text-[#cfc7bc]">
+            <div className="mt-4 space-y-3 text-sm text-[#4f4338]">
               {lowStock.map((product) => (
                 <div key={product._id} className="flex items-center justify-between">
                   <span>{product.name}</span>
-                  <span className="text-xs text-[#8c8378]">{product.stock} left</span>
+                  <span className="text-xs text-[#6f6256]">{product.stock} left</span>
                 </div>
               ))}
-              {lowStock.length === 0 && <p className="text-xs text-[#8c8378]">Inventory looks healthy.</p>}
+              {lowStock.length === 0 && <p className="text-xs text-[#6f6256]">Inventory looks healthy.</p>}
             </div>
           </div>
         </div>

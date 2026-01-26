@@ -50,26 +50,26 @@ export default function RegisterPage() {
         <h1 className="display text-2xl text-gold-200">Create Account</h1>
         <div className="mt-6 grid gap-4">
           <input
-            className="rounded-md bg-black/40 p-3"
+            className="rounded-md bg-white/70 p-3"
             placeholder="Full name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            className="rounded-md bg-black/40 p-3"
+            className="rounded-md bg-white/70 p-3"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="rounded-md bg-black/40 p-3"
+            className="rounded-md bg-white/70 p-3"
             placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
-            className="rounded-md bg-black/40 p-3"
+            className="rounded-md bg-white/70 p-3"
             type="date"
             value={dob}
             onChange={(e) => setDob(e.target.value)}
@@ -81,7 +81,7 @@ export default function RegisterPage() {
             Create Account
           </button>
         </div>
-        <p className="mt-4 text-xs text-[#8c8378]">
+        <p className="mt-4 text-xs text-[#6f6256]">
           Already have an account? <Link href="/login" className="text-gold-200">Sign in</Link>
         </p>
       </div>

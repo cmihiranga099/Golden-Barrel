@@ -142,26 +142,26 @@ export default function CheckoutPage() {
             <h2 className="display text-xl text-gold-200">Delivery Details</h2>
             <div className="mt-4 grid gap-3">
               <input
-                className="rounded-md bg-black/40 p-3"
+                className="rounded-md bg-white/70 p-3"
                 placeholder="Full name"
                 value={shippingInfo.name}
                 onChange={(e) => setShippingInfo({ ...shippingInfo, name: e.target.value })}
               />
               <input
-                className="rounded-md bg-black/40 p-3"
+                className="rounded-md bg-white/70 p-3"
                 placeholder="Street address"
                 value={shippingInfo.line1}
                 onChange={(e) => setShippingInfo({ ...shippingInfo, line1: e.target.value })}
               />
               <div className="grid gap-3 md:grid-cols-2">
                 <input
-                  className="rounded-md bg-black/40 p-3"
+                  className="rounded-md bg-white/70 p-3"
                   placeholder="City"
                   value={shippingInfo.city}
                   onChange={(e) => setShippingInfo({ ...shippingInfo, city: e.target.value })}
                 />
                 <input
-                  className="rounded-md bg-black/40 p-3"
+                  className="rounded-md bg-white/70 p-3"
                   placeholder="State"
                   value={shippingInfo.state}
                   onChange={(e) => setShippingInfo({ ...shippingInfo, state: e.target.value })}
@@ -169,13 +169,13 @@ export default function CheckoutPage() {
               </div>
               <div className="grid gap-3 md:grid-cols-2">
                 <input
-                  className="rounded-md bg-black/40 p-3"
+                  className="rounded-md bg-white/70 p-3"
                   placeholder="Postal code"
                   value={shippingInfo.postalCode}
                   onChange={(e) => setShippingInfo({ ...shippingInfo, postalCode: e.target.value })}
                 />
                 <input
-                  className="rounded-md bg-black/40 p-3"
+                  className="rounded-md bg-white/70 p-3"
                   placeholder="Country"
                   value={shippingInfo.country}
                   onChange={(e) => setShippingInfo({ ...shippingInfo, country: e.target.value })}
@@ -191,9 +191,9 @@ export default function CheckoutPage() {
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className="rounded-md bg-black/40 p-3"
+                className="rounded-md bg-white/70 p-3"
               />
-              <label className="flex items-center gap-2 text-sm text-[#cfc7bc]">
+              <label className="flex items-center gap-2 text-sm text-[#4f4338]">
                 <input
                   type="checkbox"
                   checked={confirmAge}
@@ -202,7 +202,7 @@ export default function CheckoutPage() {
                 I confirm I am of legal drinking age.
               </label>
             </div>
-            <p className="mt-3 text-xs text-[#8c8378]">
+            <p className="mt-3 text-xs text-[#6f6256]">
               Orders are only accepted for customers of legal drinking age. Please drink responsibly.
             </p>
           </div>
@@ -239,7 +239,7 @@ export default function CheckoutPage() {
 
         <div className="glass rounded-2xl p-6">
           <h2 className="display text-xl text-gold-200">Order Summary</h2>
-          <div className="mt-4 space-y-2 text-sm text-[#cfc7bc]">
+          <div className="mt-4 space-y-2 text-sm text-[#4f4338]">
             <div className="flex justify-between"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
             <div className="flex justify-between"><span>Shipping</span><span>${shipping.toFixed(2)}</span></div>
             <div className="flex justify-between text-gold-200"><span>Total</span><span>${total.toFixed(2)}</span></div>
@@ -252,7 +252,7 @@ export default function CheckoutPage() {
               {method === 'STRIPE' ? 'Continue to Payment' : 'Place Order'}
             </button>
           )}
-          <p className="mt-4 text-xs text-[#8c8378]">
+          <p className="mt-4 text-xs text-[#6f6256]">
             By placing this order, you confirm you are of legal drinking age and accept our policies.
           </p>
         </div>

@@ -19,7 +19,7 @@ export function AgeGate() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
       <div className="glass gradient-border max-w-md rounded-2xl p-8 text-center shadow-glow">
         <h2 className="display text-3xl">Age Verification</h2>
-        <p className="mt-3 text-sm text-[#cfc7bc]">
+        <p className="mt-3 text-sm text-[#4f4338]">
           By entering Golden Barrel, you confirm you are at least {legalAge} years old or the legal
           drinking age in your country.
         </p>
@@ -32,7 +32,7 @@ export function AgeGate() {
         >
           I confirm I am {legalAge}+
         </button>
-        <p className="mt-4 text-xs text-[#8c8378]">Please drink responsibly.</p>
+        <p className="mt-4 text-xs text-[#6f6256]">Please drink responsibly.</p>
       </div>
     </div>
   );

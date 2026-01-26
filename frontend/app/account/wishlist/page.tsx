@@ -27,14 +27,14 @@ export default function WishlistPage() {
     <div className="mx-auto max-w-5xl px-6 py-12">
       <h1 className="display text-3xl">Wishlist</h1>
       {items.length === 0 ? (
-        <p className="mt-6 text-sm text-[#8c8378]">Your wishlist is empty.</p>
+        <p className="mt-6 text-sm text-[#6f6256]">Your wishlist is empty.</p>
       ) : (
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {items.map((item) => (
             <div key={item.productId} className="glass flex items-center justify-between rounded-2xl p-4">
               <div>
                 <p className="text-gold-200">{item.name}</p>
-                <p className="text-xs text-[#8c8378]">Saved for later</p>
+                <p className="text-xs text-[#6f6256]">Saved for later</p>
               </div>
               <button
                 onClick={() => {
@@ -43,7 +43,7 @@ export default function WishlistPage() {
                     removeWishlistItem(item.productId).catch(() => {});
                   }
                 }}
-                className="text-xs text-[#8c8378]"
+                className="text-xs text-[#6f6256]"
               >
                 Remove
               </button>

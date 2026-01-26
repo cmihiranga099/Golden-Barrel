@@ -21,11 +21,11 @@ export default function OrdersPage() {
           <div key={order._id} className="glass flex items-center justify-between rounded-2xl p-4">
             <div>
               <p className="text-gold-200">{order._id}</p>
-              <p className="text-xs text-[#8c8378]">{new Date(order.createdAt).toDateString()}</p>
+              <p className="text-xs text-[#6f6256]">{new Date(order.createdAt).toDateString()}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-[#cfc7bc]">${Number(order.total).toFixed(2)}</p>
-              <p className="text-xs text-[#8c8378]">{order.status}</p>
+              <p className="text-sm text-[#4f4338]">${Number(order.total).toFixed(2)}</p>
+              <p className="text-xs text-[#6f6256]">{order.status}</p>
             </div>
             <Link href={`/account/orders/${order._id}`} className="text-sm text-gold-200">
               View
@@ -33,7 +33,7 @@ export default function OrdersPage() {
           </div>
         ))}
         {orders.length === 0 && (
-          <p className="text-sm text-[#8c8378]">No orders yet.</p>
+          <p className="text-sm text-[#6f6256]">No orders yet.</p>
         )}
       </div>
     </div>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
 import { apiDelete, apiGet, apiPost } from '../../../lib/api';
@@ -41,22 +41,22 @@ export default function AdminProductsPage() {
     <AdminGuard>
       <div className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="display text-3xl">Products Management</h1>
-        <p className="mt-4 text-sm text-[#8c8378]">Create, edit, and manage inventory.</p>
+        <p className="mt-4 text-sm text-[#6f6256]">Create, edit, and manage inventory.</p>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="glass rounded-2xl p-6">
             <h2 className="display text-xl text-gold-200">Create Product</h2>
             <div className="mt-4 grid gap-3">
-              <input className="rounded-md bg-black/40 p-3 text-sm" placeholder="Name" value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} />
-              <input className="rounded-md bg-black/40 p-3 text-sm" placeholder="Slug" value={draft.slug} onChange={(e) => setDraft({ ...draft, slug: e.target.value })} />
+              <input className="rounded-md bg-white/70 p-3 text-sm" placeholder="Name" value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} />
+              <input className="rounded-md bg-white/70 p-3 text-sm" placeholder="Slug" value={draft.slug} onChange={(e) => setDraft({ ...draft, slug: e.target.value })} />
               <div className="grid gap-3 md:grid-cols-2">
-                <select className="rounded-md bg-black/40 p-3 text-sm" value={draft.categoryId} onChange={(e) => setDraft({ ...draft, categoryId: e.target.value })}>
+                <select className="rounded-md bg-white/70 p-3 text-sm" value={draft.categoryId} onChange={(e) => setDraft({ ...draft, categoryId: e.target.value })}>
                   <option value="">Category</option>
                   {categories.map((c) => (
                     <option key={c._id} value={c._id}>{c.name}</option>
                   ))}
                 </select>
-                <select className="rounded-md bg-black/40 p-3 text-sm" value={draft.brandId} onChange={(e) => setDraft({ ...draft, brandId: e.target.value })}>
+                <select className="rounded-md bg-white/70 p-3 text-sm" value={draft.brandId} onChange={(e) => setDraft({ ...draft, brandId: e.target.value })}>
                   <option value="">Brand</option>
                   {brands.map((b) => (
                     <option key={b._id} value={b._id}>{b.name}</option>
@@ -64,12 +64,12 @@ export default function AdminProductsPage() {
                 </select>
               </div>
               <div className="grid gap-3 md:grid-cols-2">
-                <input type="number" className="rounded-md bg-black/40 p-3 text-sm" placeholder="Price" value={draft.price} onChange={(e) => setDraft({ ...draft, price: Number(e.target.value) })} />
-                <input type="number" className="rounded-md bg-black/40 p-3 text-sm" placeholder="Stock" value={draft.stock} onChange={(e) => setDraft({ ...draft, stock: Number(e.target.value) })} />
+                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Price" value={draft.price} onChange={(e) => setDraft({ ...draft, price: Number(e.target.value) })} />
+                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Stock" value={draft.stock} onChange={(e) => setDraft({ ...draft, stock: Number(e.target.value) })} />
               </div>
               <div className="grid gap-3 md:grid-cols-2">
-                <input type="number" className="rounded-md bg-black/40 p-3 text-sm" placeholder="ABV" value={draft.abv} onChange={(e) => setDraft({ ...draft, abv: Number(e.target.value) })} />
-                <input type="number" className="rounded-md bg-black/40 p-3 text-sm" placeholder="Volume (ml)" value={draft.volume} onChange={(e) => setDraft({ ...draft, volume: Number(e.target.value) })} />
+                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="ABV" value={draft.abv} onChange={(e) => setDraft({ ...draft, abv: Number(e.target.value) })} />
+                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Volume (ml)" value={draft.volume} onChange={(e) => setDraft({ ...draft, volume: Number(e.target.value) })} />
               </div>
               <button
                 className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
@@ -87,7 +87,7 @@ export default function AdminProductsPage() {
             <h2 className="display text-xl text-gold-200">Categories and Brands</h2>
             <div className="mt-4 grid gap-3">
               <div className="flex gap-2">
-                <input className="w-full rounded-md bg-black/40 p-3 text-sm" placeholder="New category" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
+                <input className="w-full rounded-md bg-white/70 p-3 text-sm" placeholder="New category" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
                 <button
                   className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
                   onClick={async () => {
@@ -100,7 +100,7 @@ export default function AdminProductsPage() {
                 </button>
               </div>
               <div className="flex gap-2">
-                <input className="w-full rounded-md bg-black/40 p-3 text-sm" placeholder="New brand" value={brandName} onChange={(e) => setBrandName(e.target.value)} />
+                <input className="w-full rounded-md bg-white/70 p-3 text-sm" placeholder="New brand" value={brandName} onChange={(e) => setBrandName(e.target.value)} />
                 <button
                   className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
                   onClick={async () => {
@@ -120,13 +120,13 @@ export default function AdminProductsPage() {
           <h2 className="display text-xl text-gold-200">Inventory</h2>
           <div className="mt-4 space-y-3 text-sm">
             {products.map((product) => (
-              <div key={product._id} className="flex items-center justify-between border-b border-white/5 pb-3">
+              <div key={product._id} className="flex items-center justify-between border-b border-black/10 pb-3">
                 <div>
                   <p className="text-gold-200">{product.name}</p>
-                  <p className="text-xs text-[#8c8378]">${product.price} | Stock {product.stock}</p>
+                  <p className="text-xs text-[#6f6256]">${product.price} | Stock {product.stock}</p>
                 </div>
                 <button
-                  className="text-xs text-[#8c8378]"
+                  className="text-xs text-[#6f6256]"
                   onClick={async () => {
                     await apiDelete(`/products/${product._id}`);
                     await load();

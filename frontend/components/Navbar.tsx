@@ -14,7 +14,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 z-40 w-full border-b border-white/5 bg-black/40 backdrop-blur">
+    <header className="fixed top-0 z-40 w-full border-b border-black/10 bg-white/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="display text-2xl text-gold-200">
           Golden Barrel
@@ -34,16 +34,16 @@ export function Navbar() {
           <form
             action="/products"
             method="GET"
-            className="hidden items-center rounded-full border border-white/10 bg-black/30 px-3 py-2 md:flex"
+            className="hidden items-center rounded-full border border-black/10 bg-white/60 px-3 py-2 md:flex"
           >
-            <Search size={16} className="text-[#8c8378]" />
+            <Search size={16} className="text-[#6f6256]" />
             <input
               name="q"
               placeholder="Search by name or brand"
-              className="ml-2 bg-transparent text-sm text-white placeholder:text-[#8c8378] outline-none"
+              className="ml-2 bg-transparent text-sm text-[#1f1b16] placeholder:text-[#6f6256] outline-none"
             />
           </form>
-          <Link href="/cart" className="rounded-full border border-white/10 p-2 hover:border-gold-400">
+          <Link href="/cart" className="rounded-full border border-black/10 p-2 hover:border-gold-400">
             <ShoppingBag size={18} />
           </Link>
           <Link
@@ -54,7 +54,7 @@ export function Navbar() {
                   ? '/account'
                   : '/login'
             }
-            className="rounded-full border border-white/10 p-2 hover:border-gold-400"
+            className="rounded-full border border-black/10 p-2 hover:border-gold-400"
           >
             <User size={18} />
           </Link>

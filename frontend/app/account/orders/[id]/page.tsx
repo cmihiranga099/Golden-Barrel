@@ -29,7 +29,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
               />
               <span
                 className={
-                  order && timeline.indexOf(order.status) >= idx ? 'text-gold-200' : 'text-[#8c8378]'
+                  order && timeline.indexOf(order.status) >= idx ? 'text-gold-200' : 'text-[#6f6256]'
                 }
               >
                 {step}
@@ -38,7 +38,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           ))}
         </div>
         {order && (
-          <div className="mt-6 text-sm text-[#cfc7bc]">
+          <div className="mt-6 text-sm text-[#4f4338]">
             <p>Payment: {order.paymentStatus}</p>
             <p>Total: ${Number(order.total).toFixed(2)}</p>
           </div>

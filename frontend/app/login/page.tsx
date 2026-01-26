@@ -51,13 +51,13 @@ export default function LoginPage() {
         <h1 className="display text-2xl text-gold-200">Welcome Back</h1>
         <div className="mt-6 grid gap-4">
           <input
-            className="rounded-md bg-black/40 p-3"
+            className="rounded-md bg-white/70 p-3"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="rounded-md bg-black/40 p-3"
+            className="rounded-md bg-white/70 p-3"
             placeholder="Password"
             type="password"
             value={password}
@@ -70,7 +70,7 @@ export default function LoginPage() {
             Sign In
           </button>
         </div>
-        <p className="mt-4 text-xs text-[#8c8378]">
+        <p className="mt-4 text-xs text-[#6f6256]">
           New here? <Link href="/register" className="text-gold-200">Create an account</Link>
         </p>
       </div>

@@ -22,17 +22,17 @@ export default function AdminOrdersPage() {
     <AdminGuard>
       <div className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="display text-3xl">Orders Management</h1>
-        <p className="mt-4 text-sm text-[#8c8378]">Update order statuses and payments.</p>
+        <p className="mt-4 text-sm text-[#6f6256]">Update order statuses and payments.</p>
         <div className="mt-6 glass rounded-2xl p-6">
           <div className="space-y-4 text-sm">
             {orders.map((order) => (
-              <div key={order._id} className="grid gap-3 border-b border-white/5 pb-4 md:grid-cols-[2fr,1fr,1fr,1fr]">
+              <div key={order._id} className="grid gap-3 border-b border-black/10 pb-4 md:grid-cols-[2fr,1fr,1fr,1fr]">
                 <div>
                   <p className="text-gold-200">{order._id}</p>
-                  <p className="text-xs text-[#8c8378]">${Number(order.total).toFixed(2)}</p>
+                  <p className="text-xs text-[#6f6256]">${Number(order.total).toFixed(2)}</p>
                 </div>
                 <select
-                  className="rounded-md bg-black/40 p-2"
+                  className="rounded-md bg-white/70 p-2"
                   defaultValue={order.status}
                   onChange={async (e) => {
                     await apiPatch(`/orders/${order._id}/status`, { status: e.target.value });
@@ -53,7 +53,7 @@ export default function AdminOrdersPage() {
                   Mark Paid
                 </button>
                 <button
-                  className="rounded-full border border-white/10 px-3 py-2 text-xs text-[#8c8378]"
+                  className="rounded-full border border-black/10 px-3 py-2 text-xs text-[#6f6256]"
                   onClick={async () => {
                     await apiPatch(`/orders/${order._id}/paid`, { paymentStatus: 'REFUNDED' });
                     await load();
@@ -63,7 +63,7 @@ export default function AdminOrdersPage() {
                 </button>
               </div>
             ))}
-            {orders.length === 0 && <p className="text-[#8c8378]">No orders found.</p>}
+            {orders.length === 0 && <p className="text-[#6f6256]">No orders found.</p>}
           </div>
         </div>
       </div>

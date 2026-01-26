@@ -31,7 +31,7 @@ export default function CartPage() {
     <div className="mx-auto max-w-5xl px-6 py-12">
       <h1 className="display text-3xl">Your Cart</h1>
       {items.length === 0 ? (
-        <p className="mt-6 text-sm text-[#8c8378]">Your cart is empty.</p>
+        <p className="mt-6 text-sm text-[#6f6256]">Your cart is empty.</p>
       ) : (
         <div className="mt-6 grid gap-6 md:grid-cols-[2fr,1fr]">
           <div className="space-y-4">
@@ -39,7 +39,7 @@ export default function CartPage() {
               <div key={item.productId} className="glass flex items-center justify-between rounded-2xl p-4">
                 <div>
                   <p className="text-gold-200">{item.name}</p>
-                  <p className="text-xs text-[#8c8378]">${item.price}</p>
+                  <p className="text-xs text-[#6f6256]">${item.price}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <input
@@ -53,7 +53,7 @@ export default function CartPage() {
                         updateCartItem(item.productId, qty).catch(() => {});
                       }
                     }}
-                    className="w-16 rounded-md bg-black/40 p-2 text-center"
+                    className="w-16 rounded-md bg-white/70 p-2 text-center"
                   />
                   <button
                     onClick={() => {
@@ -62,7 +62,7 @@ export default function CartPage() {
                         removeCartItem(item.productId).catch(() => {});
                       }
                     }}
-                    className="text-xs text-[#8c8378]"
+                    className="text-xs text-[#6f6256]"
                   >
                     Remove
                   </button>
@@ -71,7 +71,7 @@ export default function CartPage() {
             ))}
           </div>
           <div className="glass rounded-2xl p-6">
-            <p className="text-sm text-[#8c8378]">Subtotal</p>
+            <p className="text-sm text-[#6f6256]">Subtotal</p>
             <p className="mt-2 text-2xl text-gold-200">${subtotal.toFixed(2)}</p>
             <Link
               href="/checkout"

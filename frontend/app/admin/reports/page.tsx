@@ -35,18 +35,18 @@ export default function AdminReportsPage() {
     <AdminGuard>
       <div className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="display text-3xl">Reports</h1>
-        <p className="mt-4 text-sm text-[#8c8378]">Sales by date range with CSV export.</p>
+        <p className="mt-4 text-sm text-[#6f6256]">Sales by date range with CSV export.</p>
         <div className="mt-6 glass rounded-2xl p-6">
           <div className="grid gap-4 md:grid-cols-[1fr,1fr,auto]">
             <input
               type="date"
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               value={from}
               onChange={(e) => setFrom(e.target.value)}
             />
             <input
               type="date"
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
@@ -60,23 +60,23 @@ export default function AdminReportsPage() {
 
           {report && (
             <div className="mt-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 p-4">
-                <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">Total Sales</p>
+              <div className="rounded-2xl border border-black/10 p-4">
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Total Sales</p>
                 <p className="display mt-2 text-2xl text-gold-200">${Number(report.totalSales).toFixed(2)}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 p-4">
-                <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">Orders</p>
+              <div className="rounded-2xl border border-black/10 p-4">
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Orders</p>
                 <p className="display mt-2 text-2xl text-gold-200">{Number(report.orderCount)}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 p-4">
-                <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">Avg Order</p>
+              <div className="rounded-2xl border border-black/10 p-4">
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Avg Order</p>
                 <p className="display mt-2 text-2xl text-gold-200">${Number(report.avgOrder).toFixed(2)}</p>
               </div>
             </div>
           )}
 
           <button
-            className="mt-6 rounded-full border border-white/10 px-4 py-2 text-xs text-[#8c8378]"
+            className="mt-6 rounded-full border border-black/10 px-4 py-2 text-xs text-[#6f6256]"
             onClick={downloadCsv}
           >
             Download CSV

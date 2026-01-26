@@ -31,13 +31,13 @@ export default function AccountPage() {
           <h2 className="display text-xl text-gold-200">Profile</h2>
           <div className="mt-4 grid gap-3">
             <input
-              className="rounded-md bg-black/40 p-3"
+              className="rounded-md bg-white/70 p-3"
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <input
-              className="rounded-md bg-black/40 p-3"
+              className="rounded-md bg-white/70 p-3"
               placeholder="Phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -58,7 +58,7 @@ export default function AccountPage() {
             Update Profile
           </button>
           <button
-            className="mt-3 rounded-full border border-white/10 px-4 py-2 text-sm text-[#8c8378]"
+            className="mt-3 rounded-full border border-black/10 px-4 py-2 text-sm text-[#6f6256]"
             onClick={() => {
               clearTokens();
               push('Signed out.');

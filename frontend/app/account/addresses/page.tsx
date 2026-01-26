@@ -37,14 +37,14 @@ export default function AddressBookPage() {
           <h2 className="display text-xl text-gold-200">Saved Addresses</h2>
           <div className="mt-4 space-y-3 text-sm">
             {addresses.map((addr, idx) => (
-              <div key={idx} className="rounded-xl border border-white/10 p-3">
+              <div key={idx} className="rounded-xl border border-black/10 p-3">
                 <p className="text-gold-200">{addr.label || 'Address'}</p>
-                <p className="text-[#cfc7bc]">{addr.line1}</p>
-                <p className="text-[#8c8378]">
+                <p className="text-[#4f4338]">{addr.line1}</p>
+                <p className="text-[#6f6256]">
                   {addr.city}, {addr.state} {addr.postalCode}
                 </p>
                 <button
-                  className="mt-2 text-xs text-[#8c8378]"
+                  className="mt-2 text-xs text-[#6f6256]"
                   onClick={() => {
                     const next = addresses.filter((_, i) => i !== idx);
                     saveAddresses(next).catch(() => push('Failed to remove address.'));
@@ -55,7 +55,7 @@ export default function AddressBookPage() {
               </div>
             ))}
             {addresses.length === 0 && (
-              <p className="text-[#8c8378]">No addresses saved.</p>
+              <p className="text-[#6f6256]">No addresses saved.</p>
             )}
           </div>
         </div>
@@ -63,37 +63,37 @@ export default function AddressBookPage() {
           <h2 className="display text-xl text-gold-200">Add Address</h2>
           <div className="mt-4 grid gap-3">
             <input
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               placeholder="Label"
               value={draft.label}
               onChange={(e) => setDraft({ ...draft, label: e.target.value })}
             />
             <input
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               placeholder="Street address"
               value={draft.line1}
               onChange={(e) => setDraft({ ...draft, line1: e.target.value })}
             />
             <input
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               placeholder="City"
               value={draft.city}
               onChange={(e) => setDraft({ ...draft, city: e.target.value })}
             />
             <input
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               placeholder="State"
               value={draft.state}
               onChange={(e) => setDraft({ ...draft, state: e.target.value })}
             />
             <input
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               placeholder="Postal code"
               value={draft.postalCode}
               onChange={(e) => setDraft({ ...draft, postalCode: e.target.value })}
             />
             <input
-              className="rounded-md bg-black/40 p-3 text-sm"
+              className="rounded-md bg-white/70 p-3 text-sm"
               placeholder="Country"
               value={draft.country}
               onChange={(e) => setDraft({ ...draft, country: e.target.value })}

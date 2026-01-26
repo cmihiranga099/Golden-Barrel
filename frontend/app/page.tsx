@@ -86,7 +86,7 @@ export default function HomePage() {
           <h1 className="display mt-4 text-4xl md:text-6xl">
             Curated Spirits for the Modern Connoisseur
           </h1>
-          <p className="mt-4 text-sm text-[#cfc7bc]">
+          <p className="mt-4 text-sm text-[#4f4338]">
             Discover rare releases, small-batch expressions, and luxurious pairings in a dark, golden
             atmosphere.
           </p>
@@ -105,12 +105,12 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="relative">
+        <div className="relative flex justify-center md:justify-end">
           <div className="absolute -inset-4 rounded-3xl bg-gold-500/10 blur-2xl" />
           <img
             src="https://unsplash.com/photos/XcBLhA7N0wc/download?auto=format&fit=crop&w=900&q=80"
             alt="Golden Barrel premium bottle"
-            className="relative rounded-3xl border border-gold-400/30 shadow-glow"
+            className="relative h-[360px] w-full max-w-[420px] rounded-3xl border border-gold-400/30 object-cover shadow-glow md:h-[420px]"
           />
         </div>
       </section>
@@ -123,9 +123,9 @@ export default function HomePage() {
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {['Whisky', 'Vodka', 'Wine'].map((cat) => (
             <div key={cat} className="glass rounded-2xl p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">Collection</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Collection</p>
               <h3 className="display mt-3 text-xl text-gold-200">{cat}</h3>
-              <p className="mt-2 text-sm text-[#cfc7bc]">Limited runs and cellar finds.</p>
+              <p className="mt-2 text-sm text-[#4f4338]">Limited runs and cellar finds.</p>
             </div>
           ))}
         </div>
@@ -145,16 +145,14 @@ export default function HomePage() {
           {brandShowcase.map((brand) => (
             <div
               key={brand.name}
-              className="flex min-h-[110px] items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-5"
+              className="flex min-h-[110px] items-center justify-center rounded-2xl border border-black/10 bg-white/70 p-5"
             >
-              <div className="flex min-h-[64px] w-full items-center justify-center rounded-xl bg-white/95 px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.25)]">
-                <img
-                  src={brand.image}
-                  alt={`${brand.name} logo`}
-                  className="max-h-12 w-auto object-contain"
-                  loading="lazy"
-                />
-              </div>
+              <img
+                src={brand.image}
+                alt={`${brand.name} logo`}
+                className="max-h-12 w-auto object-contain opacity-90 transition duration-200 hover:opacity-100"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
@@ -186,7 +184,7 @@ export default function HomePage() {
                 className="rounded-xl"
               />
               <p className="mt-3 text-sm text-gold-200">Vault Series {idx + 1}</p>
-              <p className="text-xs text-[#8c8378]">Single barrel</p>
+              <p className="text-xs text-[#6f6256]">Single barrel</p>
             </div>
           ))}
         </div>

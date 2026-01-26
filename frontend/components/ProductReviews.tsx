@@ -48,25 +48,25 @@ export function ProductReviews({ productId }: { productId: string }) {
     <div className="glass rounded-2xl p-6">
       <h2 className="display text-xl text-gold-200">Reviews</h2>
       <div className="mt-4 space-y-3 text-sm">
-        {reviews.length === 0 && <p className="text-[#8c8378]">No reviews yet.</p>}
+        {reviews.length === 0 && <p className="text-[#6f6256]">No reviews yet.</p>}
         {reviews.map((review) => (
-          <div key={review._id} className="rounded-xl border border-white/10 p-3">
-            <div className="flex items-center justify-between text-xs text-[#8c8378]">
+          <div key={review._id} className="rounded-xl border border-black/10 p-3">
+            <div className="flex items-center justify-between text-xs text-[#6f6256]">
               <span>{review.userId?.name || 'Customer'}</span>
               <span>{new Date(review.createdAt).toLocaleDateString()}</span>
             </div>
             <p className="mt-2 text-gold-200">Rating: {review.rating}/5</p>
-            <p className="mt-2 text-[#cfc7bc]">{review.comment}</p>
+            <p className="mt-2 text-[#4f4338]">{review.comment}</p>
           </div>
         ))}
       </div>
       <div className="mt-6 space-y-3">
-        <div className="flex items-center gap-3 text-xs text-[#8c8378]">
+        <div className="flex items-center gap-3 text-xs text-[#6f6256]">
           <span>Rating</span>
           <select
             value={rating}
             onChange={(e) => setRating(Number(e.target.value))}
-            className="rounded-md bg-black/40 p-2 text-xs"
+            className="rounded-md bg-white/70 p-2 text-xs"
           >
             {[5, 4, 3, 2, 1].map((value) => (
               <option key={value} value={value}>{value}</option>
@@ -76,7 +76,7 @@ export function ProductReviews({ productId }: { productId: string }) {
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="w-full rounded-md bg-black/40 p-3 text-sm"
+          className="w-full rounded-md bg-white/70 p-3 text-sm"
           rows={3}
           placeholder="Share your tasting notes..."
         />
