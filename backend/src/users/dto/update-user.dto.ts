@@ -1,4 +1,33 @@
-import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsBoolean, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+export class AddressDto {
+  @IsString()
+  label: string;
+
+  @IsString()
+  line1: string;
+
+  @IsOptional()
+  @IsString()
+  line2?: string;
+
+  @IsString()
+  city: string;
+
+  @IsString()
+  state: string;
+
+  @IsString()
+  postalCode: string;
+
+  @IsString()
+  country: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isDefault?: boolean;
+}
 
 export class UpdateProfileDto {
   @IsOptional()
@@ -8,6 +37,12 @@ export class UpdateProfileDto {
   @IsOptional()
   @IsString()
   phone?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AddressDto)
+  addresses?: AddressDto[];
 }
 
 export class UpdateRoleDto {
