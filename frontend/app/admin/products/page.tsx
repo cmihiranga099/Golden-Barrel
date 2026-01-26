@@ -17,7 +17,7 @@ export default function AdminProductsPage() {
     stock: 0,
     abv: 40,
     volume: 750,
-    images: ['https://placehold.co/600x800/png'],
+    images: ['https://images.unsplash.com/photo-1608356237786-395cbb86c366?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHw0fHx3aGlza2V5JTIwYm90dGxlfGVufDB8fHx8MTc1MTY2NTY1Nnww&ixlib=rb-4.1.0&q=85'],
   });
   const [categoryName, setCategoryName] = useState('');
   const [brandName, setBrandName] = useState('');

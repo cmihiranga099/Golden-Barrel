@@ -24,7 +24,10 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="overflow-hidden rounded-2xl border border-white/5 bg-night-800">
         <div className="h-64 w-full overflow-hidden">
           <img
-            src={product.images?.[0] || 'https://placehold.co/600x800/png'}
+            src={
+              product.images?.[0] ||
+              'https://images.unsplash.com/photo-1608356237786-395cbb86c366?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHw0fHx3aGlza2V5JTIwYm90dGxlfGVufDB8fHx8MTc1MTY2NTY1Nnww&ixlib=rb-4.1.0&q=85'
+            }
             alt={product.name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
