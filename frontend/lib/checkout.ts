@@ -42,3 +42,7 @@ export async function createOrder(payload: OrderInput) {
 export async function listOrders() {
   return apiGet('/orders/me');
 }
+
+export async function getOrder(id: string) {
+  return apiGet(`/orders/${id}`);
+}

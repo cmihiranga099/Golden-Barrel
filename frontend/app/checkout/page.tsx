@@ -11,6 +11,15 @@ export default function CheckoutPage() {
   const [dob, setDob] = useState('');
   const [confirmAge, setConfirmAge] = useState(false);
   const [method, setMethod] = useState<'STRIPE' | 'COD'>('STRIPE');
+  const [shippingInfo, setShippingInfo] = useState({
+    name: '',
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+  });
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal > 120 ? 0 : 12;
@@ -40,14 +49,7 @@ export default function CheckoutPage() {
         total,
         paymentMethod: method,
         paymentIntentId,
-        shipping: {
-          name: 'Customer',
-          line1: '123 Barrel St',
-          city: 'Napa',
-          state: 'CA',
-          postalCode: '94558',
-          country: 'US',
-        },
+        shipping: shippingInfo,
       });
       push(
         method === 'STRIPE'
@@ -68,15 +70,45 @@ export default function CheckoutPage() {
           <div className="glass rounded-2xl p-6">
             <h2 className="display text-xl text-gold-200">Delivery Details</h2>
             <div className="mt-4 grid gap-3">
-              <input className="rounded-md bg-black/40 p-3" placeholder="Full name" />
-              <input className="rounded-md bg-black/40 p-3" placeholder="Street address" />
+              <input
+                className="rounded-md bg-black/40 p-3"
+                placeholder="Full name"
+                value={shippingInfo.name}
+                onChange={(e) => setShippingInfo({ ...shippingInfo, name: e.target.value })}
+              />
+              <input
+                className="rounded-md bg-black/40 p-3"
+                placeholder="Street address"
+                value={shippingInfo.line1}
+                onChange={(e) => setShippingInfo({ ...shippingInfo, line1: e.target.value })}
+              />
               <div className="grid gap-3 md:grid-cols-2">
-                <input className="rounded-md bg-black/40 p-3" placeholder="City" />
-                <input className="rounded-md bg-black/40 p-3" placeholder="State" />
+                <input
+                  className="rounded-md bg-black/40 p-3"
+                  placeholder="City"
+                  value={shippingInfo.city}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, city: e.target.value })}
+                />
+                <input
+                  className="rounded-md bg-black/40 p-3"
+                  placeholder="State"
+                  value={shippingInfo.state}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, state: e.target.value })}
+                />
               </div>
               <div className="grid gap-3 md:grid-cols-2">
-                <input className="rounded-md bg-black/40 p-3" placeholder="Postal code" />
-                <input className="rounded-md bg-black/40 p-3" placeholder="Country" />
+                <input
+                  className="rounded-md bg-black/40 p-3"
+                  placeholder="Postal code"
+                  value={shippingInfo.postalCode}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, postalCode: e.target.value })}
+                />
+                <input
+                  className="rounded-md bg-black/40 p-3"
+                  placeholder="Country"
+                  value={shippingInfo.country}
+                  onChange={(e) => setShippingInfo({ ...shippingInfo, country: e.target.value })}
+                />
               </div>
             </div>
           </div>
