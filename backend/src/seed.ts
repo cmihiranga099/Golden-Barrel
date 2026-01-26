@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import mongoose from 'mongoose';
 import { hashPassword } from './common/utils/password';
 import { UserSchema } from './users/schemas/user.schema';

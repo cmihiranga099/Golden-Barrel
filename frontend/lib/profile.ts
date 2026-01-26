@@ -1,4 +1,4 @@
-import { apiGet, apiPatch } from '../../lib/api';
+import { apiGet, apiPatch } from './api';
 
 export type Address = {
   label: string;
