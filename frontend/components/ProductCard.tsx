@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
           <img
             src={
               product.images?.[0] ||
-              'https://images.unsplash.com/photo-V4UXifiK-1M?auto=format&fit=crop&w=800&q=80'
+              'https://unsplash.com/photos/LVotgZ43LLU/download?auto=format&fit=crop&w=800&q=80'
             }
             alt={product.name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

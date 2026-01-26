@@ -8,7 +8,7 @@ const featured: Product[] = [
     slug: 'royal-oak-reserve',
     price: 84,
     discountPrice: 72,
-    images: ['https://images.unsplash.com/photo-1608356237786-395cbb86c366?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHw0fHx3aGlza2V5JTIwYm90dGxlfGVufDB8fHx8MTc1MTY2NTY1Nnww&ixlib=rb-4.1.0&q=85'],
+    images: ['https://unsplash.com/photos/LVotgZ43LLU/download?auto=format&fit=crop&w=800&q=80'],
     abv: 46,
     volume: 750,
   },
@@ -17,7 +17,7 @@ const featured: Product[] = [
     name: 'Velvet Rye 12',
     slug: 'velvet-rye-12',
     price: 96,
-    images: ['https://images.unsplash.com/photo-1716720882232-9fa4912f142d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHw1fHx3aGlza2V5JTIwc2hlbGZ8ZW58MHx8fHwxNzUxNjY1NjU2fDA&ixlib=rb-4.1.0&q=85'],
+    images: ['https://unsplash.com/photos/I-fuIPC441I/download?auto=format&fit=crop&w=800&q=80'],
     abv: 48,
     volume: 750,
   },
@@ -26,7 +26,7 @@ const featured: Product[] = [
     name: 'Amber Coast Rum',
     slug: 'amber-coast-rum',
     price: 58,
-    images: ['https://images.unsplash.com/photo-1598509523659-6d5cd643c571?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHwyMnx8dm9ka2ElMjBib3R0bGV8ZW58MHx8fHwxNzUxNjY1NTYwfDA&ixlib=rb-4.1.0&q=85'],
+    images: ['https://unsplash.com/photos/N0uCG9nP2bQ/download?auto=format&fit=crop&w=800&q=80'],
     abv: 40,
     volume: 750,
   },
@@ -63,7 +63,7 @@ export default function HomePage() {
         <div className="relative">
           <div className="absolute -inset-4 rounded-3xl bg-gold-500/10 blur-2xl" />
           <img
-            src="https://images.unsplash.com/photo-1615571022219-eb45cf7faa9d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHwzfHx3aW5lJTIwYm90dGxlfGVufDB8fHx8MTc1MTY2NTczOXww&ixlib=rb-4.1.0&q=85"
+            src="https://unsplash.com/photos/XcBLhA7N0wc/download?auto=format&fit=crop&w=900&q=80"
             alt="Golden Barrel premium bottle"
             className="relative rounded-3xl border border-gold-400/30 shadow-glow"
           />
@@ -107,7 +107,7 @@ export default function HomePage() {
           {Array.from({ length: 4 }).map((_, idx) => (
             <div key={idx} className="glass rounded-2xl p-4">
               <img
-                src="https://images.unsplash.com/photo-1543431786-3e1d4f4a939f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1NjYyOTd8MHwxfHNlYXJjaHwyfHxiZWVyJTIwYm90dGxlfGVufDB8fHx8MTc1MTY2NTc1NHww&ixlib=rb-4.1.0&q=85"
+                src="https://unsplash.com/photos/Q2tgNTnE54U/download?auto=format&fit=crop&w=800&q=80"
                 alt="New arrival"
                 className="rounded-xl"
               />
