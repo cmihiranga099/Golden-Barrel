@@ -2,16 +2,42 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { Product, ProductDocument } from './schemas/product.schema';
+import { Category, CategoryDocument } from '../categories/schemas/category.schema';
+import { Brand, BrandDocument } from '../brands/schemas/brand.schema';
 import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductsService {
-  constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
+  constructor(
+    @InjectModel(Product.name) private productModel: Model<ProductDocument>,
+    @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>,
+    @InjectModel(Brand.name) private brandModel: Model<BrandDocument>,
+  ) {}
 
   async list(query: any) {
     const filter: FilterQuery<ProductDocument> = {};
     if (query.categoryId) filter.categoryId = query.categoryId;
     if (query.brandId) filter.brandId = query.brandId;
+    if (query.category && !query.categoryId) {
+      const category = await this.categoryModel.findOne({
+        $or: [
+          { slug: query.category },
+          { name: new RegExp(`^${query.category}$`, 'i') },
+        ],
+      });
+      if (!category) return [];
+      filter.categoryId = category._id;
+    }
+    if (query.brand && !query.brandId) {
+      const brand = await this.brandModel.findOne({
+        $or: [
+          { slug: query.brand },
+          { name: new RegExp(`^${query.brand}$`, 'i') },
+        ],
+      });
+      if (!brand) return [];
+      filter.brandId = brand._id;
+    }
     if (query.inStock) filter.stock = { $gt: 0 };
     if (query.minPrice || query.maxPrice) {
       filter.price = {

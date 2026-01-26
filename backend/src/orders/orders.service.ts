@@ -10,6 +10,10 @@ export class OrdersService {
 
   async create(userId: string, dto: CreateOrderDto) {
     const statusHistory = [{ status: 'PENDING', at: new Date() }];
+    const isStripePaid = dto.paymentMethod === 'STRIPE' && !!dto.paymentIntentId;
+    if (isStripePaid) {
+      statusHistory.push({ status: 'PROCESSING', at: new Date() } as any);
+    }
     return this.orderModel.create({
       userId,
       items: dto.items,
@@ -18,9 +22,9 @@ export class OrdersService {
       shippingFee: dto.shippingFee,
       total: dto.total,
       paymentMethod: dto.paymentMethod,
-      paymentStatus: dto.paymentMethod === 'COD' ? 'PENDING' : 'PENDING',
+      paymentStatus: isStripePaid ? 'PAID' : 'PENDING',
       paymentIntentId: dto.paymentIntentId,
-      status: 'PENDING',
+      status: isStripePaid ? 'PROCESSING' : 'PENDING',
       statusHistory,
       shipping: dto.shipping,
     });
@@ -62,6 +66,24 @@ export class OrdersService {
     if (dto.paymentStatus === 'PAID') {
       order.status = 'PROCESSING';
       order.statusHistory.push({ status: 'PROCESSING', at: new Date() } as any);
+    }
+    await order.save();
+    return order;
+  }
+
+  async markPaidByPaymentIntent(paymentIntentId: string, paymentStatus: 'PAID' | 'FAILED' | 'REFUNDED') {
+    const order = await this.orderModel.findOne({ paymentIntentId });
+    if (!order) {
+      return null;
+    }
+    order.paymentStatus = paymentStatus as any;
+    if (paymentStatus === 'PAID') {
+      order.status = 'PROCESSING';
+      order.statusHistory.push({ status: 'PROCESSING', at: new Date() } as any);
+    }
+    if (paymentStatus === 'REFUNDED') {
+      order.status = 'REFUNDED';
+      order.statusHistory.push({ status: 'REFUNDED', at: new Date() } as any);
     }
     await order.save();
     return order;
