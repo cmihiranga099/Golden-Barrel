@@ -39,16 +39,15 @@ const brandShowcase = [
   },
   {
     name: 'Colombo Gin',
-    image:
-      'https://images.squarespace-cdn.com/content/v1/61015b0a1f9d486bc677fe4c/1628094957503-VIPXXA01UEPTO2M498JQ/Colombo%2BGin-min.png',
+    image: '/Company-Colombo.jpg',
   },
   {
     name: "Jacob's Creek",
-    image: 'https://www.jacobscreek.com/wp-content/uploads/sites/7/2021/01/Logo-naked.png',
+    image: '/Jacobs_Creek.png',
   },
   {
     name: 'The Macallan',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/The_Macallan_brand_line.png',
+    image: '/the-macallan-logo.png',
   },
   {
     name: 'Absolut',
@@ -56,8 +55,7 @@ const brandShowcase = [
   },
   {
     name: 'Jam Jar',
-    image:
-      'https://images.squarespace-cdn.com/content/v1/60629f9bd6699a4ea2cebcff/0914a575-724c-4d3d-8fab-96c8c71442e4/MicrosoftTeams-image%2B%2862%29.png',
+    image: '/jam jar.png',
   },
   {
     name: 'Moet & Chandon',
@@ -69,7 +67,7 @@ const brandShowcase = [
   },
   {
     name: "Jack Daniel's",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/0/0f/Jackdaniels.jpg',
+    image: '/jackdaniels.png',
   },
   {
     name: 'Heineken',
@@ -108,7 +106,7 @@ export default function HomePage() {
         <div className="relative flex justify-center md:justify-end">
           <div className="absolute -inset-4 rounded-3xl bg-gold-500/10 blur-2xl" />
           <img
-            src="https://unsplash.com/photos/XcBLhA7N0wc/download?auto=format&fit=crop&w=900&q=80"
+            src="/hero.jpg"
             alt="Golden Barrel premium bottle"
             className="relative h-[360px] w-full max-w-[420px] rounded-3xl border border-gold-400/30 object-cover shadow-glow md:h-[420px]"
           />
