@@ -11,16 +11,6 @@ export default function AccountPage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState({
-    label: 'Home',
-    line1: '',
-    line2: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    country: '',
-    isDefault: true,
-  });
 
   useEffect(() => {
     fetchProfile()
@@ -28,10 +18,6 @@ export default function AccountPage() {
         setProfile(data);
         setName(data.name || '');
         setPhone(data.phone || '');
-        const first = data.addresses?.[0];
-        if (first) {
-          setAddress({ ...address, ...first });
-        }
       })
       .catch(() => {
         push('Please sign in to view your profile.');
