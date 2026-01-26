@@ -54,3 +54,7 @@ export async function apiPost<T>(path: string, body?: any): Promise<T> {
 export async function apiPatch<T>(path: string, body?: any): Promise<T> {
   return apiFetch<T>(path, { method: 'PATCH', body: JSON.stringify(body || {}) });
 }
+
+export async function apiDelete<T>(path: string, body?: any): Promise<T> {
+  return apiFetch<T>(path, { method: 'DELETE', body: JSON.stringify(body || {}) });
+}

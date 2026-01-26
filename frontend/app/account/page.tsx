@@ -86,59 +86,7 @@ export default function AccountPage() {
           <div className="mt-4 grid gap-3 text-sm">
             <Link href="/account/orders" className="text-gold-200">Order History</Link>
             <Link href="/account/wishlist" className="text-gold-200">Wishlist</Link>
-            <span className="text-[#8c8378]">Address Book</span>
-          </div>
-          <div className="mt-4 grid gap-2">
-            <input
-              className="rounded-md bg-black/40 p-3 text-sm"
-              placeholder="Address label"
-              value={address.label}
-              onChange={(e) => setAddress({ ...address, label: e.target.value })}
-            />
-            <input
-              className="rounded-md bg-black/40 p-3 text-sm"
-              placeholder="Street address"
-              value={address.line1}
-              onChange={(e) => setAddress({ ...address, line1: e.target.value })}
-            />
-            <input
-              className="rounded-md bg-black/40 p-3 text-sm"
-              placeholder="City"
-              value={address.city}
-              onChange={(e) => setAddress({ ...address, city: e.target.value })}
-            />
-            <input
-              className="rounded-md bg-black/40 p-3 text-sm"
-              placeholder="State"
-              value={address.state}
-              onChange={(e) => setAddress({ ...address, state: e.target.value })}
-            />
-            <input
-              className="rounded-md bg-black/40 p-3 text-sm"
-              placeholder="Postal code"
-              value={address.postalCode}
-              onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
-            />
-            <input
-              className="rounded-md bg-black/40 p-3 text-sm"
-              placeholder="Country"
-              value={address.country}
-              onChange={(e) => setAddress({ ...address, country: e.target.value })}
-            />
-            <button
-              className="mt-2 rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
-              onClick={async () => {
-                try {
-                  const updated = await updateProfile({ addresses: [address] });
-                  setProfile(updated);
-                  push('Address saved.');
-                } catch {
-                  push('Failed to save address.');
-                }
-              }}
-            >
-              Save Address
-            </button>
+            <Link href="/account/addresses" className="text-gold-200">Address Book</Link>
           </div>
         </div>
       </div>

@@ -1,9 +1,51 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCartStore } from '../../lib/store';
 import { useToast } from '../../components/ui/ToastProvider';
 import { createOrder, createPaymentIntent } from '../../lib/checkout';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+
+function StripeForm({
+  clientSecret,
+  onSuccess,
+}: {
+  clientSecret: string;
+  onSuccess: () => Promise<void>;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [loading, setLoading] = useState(false);
+
+  const confirmPayment = async () => {
+    if (!stripe || !elements) return;
+    setLoading(true);
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: { return_url: window.location.href },
+      redirect: 'if_required',
+    });
+    setLoading(false);
+    if (result.error) {
+      throw new Error(result.error.message);
+    }
+    await onSuccess();
+  };
+
+  return (
+    <div className="space-y-4">
+      <PaymentElement />
+      <button
+        onClick={confirmPayment}
+        disabled={!stripe || loading}
+        className="w-full rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
+      >
+        {loading ? 'Processing...' : 'Pay Now'}
+      </button>
+    </div>
+  );
+}
 
 export default function CheckoutPage() {
   const { items, clear } = useCartStore();
@@ -11,6 +53,8 @@ export default function CheckoutPage() {
   const [dob, setDob] = useState('');
   const [confirmAge, setConfirmAge] = useState(false);
   const [method, setMethod] = useState<'STRIPE' | 'COD'>('STRIPE');
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | undefined>(undefined);
   const [shippingInfo, setShippingInfo] = useState({
     name: '',
     line1: '',
@@ -25,6 +69,35 @@ export default function CheckoutPage() {
   const shipping = subtotal > 120 ? 0 : 12;
   const total = subtotal + shipping;
 
+  const stripePromise = useMemo(() => {
+    const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+    return key ? loadStripe(key) : null;
+  }, []);
+
+  useEffect(() => {
+    setClientSecret(null);
+    setPaymentIntentId(undefined);
+  }, [method, total]);
+
+  const placeOrder = async () => {
+    await createOrder({
+      items,
+      subtotal,
+      discountTotal: 0,
+      shippingFee: shipping,
+      total,
+      paymentMethod: method,
+      paymentIntentId,
+      shipping: shippingInfo,
+    });
+    push(
+      method === 'STRIPE'
+        ? 'Payment completed. Order confirmed.'
+        : 'Order placed. A confirmation email will be sent shortly.',
+    );
+    clear();
+  };
+
   const handleSubmit = async () => {
     if (!dob || !confirmAge) {
       push('Please confirm your date of birth and legal drinking age.');
@@ -34,31 +107,24 @@ export default function CheckoutPage() {
       push('Your cart is empty.');
       return;
     }
-    try {
-      let paymentIntentId: string | undefined;
-      if (method === 'STRIPE') {
-        const intent = await createPaymentIntent(Math.round(total * 100), 'usd');
-        paymentIntentId = intent.id;
+    if (!shippingInfo.name || !shippingInfo.line1 || !shippingInfo.city) {
+      push('Please complete shipping details.');
+      return;
+    }
+    if (method === 'COD') {
+      try {
+        await placeOrder();
+      } catch {
+        push('Checkout failed. Please sign in.');
       }
-
-      await createOrder({
-        items,
-        subtotal,
-        discountTotal: 0,
-        shippingFee: shipping,
-        total,
-        paymentMethod: method,
-        paymentIntentId,
-        shipping: shippingInfo,
-      });
-      push(
-        method === 'STRIPE'
-          ? 'Payment initiated. Complete payment in Stripe Elements in production.'
-          : 'Order placed. A confirmation email will be sent shortly.',
-      );
-      clear();
+      return;
+    }
+    try {
+      const intent = await createPaymentIntent(Math.round(total * 100), 'usd');
+      setClientSecret(intent.client_secret);
+      setPaymentIntentId(intent.id);
     } catch {
-      push('Checkout failed. Please sign in.');
+      push('Stripe setup failed.');
     }
   };
 
@@ -156,6 +222,13 @@ export default function CheckoutPage() {
                 Cash on Delivery
               </label>
             </div>
+            {method === 'STRIPE' && clientSecret && stripePromise && (
+              <div className="mt-6">
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <StripeForm clientSecret={clientSecret} onSuccess={placeOrder} />
+                </Elements>
+              </div>
+            )}
           </div>
         </div>
 
@@ -166,12 +239,14 @@ export default function CheckoutPage() {
             <div className="flex justify-between"><span>Shipping</span><span>${shipping.toFixed(2)}</span></div>
             <div className="flex justify-between text-gold-200"><span>Total</span><span>${total.toFixed(2)}</span></div>
           </div>
-          <button
-            onClick={handleSubmit}
-            className="mt-6 w-full rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
-          >
-            Place Order
-          </button>
+          {!clientSecret && (
+            <button
+              onClick={handleSubmit}
+              className="mt-6 w-full rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
+            >
+              {method === 'STRIPE' ? 'Continue to Payment' : 'Place Order'}
+            </button>
+          )}
           <p className="mt-4 text-xs text-[#8c8378]">
             By placing this order, you confirm you are of legal drinking age and accept our policies.
           </p>
