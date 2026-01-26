@@ -32,6 +32,51 @@ const featured: Product[] = [
   },
 ];
 
+const brandShowcase = [
+  {
+    name: 'Johnnie Walker',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Johnnie_Walker_wordmark.svg',
+  },
+  {
+    name: 'Colombo Gin',
+    image:
+      'https://images.squarespace-cdn.com/content/v1/61015b0a1f9d486bc677fe4c/1628094957503-VIPXXA01UEPTO2M498JQ/Colombo%2BGin-min.png',
+  },
+  {
+    name: "Jacob's Creek",
+    image: 'https://www.jacobscreek.com/wp-content/uploads/sites/7/2021/01/Logo-naked.png',
+  },
+  {
+    name: 'The Macallan',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/The_Macallan_brand_line.png',
+  },
+  {
+    name: 'Absolut',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Logo-absolut.svg',
+  },
+  {
+    name: 'Jam Jar',
+    image:
+      'https://images.squarespace-cdn.com/content/v1/60629f9bd6699a4ea2cebcff/0914a575-724c-4d3d-8fab-96c8c71442e4/MicrosoftTeams-image%2B%2862%29.png',
+  },
+  {
+    name: 'Moet & Chandon',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Logo_Mo%C3%ABt_%26_Chandon_2025.png',
+  },
+  {
+    name: 'Glenfiddich',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Glenfiddich_Text_Logo.svg',
+  },
+  {
+    name: "Jack Daniel's",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/0/0f/Jackdaniels.jpg',
+  },
+  {
+    name: 'Heineken',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Heineken_logo_%281%29.png',
+  },
+];
+
 export default function HomePage() {
   return (
     <div>
@@ -81,6 +126,35 @@ export default function HomePage() {
               <p className="text-xs uppercase tracking-[0.3em] text-[#8c8378]">Collection</p>
               <h3 className="display mt-3 text-xl text-gold-200">{cat}</h3>
               <p className="mt-2 text-sm text-[#cfc7bc]">Limited runs and cellar finds.</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="display text-2xl">Shop by Brand</h2>
+          <Link
+            href="/products"
+            className="rounded-lg border border-gold-400 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold-200"
+          >
+            View More
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {brandShowcase.map((brand) => (
+            <div
+              key={brand.name}
+              className="flex min-h-[110px] items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-5"
+            >
+              <div className="flex min-h-[64px] w-full items-center justify-center rounded-xl bg-white/95 px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.25)]">
+                <img
+                  src={brand.image}
+                  alt={`${brand.name} logo`}
+                  className="max-h-12 w-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
             </div>
           ))}
         </div>
