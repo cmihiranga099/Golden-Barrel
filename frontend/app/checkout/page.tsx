@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useCartStore } from '../../lib/store';
 import { useToast } from '../../components/ui/ToastProvider';
+import { createOrder, createPaymentIntent } from '../../lib/checkout';
 
 export default function CheckoutPage() {
   const { items, clear } = useCartStore();
@@ -15,13 +16,48 @@ export default function CheckoutPage() {
   const shipping = subtotal > 120 ? 0 : 12;
   const total = subtotal + shipping;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!dob || !confirmAge) {
       push('Please confirm your date of birth and legal drinking age.');
       return;
     }
-    push('Order placed. A confirmation email will be sent shortly.');
-    clear();
+    if (!items.length) {
+      push('Your cart is empty.');
+      return;
+    }
+    try {
+      let paymentIntentId: string | undefined;
+      if (method === 'STRIPE') {
+        const intent = await createPaymentIntent(Math.round(total * 100), 'usd');
+        paymentIntentId = intent.id;
+      }
+
+      await createOrder({
+        items,
+        subtotal,
+        discountTotal: 0,
+        shippingFee: shipping,
+        total,
+        paymentMethod: method,
+        paymentIntentId,
+        shipping: {
+          name: 'Customer',
+          line1: '123 Barrel St',
+          city: 'Napa',
+          state: 'CA',
+          postalCode: '94558',
+          country: 'US',
+        },
+      });
+      push(
+        method === 'STRIPE'
+          ? 'Payment initiated. Complete payment in Stripe Elements in production.'
+          : 'Order placed. A confirmation email will be sent shortly.',
+      );
+      clear();
+    } catch {
+      push('Checkout failed. Please sign in.');
+    }
   };
 
   return (

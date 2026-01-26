@@ -1,10 +1,30 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useCartStore } from '../../lib/store';
 import Link from 'next/link';
+import { fetchCart, removeCartItem, updateCartItem } from '../../lib/cart-api';
+import { getTokens } from '../../lib/auth';
 
 export default function CartPage() {
-  const { items, updateQty, removeItem } = useCartStore();
+  const { items, updateQty, removeItem, setItems } = useCartStore();
+
+  useEffect(() => {
+    if (getTokens()?.accessToken) {
+      fetchCart()
+        .then((cart: any) => {
+          const mapped = (cart.items || []).map((item: any) => ({
+            productId: item.productId?._id || item.productId,
+            name: item.productId?.name || 'Item',
+            price: item.productId?.discountPrice || item.productId?.price || 0,
+            quantity: item.quantity,
+            image: item.productId?.images?.[0],
+          }));
+          setItems(mapped);
+        })
+        .catch(() => {});
+    }
+  }, [setItems]);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
@@ -26,10 +46,24 @@ export default function CartPage() {
                     type="number"
                     min={1}
                     value={item.quantity}
-                    onChange={(e) => updateQty(item.productId, Number(e.target.value))}
+                    onChange={(e) => {
+                      const qty = Number(e.target.value);
+                      updateQty(item.productId, qty);
+                      if (getTokens()?.accessToken) {
+                        updateCartItem(item.productId, qty).catch(() => {});
+                      }
+                    }}
                     className="w-16 rounded-md bg-black/40 p-2 text-center"
                   />
-                  <button onClick={() => removeItem(item.productId)} className="text-xs text-[#8c8378]">
+                  <button
+                    onClick={() => {
+                      removeItem(item.productId);
+                      if (getTokens()?.accessToken) {
+                        removeCartItem(item.productId).catch(() => {});
+                      }
+                    }}
+                    className="text-xs text-[#8c8378]"
+                  >
                     Remove
                   </button>
                 </div>
