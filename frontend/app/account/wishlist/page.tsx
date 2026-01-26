@@ -1,9 +1,27 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useWishlistStore } from '../../../lib/store';
+import { fetchWishlist, removeWishlistItem } from '../../../lib/wishlist-api';
+import { getTokens } from '../../../lib/auth';
 
 export default function WishlistPage() {
-  const { items, remove } = useWishlistStore();
+  const { items, remove, setItems } = useWishlistStore();
+
+  useEffect(() => {
+    if (getTokens()?.accessToken) {
+      fetchWishlist()
+        .then((wishlist: any) => {
+          const mapped = (wishlist.items || []).map((item: any) => ({
+            productId: item.productId?._id || item.productId,
+            name: item.productId?.name || 'Item',
+            image: item.productId?.images?.[0],
+          }));
+          setItems(mapped);
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-12">
@@ -18,7 +36,15 @@ export default function WishlistPage() {
                 <p className="text-gold-200">{item.name}</p>
                 <p className="text-xs text-[#8c8378]">Saved for later</p>
               </div>
-              <button onClick={() => remove(item.productId)} className="text-xs text-[#8c8378]">
+              <button
+                onClick={() => {
+                  remove(item.productId);
+                  if (getTokens()?.accessToken) {
+                    removeWishlistItem(item.productId).catch(() => {});
+                  }
+                }}
+                className="text-xs text-[#8c8378]"
+              >
                 Remove
               </button>
             </div>

@@ -3,6 +3,7 @@
 import { Product } from '../ProductCard';
 import { useCartStore, useWishlistStore } from '../../lib/store';
 import { addCartItem } from '../../lib/cart-api';
+import { addWishlistItem } from '../../lib/wishlist-api';
 import { getTokens } from '../../lib/auth';
 import { useToast } from './ToastProvider';
 
@@ -35,6 +36,9 @@ export function AddToCart({ product }: { product: Product }) {
         className="rounded-full border border-gold-400 px-6 py-3 text-sm font-semibold text-gold-200"
         onClick={() => {
           add({ productId: product._id, name: product.name, image: product.images?.[0] });
+          if (getTokens()?.accessToken) {
+            addWishlistItem(product._id).catch(() => {});
+          }
           push('Saved to wishlist');
         }}
       >

@@ -55,6 +55,7 @@ export const useCartStore = create<CartState>()(
 
 type WishlistState = {
   items: WishlistItem[];
+  setItems: (items: WishlistItem[]) => void;
   add: (item: WishlistItem) => void;
   remove: (productId: string) => void;
 };
@@ -63,6 +64,7 @@ export const useWishlistStore = create<WishlistState>()(
   persist(
     (set) => ({
       items: [],
+      setItems: (items) => set({ items }),
       add: (item) =>
         set((state) => {
           if (state.items.find((i) => i.productId === item.productId)) return state;
