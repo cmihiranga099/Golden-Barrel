@@ -569,6 +569,9 @@ video {
 .mt-8{
   margin-top: 2rem;
 }
+.mt-auto{
+  margin-top: auto;
+}
 .block{
   display: block;
 }
@@ -605,6 +608,9 @@ video {
 .w-full{
   width: 100%;
 }
+.w-60{
+  width: 15rem;
+}
 .max-w-4xl{
   max-width: 56rem;
 }
@@ -619,6 +625,9 @@ video {
 }
 .max-w-md{
   max-width: 28rem;
+}
+.max-w-7xl{
+  max-width: 80rem;
 }
 @keyframes pulse{
 
@@ -815,6 +824,10 @@ video {
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 .pb-3{
   padding-bottom: 0.75rem;

@@ -1,16 +1,29 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useToast } from '../../components/ui/ToastProvider';
 import { apiPost } from '../../lib/api';
-import { setRoleFromToken, setTokens } from '../../lib/auth';
+import { decodeJwt, getTokens, setRoleFromToken, setTokens } from '../../lib/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const { push } = useToast();
+  const router = useRouter();
 
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const tokens = getTokens();
+    if (!tokens?.accessToken) return;
+    const payload = decodeJwt(tokens.accessToken);
+    if (payload?.role === 'ADMIN' || payload?.role === 'STAFF') {
+      router.replace('/admin');
+    } else {
+      router.replace('/account');
+    }
+  }, [router]);
 
   const handleLogin = async () => {
     try {
@@ -21,6 +34,12 @@ export default function LoginPage() {
       setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken });
       setRoleFromToken(data.accessToken);
       push('Signed in.');
+      const payload = decodeJwt(data.accessToken);
+      if (payload?.role === 'ADMIN' || payload?.role === 'STAFF') {
+        router.push('/admin');
+      } else {
+        router.push('/account');
+      }
     } catch {
       push('Login failed. Check your credentials.');
     }
