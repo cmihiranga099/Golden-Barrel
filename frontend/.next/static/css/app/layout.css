@@ -617,11 +617,17 @@ video {
 .max-h-12{
   max-height: 3rem;
 }
+.max-h-28{
+  max-height: 7rem;
+}
 .min-h-\[110px\]{
   min-height: 110px;
 }
 .min-h-screen{
   min-height: 100vh;
+}
+.min-h-\[150px\]{
+  min-height: 150px;
 }
 .w-16{
   width: 4rem;
