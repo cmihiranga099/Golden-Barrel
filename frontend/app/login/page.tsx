@@ -3,20 +3,27 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useToast } from '../../components/ui/ToastProvider';
+import { apiPost } from '../../lib/api';
+import { setRoleFromToken, setTokens } from '../../lib/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const { push } = useToast();
 
-  const handleLogin = () => {
-    const role = email.includes('admin')
-      ? 'ADMIN'
-      : email.includes('staff')
-      ? 'STAFF'
-      : 'CUSTOMER';
-    localStorage.setItem('gb_role', role);
-    document.cookie = `gb_role=${role}; path=/`;
-    push('Signed in (demo).');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const data = await apiPost<{ accessToken: string; refreshToken: string }>('/auth/login', {
+        email,
+        password,
+      });
+      setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken });
+      setRoleFromToken(data.accessToken);
+      push('Signed in.');
+    } catch {
+      push('Login failed. Check your credentials.');
+    }
   };
 
   return (
@@ -30,7 +37,13 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input className="rounded-md bg-black/40 p-3" placeholder="Password" type="password" />
+          <input
+            className="rounded-md bg-black/40 p-3"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button
             className="rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
             onClick={handleLogin}

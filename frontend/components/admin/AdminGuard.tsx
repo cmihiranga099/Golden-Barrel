@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { decodeJwt, getTokens } from '../../lib/auth';
 import Link from 'next/link';
 
 export function AdminGuard({ children }: { children: React.ReactNode }) {
@@ -8,7 +9,13 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const role = localStorage.getItem('gb_role');
-    setAllowed(role === 'ADMIN' || role === 'STAFF');
+    if (role === 'ADMIN' || role === 'STAFF') {
+      setAllowed(true);
+      return;
+    }
+    const tokens = getTokens();
+    const payload = tokens?.accessToken ? decodeJwt(tokens.accessToken) : null;
+    setAllowed(payload?.role === 'ADMIN' || payload?.role === 'STAFF');
   }, []);
 
   if (!allowed) {
