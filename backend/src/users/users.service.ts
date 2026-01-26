@@ -17,6 +17,10 @@ export class UsersService {
   }
 
   async findById(id: string) {
+    return this.userModel.findById(id).select('-passwordHash -refreshTokenHash');
+  }
+
+  async findByIdWithSecrets(id: string) {
     return this.userModel.findById(id);
   }
 

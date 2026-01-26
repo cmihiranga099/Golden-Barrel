@@ -79,7 +79,7 @@ export class AuthService {
   }
 
   async refresh(userId: string, refreshToken: string) {
-    const user = await this.usersService.findById(userId);
+    const user = await this.usersService.findByIdWithSecrets(userId);
     if (!user || !user.refreshTokenHash) {
       throw new UnauthorizedException('Access denied');
     }
@@ -95,7 +95,7 @@ export class AuthService {
   }
 
   async logout(userId: string) {
-    const user = await this.usersService.findById(userId);
+    const user = await this.usersService.findByIdWithSecrets(userId);
     if (!user) {
       return { success: true };
     }
