@@ -74,23 +74,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/admin/products" className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200">
-            Manage Products
-          </Link>
-          <Link href="/admin/orders" className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200">
-            Manage Orders
-          </Link>
-          <Link href="/admin/users" className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200">
-            Manage Users
-          </Link>
-          <Link href="/admin/coupons" className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200">
-            Manage Coupons
-          </Link>
-          <Link href="/admin/reports" className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200">
-            View Reports
-          </Link>
-        </div>
+        
       </div>
     </AdminGuard>
   );
