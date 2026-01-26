@@ -15,6 +15,7 @@ export class PaymentsController {
   async webhook(@Req() req: any, @Headers('stripe-signature') signature: string) {
     const payload = req.rawBody || req.body;
     const event = this.paymentsService.constructEvent(payload, signature);
+    await this.paymentsService.handleWebhook(event);
     return { received: true, type: event.type };
   }
 }

@@ -15,13 +15,18 @@ export function Navbar() {
           <Link href="/account" className="text-sm hover:text-gold-200">Account</Link>
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden items-center rounded-full border border-white/10 bg-black/30 px-3 py-2 md:flex">
+          <form
+            action="/products"
+            method="GET"
+            className="hidden items-center rounded-full border border-white/10 bg-black/30 px-3 py-2 md:flex"
+          >
             <Search size={16} className="text-[#8c8378]" />
             <input
+              name="q"
               placeholder="Search by name or brand"
               className="ml-2 bg-transparent text-sm text-white placeholder:text-[#8c8378] outline-none"
             />
-          </div>
+          </form>
           <Link href="/cart" className="rounded-full border border-white/10 p-2 hover:border-gold-400">
             <ShoppingBag size={18} />
           </Link>

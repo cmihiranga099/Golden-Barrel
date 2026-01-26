@@ -1,6 +1,7 @@
-import { apiGet } from '../../../lib/api';
+ï»¿import { apiGet } from '../../../lib/api';
 import { Product } from '../../../components/ProductCard';
 import { AddToCart } from '../../../components/ui/AddToCart';
+import { ProductReviews } from '../../../components/ProductReviews';
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   let product: Product | null = null;
@@ -28,7 +29,10 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
         </div>
         <div>
           <h1 className="display text-3xl text-gold-200">{product.name}</h1>
-          <p className="mt-2 text-sm text-[#8c8378]">{product.abv}% ABV • {product.volume}ml</p>
+          <p className="mt-2 text-xs text-[#8c8378]">
+            {product.categoryId?.name || 'Category'} | {product.brandId?.name || 'Brand'}
+          </p>
+          <p className="mt-2 text-sm text-[#8c8378]">{product.abv}% ABV | {product.volume}ml</p>
           <div className="mt-6 flex items-center gap-3">
             {product.discountPrice ? (
               <>
@@ -39,14 +43,31 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               <span className="text-2xl font-semibold text-gold-200">${product.price}</span>
             )}
           </div>
+          <p className="mt-3 text-xs text-[#8c8378]">
+            {(product.ratingAverage || 0).toFixed(1)} stars | {product.ratingCount || 0} reviews
+          </p>
           <p className="mt-6 text-sm text-[#cfc7bc]">
-            Crafted for collectors and casual tastings alike, this bottle offers layered notes of oak,
-            spice, and dark fruit.
+            {product.description || 'Refined, balanced, and ready for your collection.'}
+          </p>
+          {product.tags?.length ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {product.tags.map((tag) => (
+                <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-xs text-[#8c8378]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
+          <p className="mt-4 text-xs text-[#8c8378]">
+            {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
           </p>
           <div className="mt-8">
             <AddToCart product={product} />
           </div>
         </div>
+      </div>
+      <div className="mt-12">
+        <ProductReviews productId={product._id} />
       </div>
     </div>
   );
