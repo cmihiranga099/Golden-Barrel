@@ -44,7 +44,7 @@ export class AuthService {
     }
     const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS || 12);
     const passwordHash = await hashPassword(dto.password, saltRounds);
-    const user = await (this.usersService as any).userModel.create({
+    const user = await this.usersService.createUser({
       email: dto.email,
       passwordHash,
       name: dto.name,

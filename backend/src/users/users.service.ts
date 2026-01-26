@@ -12,6 +12,10 @@ export class UsersService {
     return this.userModel.findOne({ email: email.toLowerCase() });
   }
 
+  async createUser(data: Partial<User>) {
+    return this.userModel.create(data);
+  }
+
   async findById(id: string) {
     return this.userModel.findById(id);
   }
