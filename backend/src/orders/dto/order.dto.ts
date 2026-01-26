@@ -2,7 +2,7 @@ import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-valid
 
 export class CreateOrderDto {
   @IsArray()
-  items: {
+  items!: {
     productId: string;
     name: string;
     price: number;
@@ -10,26 +10,26 @@ export class CreateOrderDto {
   }[];
 
   @IsNumber()
-  subtotal: number;
+  subtotal!: number;
 
   @IsNumber()
-  discountTotal: number;
+  discountTotal!: number;
 
   @IsNumber()
-  shippingFee: number;
+  shippingFee!: number;
 
   @IsNumber()
-  total: number;
+  total!: number;
 
   @IsString()
-  paymentMethod: 'STRIPE' | 'COD';
+  paymentMethod!: 'STRIPE' | 'COD';
 
   @IsOptional()
   @IsString()
   paymentIntentId?: string;
 
   @IsNotEmpty()
-  shipping: {
+  shipping!: {
     name: string;
     line1: string;
     line2?: string;
@@ -42,10 +42,10 @@ export class CreateOrderDto {
 
 export class UpdateOrderStatusDto {
   @IsString()
-  status: string;
+  status!: string;
 }
 
 export class MarkPaidDto {
   @IsString()
-  paymentStatus: 'PAID' | 'REFUNDED' | 'FAILED';
+  paymentStatus!: 'PAID' | 'REFUNDED' | 'FAILED';
 }

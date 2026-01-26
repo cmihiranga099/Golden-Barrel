@@ -2,10 +2,10 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateReviewDto {
   @IsString()
-  productId: string;
+  productId!: string;
 
   @IsNumber()
-  rating: number;
+  rating!: number;
 
   @IsOptional()
   @IsString()

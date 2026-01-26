@@ -20,7 +20,7 @@ export class UploadsService {
     }
   }
 
-  async processUploads(files: Express.Multer.File[]) {
+  async processUploads(files: any[]) {
     if (process.env.STORAGE_PROVIDER === 's3' && this.s3) {
       const uploads = await Promise.all(
         files.map(async (file) => {

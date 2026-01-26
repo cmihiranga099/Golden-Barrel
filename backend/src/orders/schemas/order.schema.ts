@@ -6,16 +6,16 @@ export type OrderDocument = HydratedDocument<Order>;
 @Schema({ _id: false })
 export class OrderItem {
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
-  productId: Types.ObjectId;
+  productId!: Types.ObjectId;
 
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true })
-  price: number;
+  price!: number;
 
   @Prop({ required: true })
-  quantity: number;
+  quantity!: number;
 }
 
 const OrderItemSchema = SchemaFactory.createForClass(OrderItem);
@@ -23,10 +23,10 @@ const OrderItemSchema = SchemaFactory.createForClass(OrderItem);
 @Schema({ _id: false })
 export class StatusHistory {
   @Prop({ required: true })
-  status: string;
+  status!: string;
 
   @Prop({ required: true })
-  at: Date;
+  at!: Date;
 }
 
 const StatusHistorySchema = SchemaFactory.createForClass(StatusHistory);
@@ -34,25 +34,25 @@ const StatusHistorySchema = SchemaFactory.createForClass(StatusHistory);
 @Schema({ _id: false })
 export class ShippingInfo {
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true })
-  line1: string;
+  line1!: string;
 
   @Prop()
   line2?: string;
 
   @Prop({ required: true })
-  city: string;
+  city!: string;
 
   @Prop({ required: true })
-  state: string;
+  state!: string;
 
   @Prop({ required: true })
-  postalCode: string;
+  postalCode!: string;
 
   @Prop({ required: true })
-  country: string;
+  country!: string;
 }
 
 const ShippingInfoSchema = SchemaFactory.createForClass(ShippingInfo);
@@ -60,40 +60,40 @@ const ShippingInfoSchema = SchemaFactory.createForClass(ShippingInfo);
 @Schema({ timestamps: true })
 export class Order {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true, index: true })
-  userId: Types.ObjectId;
+  userId!: Types.ObjectId;
 
   @Prop({ type: [OrderItemSchema], required: true })
-  items: OrderItem[];
+  items!: OrderItem[];
 
   @Prop({ required: true })
-  subtotal: number;
+  subtotal!: number;
 
   @Prop({ required: true })
-  discountTotal: number;
+  discountTotal!: number;
 
   @Prop({ required: true })
-  shippingFee: number;
+  shippingFee!: number;
 
   @Prop({ required: true })
-  total: number;
+  total!: number;
 
   @Prop({ required: true })
-  paymentMethod: 'STRIPE' | 'COD';
+  paymentMethod!: 'STRIPE' | 'COD';
 
   @Prop({ default: 'PENDING' })
-  paymentStatus: 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
+  paymentStatus!: 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
 
   @Prop()
   paymentIntentId?: string;
 
   @Prop({ default: 'PENDING' })
-  status: 'PENDING' | 'PAID' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'REFUNDED';
+  status!: 'PENDING' | 'PAID' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'REFUNDED';
 
   @Prop({ type: [StatusHistorySchema], default: [] })
-  statusHistory: StatusHistory[];
+  statusHistory!: StatusHistory[];
 
   @Prop({ type: ShippingInfoSchema, required: true })
-  shipping: ShippingInfo;
+  shipping!: ShippingInfo;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

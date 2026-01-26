@@ -2,10 +2,10 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreatePaymentIntentDto {
   @IsNumber()
-  amount: number;
+  amount!: number;
 
   @IsString()
-  currency: string;
+  currency!: string;
 
   @IsOptional()
   @IsString()

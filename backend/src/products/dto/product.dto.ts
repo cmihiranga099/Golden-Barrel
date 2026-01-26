@@ -3,36 +3,36 @@ import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-valid
 export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsString()
   @IsNotEmpty()
-  slug: string;
+  slug!: string;
 
   @IsString()
-  categoryId: string;
+  categoryId!: string;
 
   @IsString()
-  brandId: string;
+  brandId!: string;
 
   @IsNumber()
-  price: number;
+  price!: number;
 
   @IsOptional()
   @IsNumber()
   discountPrice?: number;
 
   @IsNumber()
-  stock: number;
+  stock!: number;
 
   @IsArray()
-  images: string[];
+  images!: string[];
 
   @IsNumber()
-  abv: number;
+  abv!: number;
 
   @IsNumber()
-  volume: number;
+  volume!: number;
 
   @IsOptional()
   @IsString()

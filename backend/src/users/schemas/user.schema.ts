@@ -7,28 +7,28 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ _id: false })
 export class Address {
   @Prop({ required: true })
-  label: string;
+  label!: string;
 
   @Prop({ required: true })
-  line1: string;
+  line1!: string;
 
   @Prop()
   line2?: string;
 
   @Prop({ required: true })
-  city: string;
+  city!: string;
 
   @Prop({ required: true })
-  state: string;
+  state!: string;
 
   @Prop({ required: true })
-  postalCode: string;
+  postalCode!: string;
 
   @Prop({ required: true })
-  country: string;
+  country!: string;
 
   @Prop({ default: false })
-  isDefault: boolean;
+  isDefault!: boolean;
 }
 
 const AddressSchema = SchemaFactory.createForClass(Address);
@@ -36,31 +36,31 @@ const AddressSchema = SchemaFactory.createForClass(Address);
 @Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true, lowercase: true, index: true })
-  email: string;
+  email!: string;
 
   @Prop({ required: true })
-  passwordHash: string;
+  passwordHash!: string;
 
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop()
   phone?: string;
 
   @Prop({ type: [AddressSchema], default: [] })
-  addresses: Address[];
+  addresses!: Address[];
 
   @Prop({ required: true })
-  dob: Date;
+  dob!: Date;
 
   @Prop({ default: true })
-  isAgeVerified: boolean;
+  isAgeVerified!: boolean;
 
   @Prop({ default: false })
-  isBlocked: boolean;
+  isBlocked!: boolean;
 
   @Prop({ type: String, enum: ['ADMIN', 'STAFF', 'CUSTOMER'], default: 'CUSTOMER' })
-  role: Role;
+  role!: Role;
 
   @Prop()
   refreshTokenHash?: string;

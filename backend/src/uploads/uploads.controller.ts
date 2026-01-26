@@ -8,7 +8,7 @@ export class UploadsController {
 
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
-  upload(@UploadedFiles() files: Express.Multer.File[]) {
+  upload(@UploadedFiles() files: any[]) {
     return this.uploadsService.processUploads(files || []);
   }
 }

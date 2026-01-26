@@ -6,7 +6,7 @@ export type WishlistDocument = HydratedDocument<Wishlist>;
 @Schema({ _id: false })
 export class WishlistItem {
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
-  productId: Types.ObjectId;
+  productId!: Types.ObjectId;
 }
 
 const WishlistItemSchema = SchemaFactory.createForClass(WishlistItem);
@@ -14,10 +14,10 @@ const WishlistItemSchema = SchemaFactory.createForClass(WishlistItem);
 @Schema({ timestamps: true })
 export class Wishlist {
   @Prop({ type: Types.ObjectId, ref: 'User', unique: true, required: true })
-  userId: Types.ObjectId;
+  userId!: Types.ObjectId;
 
   @Prop({ type: [WishlistItemSchema], default: [] })
-  items: WishlistItem[];
+  items!: WishlistItem[];
 }
 
 export const WishlistSchema = SchemaFactory.createForClass(Wishlist);

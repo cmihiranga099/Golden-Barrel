@@ -3,26 +3,26 @@ import { IsArray, IsBoolean, IsOptional, IsString, ValidateNested } from 'class-
 
 export class AddressDto {
   @IsString()
-  label: string;
+  label!: string;
 
   @IsString()
-  line1: string;
+  line1!: string;
 
   @IsOptional()
   @IsString()
   line2?: string;
 
   @IsString()
-  city: string;
+  city!: string;
 
   @IsString()
-  state: string;
+  state!: string;
 
   @IsString()
-  postalCode: string;
+  postalCode!: string;
 
   @IsString()
-  country: string;
+  country!: string;
 
   @IsOptional()
   @IsBoolean()
@@ -47,5 +47,5 @@ export class UpdateProfileDto {
 
 export class UpdateRoleDto {
   @IsString()
-  role: 'ADMIN' | 'STAFF' | 'CUSTOMER';
+  role!: 'ADMIN' | 'STAFF' | 'CUSTOMER';
 }

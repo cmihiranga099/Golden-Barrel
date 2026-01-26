@@ -2,45 +2,45 @@ import { IsDateString, IsEmail, IsNotEmpty, IsString, Matches, MinLength } from 
 
 export class RegisterDto {
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsString()
   @MinLength(8)
   @Matches(/^(?=.*[A-Z])(?=.*\d).+$/, { message: 'Password must include 1 uppercase and 1 number' })
-  password: string;
+  password!: string;
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsDateString()
-  dob: string;
+  dob!: string;
 }
 
 export class LoginDto {
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsString()
-  password: string;
+  password!: string;
 }
 
 export class RefreshDto {
   @IsString()
-  refreshToken: string;
+  refreshToken!: string;
 }
 
 export class ForgotPasswordDto {
   @IsEmail()
-  email: string;
+  email!: string;
 }
 
 export class ResetPasswordDto {
   @IsString()
-  token: string;
+  token!: string;
 
   @IsString()
   @MinLength(8)
   @Matches(/^(?=.*[A-Z])(?=.*\d).+$/, { message: 'Password must include 1 uppercase and 1 number' })
-  newPassword: string;
+  newPassword!: string;
 }
