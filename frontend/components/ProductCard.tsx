@@ -1,4 +1,4 @@
-import Link from 'next/link';
+ï»¿import Link from 'next/link';
 
 export type Product = {
   _id: string;
@@ -9,6 +9,13 @@ export type Product = {
   images: string[];
   abv: number;
   volume: number;
+  description?: string;
+  ratingAverage?: number;
+  ratingCount?: number;
+  stock?: number;
+  tags?: string[];
+  categoryId?: { name?: string } | string;
+  brandId?: { name?: string } | string;
 };
 
 export function ProductCard({ product }: { product: Product }) {
@@ -25,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="p-4">
           <h3 className="display text-lg text-gold-200">{product.name}</h3>
           <p className="mt-1 text-xs text-[#8c8378]">
-            {product.abv}% ABV • {product.volume}ml
+            {product.abv}% ABV | {product.volume}ml
           </p>
           <div className="mt-4 flex items-center gap-2">
             {product.discountPrice ? (

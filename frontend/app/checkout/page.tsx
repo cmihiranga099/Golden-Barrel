@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useCartStore } from '../../lib/store';
 import { useToast } from '../../components/ui/ToastProvider';
 import { createOrder, createPaymentIntent } from '../../lib/checkout';
@@ -50,6 +51,7 @@ function StripeForm({
 export default function CheckoutPage() {
   const { items, clear } = useCartStore();
   const { push } = useToast();
+  const router = useRouter();
   const [dob, setDob] = useState('');
   const [confirmAge, setConfirmAge] = useState(false);
   const [method, setMethod] = useState<'STRIPE' | 'COD'>('STRIPE');
@@ -80,7 +82,7 @@ export default function CheckoutPage() {
   }, [method, total]);
 
   const placeOrder = async () => {
-    await createOrder({
+    const order = await createOrder({
       items,
       subtotal,
       discountTotal: 0,
@@ -96,6 +98,9 @@ export default function CheckoutPage() {
         : 'Order placed. A confirmation email will be sent shortly.',
     );
     clear();
+    if (order?._id) {
+      router.push(`/checkout/confirmation?orderId=${order._id}`);
+    }
   };
 
   const handleSubmit = async () => {

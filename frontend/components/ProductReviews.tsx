@@ -55,7 +55,7 @@ export function ProductReviews({ productId }: { productId: string }) {
               <span>{review.userId?.name || 'Customer'}</span>
               <span>{new Date(review.createdAt).toLocaleDateString()}</span>
             </div>
-            <p className="mt-2 text-gold-200">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</p>
+            <p className="mt-2 text-gold-200">Rating: {review.rating}/5</p>
             <p className="mt-2 text-[#cfc7bc]">{review.comment}</p>
           </div>
         ))}
