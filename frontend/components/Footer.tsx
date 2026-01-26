@@ -3,7 +3,12 @@ export function Footer() {
     <footer className="border-t border-black/10 bg-white/90">
       <div className="mx-auto grid max-w-6xl gap-6 px-6 py-12 md:grid-cols-3">
         <div>
-          <h3 className="display text-xl text-gold-200">Golden Barrel</h3>
+          <div className="flex items-center gap-3">
+            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-gold-400/40 bg-white/80 shadow-sm">
+              <img src="/logo.png" alt="Golden Barrel" className="h-full w-full object-cover" />
+            </span>
+            <h3 className="display text-xl text-gold-200">Golden Barrel</h3>
+          </div>
           <p className="mt-3 text-sm text-[#4f4338]">
             Premium spirits curated for discerning palates. Enjoy responsibly.
           </p>

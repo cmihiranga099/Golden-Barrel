@@ -16,8 +16,11 @@ export function Navbar() {
   return (
     <header className="fixed top-0 z-40 w-full border-b border-black/10 bg-white/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="display text-2xl text-gold-200">
-          Golden Barrel
+        <Link href="/" className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-gold-400/40 bg-white/70 shadow-sm">
+            <img src="/logo.png" alt="Golden Barrel" className="h-full w-full object-cover" />
+          </span>
+          <span className="display text-2xl text-gold-200">Golden Barrel</span>
         </Link>
         <div className="hidden items-center gap-6 md:flex">
           <Link href="/products" className="text-sm hover:text-gold-200">Shop</Link>
