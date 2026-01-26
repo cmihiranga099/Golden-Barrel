@@ -9,6 +9,12 @@ export type CartItem = {
   image?: string;
 };
 
+export type WishlistItem = {
+  productId: string;
+  name: string;
+  image?: string;
+};
+
 type CartState = {
   items: CartItem[];
   addItem: (item: CartItem) => void;
@@ -42,5 +48,27 @@ export const useCartStore = create<CartState>()(
       clear: () => set({ items: [] }),
     }),
     { name: 'gb-cart' },
+  ),
+);
+
+type WishlistState = {
+  items: WishlistItem[];
+  add: (item: WishlistItem) => void;
+  remove: (productId: string) => void;
+};
+
+export const useWishlistStore = create<WishlistState>()(
+  persist(
+    (set) => ({
+      items: [],
+      add: (item) =>
+        set((state) => {
+          if (state.items.find((i) => i.productId === item.productId)) return state;
+          return { items: [...state.items, item] };
+        }),
+      remove: (productId) =>
+        set((state) => ({ items: state.items.filter((i) => i.productId !== productId) })),
+    }),
+    { name: 'gb-wishlist' },
   ),
 );

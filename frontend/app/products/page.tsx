@@ -2,8 +2,16 @@ import Link from 'next/link';
 import { apiGet } from '../../lib/api';
 import { ProductCard, Product } from '../../components/ProductCard';
 
-export default async function ProductsPage({ searchParams }: { searchParams: Record<string, string> }) {
-  const query = new URLSearchParams(searchParams).toString();
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
+  const normalized: Record<string, string> = {};
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (typeof value === 'string') normalized[key] = value;
+  });
+  const query = new URLSearchParams(normalized).toString();
   let products: Product[] = [];
   try {
     products = await apiGet<Product[]>(`/products?${query}`);
