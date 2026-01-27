@@ -17,3 +17,5 @@ export class CreateCouponDto {
   @IsDateString()
   expiresAt!: string;
 }
+
+export class UpdateCouponDto extends CreateCouponDto {}

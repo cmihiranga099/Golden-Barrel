@@ -9,3 +9,5 @@ export class CreateBrandDto {
   @IsNotEmpty()
   slug!: string;
 }
+
+export class UpdateBrandDto extends CreateBrandDto {}

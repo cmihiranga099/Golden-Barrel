@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Brand, BrandDocument } from './schemas/brand.schema';
-import { CreateBrandDto } from './dto/brand.dto';
+import { CreateBrandDto, UpdateBrandDto } from './dto/brand.dto';
 
 @Injectable()
 export class BrandsService {
@@ -14,6 +14,14 @@ export class BrandsService {
 
   async create(dto: CreateBrandDto) {
     return this.brandModel.create(dto);
+  }
+
+  async update(id: string, dto: UpdateBrandDto) {
+    const res = await this.brandModel.findByIdAndUpdate(id, dto, { new: true });
+    if (!res) {
+      throw new NotFoundException('Brand not found');
+    }
+    return res;
   }
 
   async remove(id: string) {

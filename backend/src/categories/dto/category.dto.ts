@@ -9,3 +9,5 @@ export class CreateCategoryDto {
   @IsNotEmpty()
   slug!: string;
 }
+
+export class UpdateCategoryDto extends CreateCategoryDto {}
