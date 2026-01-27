@@ -692,6 +692,15 @@ video {
 .grid-cols-\[2fr\2c 1fr\2c 1fr\2c auto\]{
   grid-template-columns: 2fr 1fr 1fr auto;
 }
+.grid-cols-\[2fr\2c 1fr\2c 1fr\2c 1fr\2c 1fr\]{
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+}
+.grid-cols-\[2fr\2c 1fr\2c 1fr\]{
+  grid-template-columns: 2fr 1fr 1fr;
+}
+.grid-cols-\[1\.3fr\2c 1fr\2c 1fr\2c auto\]{
+  grid-template-columns: 1.3fr 1fr 1fr auto;
+}
 .flex-col{
   flex-direction: column;
 }
