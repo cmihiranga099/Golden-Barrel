@@ -18,42 +18,52 @@ const brandShowcase = [
   {
     name: 'Johnnie Walker',
     image: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Johnnie_Walker_wordmark.svg',
+    slug: 'johnnie-walker',
   },
   {
     name: 'Colombo Gin',
     image: '/Company-Colombo.jpg',
+    slug: 'colombo',
   },
   {
     name: "Jacob's Creek",
     image: '/Jacobs_Creek.png',
+    slug: 'jacobs-creek',
   },
   {
     name: 'The Macallan',
     image: '/the-macallan-logo.png',
+    slug: 'the-macallan',
   },
   {
     name: 'Absolut',
     image: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Logo-absolut.svg',
+    slug: 'absolut',
   },
   {
     name: 'Jam Jar',
     image: '/jam jar.png',
+    slug: 'jam-jar',
   },
   {
     name: 'Moet & Chandon',
     image: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Logo_Mo%C3%ABt_%26_Chandon_2025.png',
+    slug: 'moet-chandon',
   },
   {
     name: 'Glenfiddich',
     image: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Glenfiddich_Text_Logo.svg',
+    slug: 'glenfiddich',
   },
   {
     name: "Jack Daniel's",
     image: '/jackdaniels.png',
+    slug: 'jack-daniels',
   },
   {
     name: 'Heineken',
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Heineken_logo_%281%29.png',
+    slug: 'heineken',
   },
 ];
 
@@ -128,9 +138,10 @@ export default async function HomePage() {
         </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {brandShowcase.map((brand) => (
-            <div
+            <Link
               key={brand.name}
-              className="flex min-h-[110px] items-center justify-center rounded-2xl border border-black/10 bg-white/70 p-5"
+              href={`/products?brand=${brand.slug}`}
+              className="flex min-h-[110px] items-center justify-center rounded-2xl border border-black/10 bg-white/70 p-5 transition hover:border-gold-400"
             >
               <img
                 src={brand.image}
@@ -138,7 +149,7 @@ export default async function HomePage() {
                 className="max-h-12 w-auto object-contain opacity-90 transition duration-200 hover:opacity-100"
                 loading="lazy"
               />
-            </div>
+            </Link>
           ))}
         </div>
       </section>

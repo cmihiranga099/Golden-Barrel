@@ -27,7 +27,9 @@ export function Navbar() {
           <Link href="/products" className="text-sm hover:text-gold-200">Shop</Link>
           <Link href="/products?category=whisky" className="text-sm hover:text-gold-200">Whisky</Link>
           <Link href="/products?category=wine" className="text-sm hover:text-gold-200">Wine</Link>
-          <Link href="/account" className="text-sm hover:text-gold-200">Account</Link>
+          {role === 'CUSTOMER' && (
+            <Link href="/account" className="text-sm hover:text-gold-200">Account</Link>
+          )}
           {(role === 'ADMIN' || role === 'STAFF') && (
             <Link href="/admin" className="text-sm text-gold-200 hover:text-gold-200">
               Dashboard
