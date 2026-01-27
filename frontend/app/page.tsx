@@ -1,36 +1,18 @@
 import Link from 'next/link';
 import { ProductCard, Product } from '../components/ProductCard';
 
-const featured: Product[] = [
-  {
-    _id: '1',
-    name: 'Royal Oak Reserve',
-    slug: 'royal-oak-reserve',
-    price: 84,
-    discountPrice: 72,
-    images: ['https://unsplash.com/photos/LVotgZ43LLU/download?auto=format&fit=crop&w=800&q=80'],
-    abv: 46,
-    volume: 750,
-  },
-  {
-    _id: '2',
-    name: 'Velvet Rye 12',
-    slug: 'velvet-rye-12',
-    price: 96,
-    images: ['https://unsplash.com/photos/I-fuIPC441I/download?auto=format&fit=crop&w=800&q=80'],
-    abv: 48,
-    volume: 750,
-  },
-  {
-    _id: '3',
-    name: 'Amber Coast Rum',
-    slug: 'amber-coast-rum',
-    price: 58,
-    images: ['https://unsplash.com/photos/N0uCG9nP2bQ/download?auto=format&fit=crop&w=800&q=80'],
-    abv: 40,
-    volume: 750,
-  },
-];
+const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+
+async function fetchProducts(path: string): Promise<Product[]> {
+  try {
+    const res = await fetch(`${apiBase}${path}`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.data || json;
+  } catch {
+    return [];
+  }
+}
 
 const brandShowcase = [
   {
@@ -75,7 +57,12 @@ const brandShowcase = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [bestSellers, newArrivals] = await Promise.all([
+    fetchProducts('/products?sort=bestSelling'),
+    fetchProducts('/products?sort=newest'),
+  ]);
+
   return (
     <div>
       <section className="mx-auto grid max-w-6xl items-center gap-8 px-6 py-16 md:grid-cols-2">
@@ -162,7 +149,7 @@ export default function HomePage() {
           <Link href="/products?sort=bestSelling" className="text-sm text-gold-200">See all</Link>
         </div>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {featured.map((product) => (
+          {(bestSellers.length ? bestSellers.slice(0, 3) : []).map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
@@ -174,16 +161,8 @@ export default function HomePage() {
           <Link href="/products?sort=newest" className="text-sm text-gold-200">See all</Link>
         </div>
         <div className="mt-6 grid gap-6 md:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <div key={idx} className="glass rounded-2xl p-4">
-              <img
-                src="https://unsplash.com/photos/Q2tgNTnE54U/download?auto=format&fit=crop&w=800&q=80"
-                alt="New arrival"
-                className="rounded-xl"
-              />
-              <p className="mt-3 text-sm text-gold-200">Vault Series {idx + 1}</p>
-              <p className="text-xs text-[#6f6256]">Single barrel</p>
-            </div>
+          {(newArrivals.length ? newArrivals.slice(0, 4) : []).map((product) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </section>

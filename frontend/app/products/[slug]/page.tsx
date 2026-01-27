@@ -1,14 +1,23 @@
 import { apiGet } from '../../../lib/api';
-import { Product } from '../../../components/ProductCard';
+import { Product, ProductCard } from '../../../components/ProductCard';
 import { AddToCart } from '../../../components/ui/AddToCart';
 import { ProductReviews } from '../../../components/ProductReviews';
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   let product: Product | null = null;
+  let bestSellers: Product[] = [];
+  let newArrivals: Product[] = [];
   try {
     product = await apiGet<Product>(`/products/${params.slug}`);
   } catch {
     product = null;
+  }
+  try {
+    bestSellers = await apiGet<Product[]>('/products?sort=bestSelling');
+    newArrivals = await apiGet<Product[]>('/products?sort=newest');
+  } catch {
+    bestSellers = [];
+    newArrivals = [];
   }
 
   if (!product) {
@@ -69,6 +78,30 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
       <div className="mt-12">
         <ProductReviews productId={product._id} />
       </div>
+
+      <section className="mt-16">
+        <div className="flex items-center justify-between">
+          <h2 className="display text-2xl">Best Sellers</h2>
+          <a href="/products?sort=bestSelling" className="text-sm text-gold-200">See all</a>
+        </div>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          {bestSellers.slice(0, 3).map((item) => (
+            <ProductCard key={item._id} product={item} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <div className="flex items-center justify-between">
+          <h2 className="display text-2xl">New Arrivals</h2>
+          <a href="/products?sort=newest" className="text-sm text-gold-200">See all</a>
+        </div>
+        <div className="mt-6 grid gap-6 md:grid-cols-4">
+          {newArrivals.slice(0, 4).map((item) => (
+            <ProductCard key={item._id} product={item} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
