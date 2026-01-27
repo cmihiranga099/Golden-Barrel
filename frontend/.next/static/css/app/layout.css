@@ -650,6 +650,9 @@ video {
 .w-full{
   width: 100%;
 }
+.w-64{
+  width: 16rem;
+}
 .max-w-4xl{
   max-width: 56rem;
 }
@@ -683,14 +686,26 @@ video {
 .animate-pulse{
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+.grid-cols-\[2fr\2c 1fr\]{
+  grid-template-columns: 2fr 1fr;
+}
+.grid-cols-\[2fr\2c 1fr\2c 1fr\2c auto\]{
+  grid-template-columns: 2fr 1fr 1fr auto;
+}
 .flex-col{
   flex-direction: column;
 }
 .flex-wrap{
   flex-wrap: wrap;
 }
+.items-end{
+  align-items: flex-end;
+}
 .items-center{
   align-items: center;
+}
+.justify-end{
+  justify-content: flex-end;
 }
 .justify-center{
   justify-content: center;
@@ -736,11 +751,24 @@ video {
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
+.divide-y > :not([hidden]) ~ :not([hidden]){
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+.divide-black\/10 > :not([hidden]) ~ :not([hidden]){
+  border-color: rgb(0 0 0 / 0.1);
+}
 .self-start{
   align-self: flex-start;
 }
 .overflow-hidden{
   overflow: hidden;
+}
+.truncate{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .rounded-2xl{
   border-radius: 1rem;
@@ -832,12 +860,20 @@ video {
   --tw-gradient-to: rgb(255 248 235 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-\[\#f8f2e8\]{
+  --tw-gradient-from: #f8f2e8 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(248 242 232 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .via-white{
   --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #fff var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 .to-\[\#f7efe3\]{
   --tw-gradient-to: #f7efe3 var(--tw-gradient-to-position);
+}
+.to-\[\#f3eadb\]{
+  --tw-gradient-to: #f3eadb var(--tw-gradient-to-position);
 }
 .object-contain{
   -o-object-fit: contain;
@@ -1090,6 +1126,10 @@ h1, h2, h3, .display {
   border-color: rgb(212 167 80 / var(--tw-border-opacity, 1));
 }
 
+.hover\:border-gold-400\/60:hover{
+  border-color: rgb(212 167 80 / 0.6);
+}
+
 .hover\:bg-gold-400:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(212 167 80 / var(--tw-bg-opacity, 1));
@@ -1193,6 +1233,10 @@ h1, h2, h3, .display {
 
   .lg\:grid-cols-5{
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

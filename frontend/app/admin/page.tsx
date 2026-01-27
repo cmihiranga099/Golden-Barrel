@@ -35,46 +35,75 @@ export default function AdminDashboard() {
   return (
     <AdminGuard>
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <h1 className="display text-3xl">Admin Overview</h1>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Dashboard</p>
+            <h1 className="display mt-2 text-3xl">Admin Overview</h1>
+          </div>
+          <Link
+            href="/admin/reports"
+            className="rounded-full border border-gold-400 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold-200"
+          >
+            View Reports
+          </Link>
+        </div>
+
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {[
             ['Total Sales', `$${stats.totalSales.toFixed(2)}`],
             ['Orders', `${stats.orders}`],
             ['Customers', `${stats.customers}`],
           ].map(([label, value]) => (
-            <div key={label} className="glass rounded-2xl p-6">
+            <div key={label} className="glass rounded-2xl p-6 shadow-sm">
               <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">{label}</p>
               <p className="display mt-3 text-2xl text-gold-200">{value}</p>
             </div>
           ))}
         </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          <div className="glass rounded-2xl p-6">
-            <h2 className="display text-xl text-gold-200">Recent Orders</h2>
-            <div className="mt-4 space-y-3 text-sm">
-              {recentOrders.map((order) => (
-                <div key={order._id} className="flex items-center justify-between text-[#4f4338]">
-                  <span>{order._id}</span>
-                  <span className="text-xs text-[#6f6256]">{order.status}</span>
-                </div>
-              ))}
-              {recentOrders.length === 0 && <p className="text-xs text-[#6f6256]">No orders yet.</p>}
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <div className="glass rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="display text-xl text-gold-200">Recent Orders</h2>
+              <Link href="/admin/orders" className="text-xs text-[#6f6256]">View all</Link>
+            </div>
+            <div className="mt-4 overflow-hidden rounded-xl border border-black/10">
+              <div className="grid grid-cols-[2fr,1fr] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
+                <span>Order</span>
+                <span>Status</span>
+              </div>
+              <div className="divide-y divide-black/10 text-sm">
+                {recentOrders.map((order) => (
+                  <div key={order._id} className="grid grid-cols-[2fr,1fr] px-4 py-3 text-[#4f4338]">
+                    <span className="truncate">{order._id}</span>
+                    <span className="text-xs uppercase text-[#6f6256]">{order.status}</span>
+                  </div>
+                ))}
+                {recentOrders.length === 0 && (
+                  <p className="px-4 py-4 text-xs text-[#6f6256]">No orders yet.</p>
+                )}
+              </div>
             </div>
           </div>
-          <div className="glass rounded-2xl p-6">
-            <h2 className="display text-xl text-gold-200">Low Stock Alerts</h2>
+          <div className="glass rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="display text-xl text-gold-200">Low Stock Alerts</h2>
+              <Link href="/admin/products" className="text-xs text-[#6f6256]">Manage</Link>
+            </div>
             <div className="mt-4 space-y-3 text-sm text-[#4f4338]">
               {lowStock.map((product) => (
-                <div key={product._id} className="flex items-center justify-between">
-                  <span>{product.name}</span>
-                  <span className="text-xs text-[#6f6256]">{product.stock} left</span>
+                <div key={product._id} className="flex items-center justify-between rounded-xl border border-black/10 bg-white/70 px-4 py-3">
+                  <span className="truncate">{product.name}</span>
+                  <span className="rounded-full border border-gold-400/40 px-3 py-1 text-xs text-gold-200">
+                    {product.stock} left
+                  </span>
                 </div>
               ))}
-              {lowStock.length === 0 && <p className="text-xs text-[#6f6256]">Inventory looks healthy.</p>}
+              {lowStock.length === 0 && (
+                <p className="text-xs text-[#6f6256]">Inventory looks healthy.</p>
+              )}
             </div>
           </div>
         </div>
-        
       </div>
     </AdminGuard>
   );
