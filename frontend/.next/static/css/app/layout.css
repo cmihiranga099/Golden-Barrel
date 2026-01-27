@@ -584,6 +584,9 @@ video {
 .hidden{
   display: none;
 }
+.aspect-\[4\/5\]{
+  aspect-ratio: 4/5;
+}
 .h-10{
   height: 2.5rem;
 }
@@ -795,6 +798,10 @@ video {
 }
 .bg-white\/90{
   background-color: rgb(255 255 255 / 0.9);
+}
+.bg-\[\#f7f2ea\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 242 234 / var(--tw-bg-opacity, 1));
 }
 .object-contain{
   -o-object-fit: contain;

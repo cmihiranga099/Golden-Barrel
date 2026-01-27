@@ -22,14 +22,14 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/products/${product.slug}`} className="group">
       <div className="overflow-hidden rounded-2xl border border-black/10 bg-white/90">
-        <div className="h-64 w-full overflow-hidden">
+        <div className="flex aspect-[4/5] w-full items-center justify-center overflow-hidden bg-[#f7f2ea]">
           <img
             src={
               product.images?.[0] ||
               'https://unsplash.com/photos/LVotgZ43LLU/download?auto=format&fit=crop&w=800&q=80'
             }
             alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
           />
         </div>
         <div className="p-4">
