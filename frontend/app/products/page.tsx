@@ -41,7 +41,7 @@ export default async function ProductsPage({
       </div>
 
       <div className="mt-8 grid gap-8 md:grid-cols-[240px,1fr]">
-        <aside className="glass rounded-2xl p-4 text-sm text-[#4f4338]">
+        <aside className="glass rounded-2xl p-4 text-sm text-[#4f4338] self-start">
           <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Filters</p>
           <form className="mt-4 space-y-4" method="GET" action="/products">
             <input type="hidden" name="sort" value={normalized.sort || ''} />
