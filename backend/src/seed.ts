@@ -66,7 +66,7 @@ const run = async () => {
       brand: 'johnnie-walker',
       price: 32,
       stock: 80,
-      images: [brandImage['johnnie-walker']],
+      images: ['/Johnnie-Walker-Red-Label-600x703.jpg'],
       abv: 40,
       volume: 750,
       description: 'Bold, smoky blend that shines in highballs and classic cocktails.',
