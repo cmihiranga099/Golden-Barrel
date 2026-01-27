@@ -1,44 +1,57 @@
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
-      <div className="grid gap-10 md:grid-cols-2 md:items-center">
-        <div>
-          <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">About Us</p>
-          <h1 className="display mt-4 text-4xl">Golden Barrel</h1>
-          <p className="mt-4 text-sm text-[#4f4338]">
-            Golden Barrel is a modern spirits boutique built for collectors and casual sippers alike.
-            We curate premium whisky, gin, vodka, wine, champagne, and beer with a focus on quality,
-            authenticity, and responsible enjoyment.
-          </p>
-          <p className="mt-4 text-sm text-[#4f4338]">
-            From small-batch releases to global icons, our catalog is designed to help you discover
-            new favorites and celebrate the craft behind every bottle.
-          </p>
-          <p className="mt-4 text-sm text-[#4f4338]">
-            Our team tastes, tests, and curates each selection with a simple goal: make it easy to
-            find bottles worth celebrating. Whether you are building a home bar or gifting a standout
-            expression, Golden Barrel delivers with care.
-          </p>
-        </div>
-        <div className="glass rounded-3xl p-6">
-          <div className="space-y-4">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Our Promise</p>
-              <p className="mt-2 text-sm text-[#4f4338]">
-                Verified products, fair pricing, and fast, secure delivery.
-              </p>
+    <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-10 shadow-sm">
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">About Us</p>
+            <h1 className="display mt-4 text-4xl">Golden Barrel</h1>
+            <p className="mt-4 text-sm text-[#4f4338]">
+              Golden Barrel is a modern spirits boutique built for collectors and casual sippers alike.
+              We curate premium whisky, gin, vodka, wine, champagne, and beer with a focus on quality,
+              authenticity, and responsible enjoyment.
+            </p>
+            <p className="mt-4 text-sm text-[#4f4338]">
+              From small-batch releases to global icons, our catalog is designed to help you discover
+              new favorites and celebrate the craft behind every bottle.
+            </p>
+            <p className="mt-4 text-sm text-[#4f4338]">
+              Our team tastes, tests, and curates each selection with a simple goal: make it easy to
+              find bottles worth celebrating. Whether you are building a home bar or gifting a standout
+              expression, Golden Barrel delivers with care.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="rounded-full border border-gold-400/40 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold-200">
+                Curated Selection
+              </span>
+              <span className="rounded-full border border-gold-400/40 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold-200">
+                Responsible Retail
+              </span>
+              <span className="rounded-full border border-gold-400/40 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold-200">
+                Premium Service
+              </span>
             </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Responsible Retail</p>
-              <p className="mt-2 text-sm text-[#4f4338]">
-                We only sell to customers of legal drinking age. Please enjoy responsibly.
-              </p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Support</p>
-              <p className="mt-2 text-sm text-[#4f4338]">
-                Have questions? Reach us at support@goldenbarrel.com.
-              </p>
+          </div>
+          <div className="glass rounded-3xl p-6">
+            <div className="space-y-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Our Promise</p>
+                <p className="mt-2 text-sm text-[#4f4338]">
+                  Verified products, fair pricing, and fast, secure delivery.
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Responsible Retail</p>
+                <p className="mt-2 text-sm text-[#4f4338]">
+                  We only sell to customers of legal drinking age. Please enjoy responsibly.
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Support</p>
+                <p className="mt-2 text-sm text-[#4f4338]">
+                  Have questions? Reach us at support@goldenbarrel.com.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -83,6 +96,20 @@ export default function AboutPage() {
             education in the community.
           </p>
         </div>
+      </div>
+
+      <div className="mt-12 grid gap-6 md:grid-cols-4">
+        {[
+          { label: 'Curated Bottles', value: '120+' },
+          { label: 'Premium Brands', value: '40+' },
+          { label: 'Happy Customers', value: '10k+' },
+          { label: 'Avg Rating', value: '4.9' },
+        ].map((stat) => (
+          <div key={stat.label} className="glass rounded-2xl p-6 text-center">
+            <p className="text-3xl font-semibold text-gold-200">{stat.value}</p>
+            <p className="mt-2 text-xs uppercase tracking-[0.3em] text-[#6f6256]">{stat.label}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

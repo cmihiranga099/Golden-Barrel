@@ -40,16 +40,32 @@ const reviews = [
 export default function ReviewsPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Reviews</p>
-          <h1 className="display mt-4 text-4xl">Customer Stories</h1>
-          <p className="mt-3 text-sm text-[#4f4338]">
-            Real feedback from Golden Barrel customers. Thanks for sharing your experience.
-          </p>
+      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-10 shadow-sm">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Reviews</p>
+            <h1 className="display mt-4 text-4xl">Customer Stories</h1>
+            <p className="mt-3 text-sm text-[#4f4338]">
+              Real feedback from Golden Barrel customers. Thanks for sharing your experience.
+            </p>
+          </div>
+          <div className="text-sm text-[#4f4338]">
+            Average rating: <span className="text-gold-200">4.9</span> / 5
+          </div>
         </div>
-        <div className="text-sm text-[#4f4338]">
-          Average rating: <span className="text-gold-200">4.9</span> / 5
+
+        <div className="mt-8 grid gap-4 md:grid-cols-4">
+          {[
+            { label: '5-star reviews', value: '92%' },
+            { label: 'Repeat customers', value: '68%' },
+            { label: 'Avg delivery time', value: '2-3 days' },
+            { label: 'Support satisfaction', value: '97%' },
+          ].map((stat) => (
+            <div key={stat.label} className="glass rounded-2xl p-5 text-center">
+              <p className="text-2xl font-semibold text-gold-200">{stat.value}</p>
+              <p className="mt-2 text-xs uppercase tracking-[0.3em] text-[#6f6256]">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
