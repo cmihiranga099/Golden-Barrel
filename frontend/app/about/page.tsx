@@ -14,6 +14,11 @@ export default function AboutPage() {
             From small-batch releases to global icons, our catalog is designed to help you discover
             new favorites and celebrate the craft behind every bottle.
           </p>
+          <p className="mt-4 text-sm text-[#4f4338]">
+            Our team tastes, tests, and curates each selection with a simple goal: make it easy to
+            find bottles worth celebrating. Whether you are building a home bar or gifting a standout
+            expression, Golden Barrel delivers with care.
+          </p>
         </div>
         <div className="glass rounded-3xl p-6">
           <div className="space-y-4">
@@ -36,6 +41,47 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mt-14 grid gap-8 md:grid-cols-3">
+        <div className="glass rounded-2xl p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Our Story</p>
+          <p className="mt-3 text-sm text-[#4f4338]">
+            Founded by collectors and bartenders, Golden Barrel blends boutique curation with a
+            seamless online experience. We spotlight heritage brands and rising distilleries alike.
+          </p>
+        </div>
+        <div className="glass rounded-2xl p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">What We Carry</p>
+          <p className="mt-3 text-sm text-[#4f4338]">
+            Whisky, gin, vodka, wine, champagne, and beer. We prioritize authenticity, provenance,
+            and tasting notes you can trust.
+          </p>
+        </div>
+        <div className="glass rounded-2xl p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Quality & Care</p>
+          <p className="mt-3 text-sm text-[#4f4338]">
+            Temperature-aware storage, secure packaging, and fast delivery keep every bottle in
+            pristine condition.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <div className="glass rounded-2xl p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Visit & Delivery</p>
+          <p className="mt-3 text-sm text-[#4f4338]">
+            Order online for fast local delivery or schedule curated gifting. We provide order
+            tracking and responsive customer support.
+          </p>
+        </div>
+        <div className="glass rounded-2xl p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Community</p>
+          <p className="mt-3 text-sm text-[#4f4338]">
+            We partner with tasting rooms, host seasonal releases, and support responsible drinking
+            education in the community.
+          </p>
         </div>
       </div>
     </div>
