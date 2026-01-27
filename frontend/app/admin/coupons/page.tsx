@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AdminGuard } from '../../../components/admin/AdminGuard';
-import { apiDelete, apiGet, apiPost } from '../../../lib/api';
+import { apiDelete, apiGet, apiPost, apiPut } from '../../../lib/api';
 
 export default function AdminCouponsPage() {
   const [coupons, setCoupons] = useState<any[]>([]);
@@ -13,6 +13,7 @@ export default function AdminCouponsPage() {
     minSpend: 50,
     expiresAt: '',
   });
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const load = async () => {
     const data = await apiGet<any[]>('/coupons');
@@ -30,7 +31,9 @@ export default function AdminCouponsPage() {
         <p className="mt-4 text-sm text-[#6f6256]">Create and manage promo codes.</p>
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="glass rounded-2xl p-6">
-            <h2 className="display text-xl text-gold-200">Create Coupon</h2>
+            <h2 className="display text-xl text-gold-200">
+              {editingId ? 'Edit Coupon' : 'Create Coupon'}
+            </h2>
             <div className="mt-4 grid gap-3 text-sm">
               <input
                 className="rounded-md bg-white/70 p-3 text-sm"
@@ -71,13 +74,29 @@ export default function AdminCouponsPage() {
               <button
                 className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
                 onClick={async () => {
-                  await apiPost('/coupons', draft);
+                  if (editingId) {
+                    await apiPut(`/coupons/${editingId}`, draft);
+                  } else {
+                    await apiPost('/coupons', draft);
+                  }
+                  setEditingId(null);
                   setDraft({ code: '', type: 'PERCENT', value: 10, minSpend: 50, expiresAt: '' });
                   await load();
                 }}
               >
-                Create
+                {editingId ? 'Update' : 'Create'}
               </button>
+              {editingId && (
+                <button
+                  className="rounded-full border border-black/10 px-4 py-2 text-sm text-[#6f6256]"
+                  onClick={() => {
+                    setEditingId(null);
+                    setDraft({ code: '', type: 'PERCENT', value: 10, minSpend: 50, expiresAt: '' });
+                  }}
+                >
+                  Cancel
+                </button>
+              )}
             </div>
           </div>
 
@@ -92,15 +111,32 @@ export default function AdminCouponsPage() {
                       {coupon.type === 'PERCENT' ? `${coupon.value}%` : `$${coupon.value}`} off | Min ${coupon.minSpend}
                     </p>
                   </div>
-                  <button
-                    className="text-xs text-[#6f6256]"
-                    onClick={async () => {
-                      await apiDelete(`/coupons/${coupon._id}`);
-                      await load();
-                    }}
-                  >
-                    Delete
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                      onClick={() => {
+                        setEditingId(coupon._id);
+                        setDraft({
+                          code: coupon.code,
+                          type: coupon.type,
+                          value: coupon.value,
+                          minSpend: coupon.minSpend,
+                          expiresAt: new Date(coupon.expiresAt).toISOString().slice(0, 10),
+                        });
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-xs text-[#6f6256]"
+                      onClick={async () => {
+                        await apiDelete(`/coupons/${coupon._id}`);
+                        await load();
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
               {coupons.length === 0 && <p className="text-[#6f6256]">No coupons created.</p>}

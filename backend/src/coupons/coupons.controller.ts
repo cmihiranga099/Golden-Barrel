@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CouponsService } from './coupons.service';
-import { CreateCouponDto } from './dto/coupon.dto';
+import { CreateCouponDto, UpdateCouponDto } from './dto/coupon.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { RolesDecorator } from '../common/decorators/roles.decorator';
@@ -20,6 +20,12 @@ export class CouponsController {
   @Post()
   create(@Body() dto: CreateCouponDto) {
     return this.couponsService.create(dto);
+  }
+
+  @RolesDecorator('ADMIN')
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateCouponDto) {
+    return this.couponsService.update(id, dto);
   }
 
   @RolesDecorator('ADMIN')

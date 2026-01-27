@@ -917,6 +917,9 @@ video {
 .pt-24{
   padding-top: 6rem;
 }
+.pb-2{
+  padding-bottom: 0.5rem;
+}
 .text-center{
   text-align: center;
 }

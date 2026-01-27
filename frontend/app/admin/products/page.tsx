@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { apiDelete, apiGet, apiPost } from '../../../lib/api';
+import { apiDelete, apiGet, apiPost, apiPut } from '../../../lib/api';
 import { AdminGuard } from '../../../components/admin/AdminGuard';
 
 export default function AdminProductsPage() {
@@ -14,13 +14,21 @@ export default function AdminProductsPage() {
     categoryId: '',
     brandId: '',
     price: 0,
+    discountPrice: 0,
     stock: 0,
     abv: 40,
     volume: 750,
-    images: ['https://unsplash.com/photos/LVotgZ43LLU/download?auto=format&fit=crop&w=800&q=80'],
+    images: [''],
+    description: '',
+    tags: [''],
   });
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [categoryName, setCategoryName] = useState('');
   const [brandName, setBrandName] = useState('');
+  const [editingCategoryId, setEditingCategoryId] = useState<string | null>(null);
+  const [editingBrandId, setEditingBrandId] = useState<string | null>(null);
+  const [categoryEdit, setCategoryEdit] = useState({ name: '', slug: '' });
+  const [brandEdit, setBrandEdit] = useState({ name: '', slug: '' });
 
   const load = async () => {
     const [p, c, b] = await Promise.all([
@@ -45,7 +53,9 @@ export default function AdminProductsPage() {
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="glass rounded-2xl p-6">
-            <h2 className="display text-xl text-gold-200">Create Product</h2>
+            <h2 className="display text-xl text-gold-200">
+              {editingId ? 'Edit Product' : 'Create Product'}
+            </h2>
             <div className="mt-4 grid gap-3">
               <input className="rounded-md bg-white/70 p-3 text-sm" placeholder="Name" value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} />
               <input className="rounded-md bg-white/70 p-3 text-sm" placeholder="Slug" value={draft.slug} onChange={(e) => setDraft({ ...draft, slug: e.target.value })} />
@@ -65,21 +75,92 @@ export default function AdminProductsPage() {
               </div>
               <div className="grid gap-3 md:grid-cols-2">
                 <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Price" value={draft.price} onChange={(e) => setDraft({ ...draft, price: Number(e.target.value) })} />
-                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Stock" value={draft.stock} onChange={(e) => setDraft({ ...draft, stock: Number(e.target.value) })} />
+                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Discount Price" value={draft.discountPrice || ''} onChange={(e) => setDraft({ ...draft, discountPrice: Number(e.target.value) })} />
               </div>
               <div className="grid gap-3 md:grid-cols-2">
+                <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Stock" value={draft.stock} onChange={(e) => setDraft({ ...draft, stock: Number(e.target.value) })} />
                 <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="ABV" value={draft.abv} onChange={(e) => setDraft({ ...draft, abv: Number(e.target.value) })} />
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
                 <input type="number" className="rounded-md bg-white/70 p-3 text-sm" placeholder="Volume (ml)" value={draft.volume} onChange={(e) => setDraft({ ...draft, volume: Number(e.target.value) })} />
               </div>
+              <input
+                className="rounded-md bg-white/70 p-3 text-sm"
+                placeholder="Images (comma separated URLs or /public paths)"
+                value={draft.images.join(', ')}
+                onChange={(e) => setDraft({ ...draft, images: e.target.value.split(',').map((v) => v.trim()).filter(Boolean) })}
+              />
+              <input
+                className="rounded-md bg-white/70 p-3 text-sm"
+                placeholder="Tags (comma separated)"
+                value={draft.tags.join(', ')}
+                onChange={(e) => setDraft({ ...draft, tags: e.target.value.split(',').map((v) => v.trim()).filter(Boolean) })}
+              />
+              <textarea
+                className="rounded-md bg-white/70 p-3 text-sm"
+                placeholder="Description"
+                rows={3}
+                value={draft.description}
+                onChange={(e) => setDraft({ ...draft, description: e.target.value })}
+              />
               <button
                 className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
                 onClick={async () => {
-                  await apiPost('/products', draft);
+                  const payload = {
+                    ...draft,
+                    discountPrice: draft.discountPrice || undefined,
+                    images: draft.images.filter(Boolean),
+                    tags: draft.tags.filter(Boolean),
+                  };
+                  if (editingId) {
+                    await apiPut(`/products/${editingId}`, payload);
+                  } else {
+                    await apiPost('/products', payload);
+                  }
+                  setEditingId(null);
+                  setDraft({
+                    name: '',
+                    slug: '',
+                    categoryId: '',
+                    brandId: '',
+                    price: 0,
+                    discountPrice: 0,
+                    stock: 0,
+                    abv: 40,
+                    volume: 750,
+                    images: [''],
+                    description: '',
+                    tags: [''],
+                  });
                   await load();
                 }}
               >
-                Create
+                {editingId ? 'Update' : 'Create'}
               </button>
+              {editingId && (
+                <button
+                  className="rounded-full border border-black/10 px-4 py-2 text-sm text-[#6f6256]"
+                  onClick={() => {
+                    setEditingId(null);
+                    setDraft({
+                      name: '',
+                      slug: '',
+                      categoryId: '',
+                      brandId: '',
+                      price: 0,
+                      discountPrice: 0,
+                      stock: 0,
+                      abv: 40,
+                      volume: 750,
+                      images: [''],
+                      description: '',
+                      tags: [''],
+                    });
+                  }}
+                >
+                  Cancel
+                </button>
+              )}
             </div>
           </div>
 
@@ -113,6 +194,146 @@ export default function AdminProductsPage() {
                 </button>
               </div>
             </div>
+
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              <div>
+                <h3 className="text-sm font-semibold text-[#4f4338]">Categories</h3>
+                <div className="mt-3 space-y-2 text-xs">
+                  {categories.map((cat) => (
+                    <div key={cat._id} className="flex items-center justify-between border-b border-black/10 pb-2">
+                      {editingCategoryId === cat._id ? (
+                        <div className="flex w-full items-center gap-2">
+                          <input
+                            className="w-full rounded-md bg-white/70 p-2"
+                            placeholder="Name"
+                            value={categoryEdit.name}
+                            onChange={(e) => setCategoryEdit({ ...categoryEdit, name: e.target.value })}
+                          />
+                          <input
+                            className="w-full rounded-md bg-white/70 p-2"
+                            placeholder="Slug"
+                            value={categoryEdit.slug}
+                            onChange={(e) => setCategoryEdit({ ...categoryEdit, slug: e.target.value })}
+                          />
+                          <button
+                            className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                            onClick={async () => {
+                              await apiPut(`/categories/${cat._id}`, categoryEdit);
+                              setEditingCategoryId(null);
+                              await load();
+                            }}
+                          >
+                            Save
+                          </button>
+                          <button
+                            className="text-xs text-[#6f6256]"
+                            onClick={() => setEditingCategoryId(null)}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <div>
+                            <p className="text-[#4f4338]">{cat.name}</p>
+                            <p className="text-[#6f6256]">{cat.slug}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                              onClick={() => {
+                                setEditingCategoryId(cat._id);
+                                setCategoryEdit({ name: cat.name, slug: cat.slug });
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="text-xs text-[#6f6256]"
+                              onClick={async () => {
+                                await apiDelete(`/categories/${cat._id}`);
+                                await load();
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-semibold text-[#4f4338]">Brands</h3>
+                <div className="mt-3 space-y-2 text-xs">
+                  {brands.map((brand) => (
+                    <div key={brand._id} className="flex items-center justify-between border-b border-black/10 pb-2">
+                      {editingBrandId === brand._id ? (
+                        <div className="flex w-full items-center gap-2">
+                          <input
+                            className="w-full rounded-md bg-white/70 p-2"
+                            placeholder="Name"
+                            value={brandEdit.name}
+                            onChange={(e) => setBrandEdit({ ...brandEdit, name: e.target.value })}
+                          />
+                          <input
+                            className="w-full rounded-md bg-white/70 p-2"
+                            placeholder="Slug"
+                            value={brandEdit.slug}
+                            onChange={(e) => setBrandEdit({ ...brandEdit, slug: e.target.value })}
+                          />
+                          <button
+                            className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                            onClick={async () => {
+                              await apiPut(`/brands/${brand._id}`, brandEdit);
+                              setEditingBrandId(null);
+                              await load();
+                            }}
+                          >
+                            Save
+                          </button>
+                          <button
+                            className="text-xs text-[#6f6256]"
+                            onClick={() => setEditingBrandId(null)}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <div>
+                            <p className="text-[#4f4338]">{brand.name}</p>
+                            <p className="text-[#6f6256]">{brand.slug}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                              onClick={() => {
+                                setEditingBrandId(brand._id);
+                                setBrandEdit({ name: brand.name, slug: brand.slug });
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="text-xs text-[#6f6256]"
+                              onClick={async () => {
+                                await apiDelete(`/brands/${brand._id}`);
+                                await load();
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -125,15 +346,39 @@ export default function AdminProductsPage() {
                   <p className="text-gold-200">{product.name}</p>
                   <p className="text-xs text-[#6f6256]">${product.price} | Stock {product.stock}</p>
                 </div>
-                <button
-                  className="text-xs text-[#6f6256]"
-                  onClick={async () => {
-                    await apiDelete(`/products/${product._id}`);
-                    await load();
-                  }}
-                >
-                  Delete
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                    onClick={() => {
+                      setEditingId(product._id);
+                      setDraft({
+                        name: product.name || '',
+                        slug: product.slug || '',
+                        categoryId: product.categoryId?._id || product.categoryId || '',
+                        brandId: product.brandId?._id || product.brandId || '',
+                        price: Number(product.price || 0),
+                        discountPrice: Number(product.discountPrice || 0),
+                        stock: Number(product.stock || 0),
+                        abv: Number(product.abv || 0),
+                        volume: Number(product.volume || 0),
+                        images: product.images?.length ? product.images : [''],
+                        description: product.description || '',
+                        tags: product.tags?.length ? product.tags : [''],
+                      });
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="text-xs text-[#6f6256]"
+                    onClick={async () => {
+                      await apiDelete(`/products/${product._id}`);
+                      await load();
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>

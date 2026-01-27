@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { BrandsService } from './brands.service';
-import { CreateBrandDto } from './dto/brand.dto';
+import { CreateBrandDto, UpdateBrandDto } from './dto/brand.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { RolesDecorator } from '../common/decorators/roles.decorator';
@@ -19,6 +19,13 @@ export class BrandsController {
   @Post()
   create(@Body() dto: CreateBrandDto) {
     return this.brandsService.create(dto);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @RolesDecorator('ADMIN', 'STAFF')
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateBrandDto) {
+    return this.brandsService.update(id, dto);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
