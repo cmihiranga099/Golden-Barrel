@@ -578,6 +578,9 @@ video {
 .mt-14{
   margin-top: 3.5rem;
 }
+.mt-10{
+  margin-top: 2.5rem;
+}
 .block{
   display: block;
 }
@@ -1134,6 +1137,10 @@ h1, h2, h3, .display {
 
   .md\:flex-row{
     flex-direction: row;
+  }
+
+  .md\:items-end{
+    align-items: flex-end;
   }
 
   .md\:items-center{

@@ -25,9 +25,8 @@ export function Navbar() {
         <div className="hidden items-center gap-6 md:flex">
           <Link href="/" className="text-sm hover:text-gold-200">Home</Link>
           <Link href="/about" className="text-sm hover:text-gold-200">About</Link>
+          <Link href="/reviews" className="text-sm hover:text-gold-200">Reviews</Link>
           <Link href="/products" className="text-sm hover:text-gold-200">Shop</Link>
-          <Link href="/products?category=whisky" className="text-sm hover:text-gold-200">Whisky</Link>
-          <Link href="/products?category=wine" className="text-sm hover:text-gold-200">Wine</Link>
           {role === 'CUSTOMER' && (
             <Link href="/account" className="text-sm hover:text-gold-200">Account</Link>
           )}
