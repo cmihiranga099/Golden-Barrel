@@ -44,3 +44,11 @@ export class ResetPasswordDto {
   @Matches(/^(?=.*[A-Z])(?=.*\d).+$/, { message: 'Password must include 1 uppercase and 1 number' })
   newPassword!: string;
 }
+
+export class GoogleAuthDto {
+  @IsString()
+  idToken!: string;
+
+  @IsDateString()
+  dob?: string;
+}

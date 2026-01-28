@@ -45,37 +45,58 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md px-5 py-16 sm:px-6">
-      <div className="glass rounded-2xl p-6 sm:p-8">
-        <h1 className="display text-2xl text-gold-200">Create Account</h1>
+    <div className="mx-auto grid min-h-[70vh] max-w-5xl items-center gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[0.9fr,1.1fr]">
+      <div className="glass rounded-3xl p-6 sm:p-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Create Account</p>
+            <h2 className="display mt-2 text-2xl text-gold-200">Join Golden Barrel</h2>
+          </div>
+          <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-gold-200">
+            21+
+          </span>
+        </div>
+
         <div className="mt-6 grid gap-4">
-          <input
-            className="rounded-md bg-white/70 p-3"
-            placeholder="Full name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            className="rounded-md bg-white/70 p-3"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            className="rounded-md bg-white/70 p-3"
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            className="rounded-md bg-white/70 p-3"
-            type="date"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-          />
+          <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-[#6f6256]">Full name</label>
+            <input
+              className="mt-2 w-full rounded-xl border border-black/10 bg-white/70 p-3 text-sm outline-none transition focus:border-gold-400"
+              placeholder="Full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-[#6f6256]">Email</label>
+            <input
+              className="mt-2 w-full rounded-xl border border-black/10 bg-white/70 p-3 text-sm outline-none transition focus:border-gold-400"
+              placeholder="you@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-[#6f6256]">Password</label>
+            <input
+              className="mt-2 w-full rounded-xl border border-black/10 bg-white/70 p-3 text-sm outline-none transition focus:border-gold-400"
+              placeholder="Create a strong password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-[#6f6256]">Date of birth</label>
+            <input
+              className="mt-2 w-full rounded-xl border border-black/10 bg-white/70 p-3 text-sm outline-none transition focus:border-gold-400"
+              type="date"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+            />
+          </div>
           <button
-            className="rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
+            className="w-full rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black shadow-glow"
             onClick={handleRegister}
           >
             Create Account
@@ -84,6 +105,31 @@ export default function RegisterPage() {
         <p className="mt-4 text-xs text-[#6f6256]">
           Already have an account? <Link href="/login" className="text-gold-200">Sign in</Link>
         </p>
+      </div>
+
+      <div className="hidden lg:block">
+        <div className="glass relative overflow-hidden rounded-3xl p-10">
+          <div className="absolute -left-24 -top-24 h-56 w-56 rounded-full bg-gold-400/20 blur-3xl" />
+          <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Membership</p>
+          <h1 className="display mt-4 text-4xl text-gold-200">Premium Access</h1>
+          <p className="mt-4 text-sm text-[#4f4338]">
+            Build your collection with handpicked bottles, tasting notes, and limited drops.
+          </p>
+          <div className="mt-6 grid gap-3 text-xs text-[#6f6256]">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-gold-400" />
+              Personalized recommendations.
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-gold-400" />
+              Priority restock alerts.
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-gold-400" />
+              Curated collections every month.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

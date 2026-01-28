@@ -535,6 +535,18 @@ video {
 .top-0{
   top: 0px;
 }
+.-right-20{
+  right: -5rem;
+}
+.-top-20{
+  top: -5rem;
+}
+.-left-24{
+  left: -6rem;
+}
+.-top-24{
+  top: -6rem;
+}
 .z-40{
   z-index: 40;
 }
@@ -623,6 +635,9 @@ video {
 .h-9{
   height: 2.25rem;
 }
+.h-56{
+  height: 14rem;
+}
 .max-h-12{
   max-height: 3rem;
 }
@@ -634,6 +649,9 @@ video {
 }
 .min-h-screen{
   min-height: 100vh;
+}
+.min-h-\[70vh\]{
+  min-height: 70vh;
 }
 .w-10{
   width: 2.5rem;
@@ -655,6 +673,9 @@ video {
 }
 .w-full{
   width: 100%;
+}
+.w-56{
+  width: 14rem;
 }
 .min-w-0{
   min-width: 0px;
@@ -884,6 +905,9 @@ video {
 .bg-white\/90{
   background-color: rgb(255 255 255 / 0.9);
 }
+.bg-gold-400\/20{
+  background-color: rgb(212 167 80 / 0.2);
+}
 .bg-gradient-to-br{
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -1103,6 +1127,10 @@ video {
   --tw-blur: blur(40px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
+.blur-3xl{
+  --tw-blur: blur(64px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .filter{
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1193,6 +1221,11 @@ h1, h2, h3, .display {
 
 .hover\:opacity-100:hover{
   opacity: 1;
+}
+
+.focus\:border-gold-400:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(212 167 80 / var(--tw-border-opacity, 1));
 }
 
 .group:hover .group-hover\:scale-105{
@@ -1343,6 +1376,10 @@ h1, h2, h3, .display {
 
 @media (min-width: 1024px){
 
+  .lg\:block{
+    display: block;
+  }
+
   .lg\:w-auto{
     width: auto;
   }
@@ -1381,6 +1418,14 @@ h1, h2, h3, .display {
 
   .lg\:grid-cols-\[1\.4fr\2c 1fr\]{
     grid-template-columns: 1.4fr 1fr;
+  }
+
+  .lg\:grid-cols-\[1\.1fr\2c 0\.9fr\]{
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .lg\:grid-cols-\[0\.9fr\2c 1\.1fr\]{
+    grid-template-columns: 0.9fr 1.1fr;
   }
 }
 
