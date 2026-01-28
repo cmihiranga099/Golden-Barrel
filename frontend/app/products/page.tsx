@@ -24,15 +24,15 @@ export default async function ProductsPage({
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <h1 className="display text-3xl">All Spirits</h1>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           {['newest', 'priceLow', 'priceHigh', 'rating', 'bestSelling'].map((sort) => (
             <Link
               key={sort}
               href={`/products?sort=${sort}`}
-              className="rounded-full border border-black/10 px-4 py-2 text-xs uppercase tracking-widest"
+              className="rounded-full border border-black/10 px-4 py-2 text-[10px] uppercase tracking-widest sm:text-xs"
             >
               {sort}
             </Link>
@@ -40,8 +40,8 @@ export default async function ProductsPage({
         </div>
       </div>
 
-      <div className="mt-8 grid gap-8 md:grid-cols-[240px,1fr]">
-        <aside className="glass rounded-2xl p-4 text-sm text-[#4f4338] self-start">
+      <div className="mt-8 grid gap-8 lg:grid-cols-[260px,1fr]">
+        <aside className="glass self-start rounded-2xl p-4 text-sm text-[#4f4338]">
           <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Filters</p>
           <form className="mt-4 space-y-4" method="GET" action="/products">
             <input type="hidden" name="sort" value={normalized.sort || ''} />
@@ -86,7 +86,7 @@ export default async function ProductsPage({
             </div>
             <div>
               <p className="text-xs text-[#6f6256]">Price Range</p>
-              <div className="mt-2 flex gap-2">
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 <input
                   name="minPrice"
                   defaultValue={normalized.minPrice || ''}
@@ -103,7 +103,7 @@ export default async function ProductsPage({
             </div>
             <div>
               <p className="text-xs text-[#6f6256]">Alcohol %</p>
-              <div className="mt-2 flex gap-2">
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 <input
                   name="abvMin"
                   defaultValue={normalized.abvMin || ''}
@@ -120,7 +120,7 @@ export default async function ProductsPage({
             </div>
             <div>
               <p className="text-xs text-[#6f6256]">Volume (ml)</p>
-              <div className="mt-2 flex gap-2">
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 <input
                   name="volumeMin"
                   defaultValue={normalized.volumeMin || ''}
@@ -144,7 +144,7 @@ export default async function ProductsPage({
             </button>
           </form>
         </aside>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.length ? (
             products.map((product) => <ProductCard key={product._id} product={product} />)
           ) : (

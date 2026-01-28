@@ -990,6 +990,9 @@ video {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-\[10px\]{
+  font-size: 10px;
+}
 .font-semibold{
   font-weight: 600;
 }
@@ -1176,6 +1179,10 @@ h1, h2, h3, .display {
     justify-content: space-between;
   }
 
+  .sm\:gap-3{
+    gap: 0.75rem;
+  }
+
   .sm\:px-6{
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -1194,6 +1201,11 @@ h1, h2, h3, .display {
   .sm\:text-base{
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .sm\:text-xs{
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 }
 
@@ -1277,6 +1289,10 @@ h1, h2, h3, .display {
 
   .lg\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-\[260px\2c 1fr\]{
+    grid-template-columns: 260px 1fr;
   }
 }
 
