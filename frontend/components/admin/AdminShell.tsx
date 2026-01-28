@@ -30,17 +30,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <AdminGuard>
       <div className="min-h-screen bg-gradient-to-br from-[#f8f2e8] via-white to-[#f3eadb]">
-        <div className="mx-auto flex max-w-7xl gap-6 px-6 py-10">
+        <div className="mx-auto flex max-w-7xl items-start gap-6 px-6 py-10">
           <aside className="glass hidden w-64 flex-col rounded-3xl p-6 shadow-sm md:flex">
             <p className="display text-lg text-gold-200">Admin</p>
-            <nav className="mt-6 flex flex-col gap-3 text-sm">
+            <nav className="mt-6 flex flex-col gap-2 text-sm">
               {navItems.map((item) => {
                 const active = pathname === item.href;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`rounded-full border px-4 py-2 text-xs transition ${
+                    className={`flex h-9 items-center justify-center rounded-full border px-3 text-[11px] uppercase tracking-[0.2em] transition ${
                       active
                         ? 'border-gold-400 bg-white/80 text-gold-200 shadow-sm'
                         : 'border-black/10 text-[#6f6256] hover:border-gold-400/60 hover:text-gold-200'
@@ -53,7 +53,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             </nav>
             <button
               onClick={logout}
-              className="mt-auto rounded-full border border-black/10 px-4 py-2 text-xs text-[#6f6256] transition hover:border-gold-400/60 hover:text-gold-200"
+              className="mt-4 flex h-9 items-center justify-center rounded-full border border-black/10 px-3 text-[11px] uppercase tracking-[0.2em] text-[#6f6256] transition hover:border-gold-400/60 hover:text-gold-200"
             >
               Logout
             </button>
