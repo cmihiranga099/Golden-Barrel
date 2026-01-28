@@ -1197,6 +1197,14 @@ h1, h2, h3, .display {
     gap: 0.75rem;
   }
 
+  .sm\:p-10{
+    padding: 2.5rem;
+  }
+
+  .sm\:p-8{
+    padding: 2rem;
+  }
+
   .sm\:px-6{
     padding-left: 1.5rem;
     padding-right: 1.5rem;

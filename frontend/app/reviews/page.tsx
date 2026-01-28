@@ -39,12 +39,12 @@ const reviews = [
 
 export default function ReviewsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-10 shadow-sm">
+    <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6">
+      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-6 shadow-sm sm:p-10">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Reviews</p>
-            <h1 className="display mt-4 text-4xl">Customer Stories</h1>
+            <h1 className="display mt-4 text-3xl sm:text-4xl">Customer Stories</h1>
             <p className="mt-3 text-sm text-[#4f4338]">
               Real feedback from Golden Barrel customers. Thanks for sharing your experience.
             </p>
@@ -54,7 +54,7 @@ export default function ReviewsPage() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { label: '5-star reviews', value: '92%' },
             { label: 'Repeat customers', value: '68%' },
@@ -69,7 +69,7 @@ export default function ReviewsPage() {
         </div>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {reviews.map((review) => (
           <div key={review.name} className="glass rounded-2xl p-6">
             <p className="text-sm text-[#4f4338]">“{review.quote}”</p>

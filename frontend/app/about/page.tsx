@@ -1,11 +1,11 @@
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-10 shadow-sm">
+    <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6">
+      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-6 shadow-sm sm:p-10">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">About Us</p>
-            <h1 className="display mt-4 text-4xl">Golden Barrel</h1>
+            <h1 className="display mt-4 text-3xl sm:text-4xl">Golden Barrel</h1>
             <p className="mt-4 text-sm text-[#4f4338]">
               Golden Barrel is a modern spirits boutique built for collectors and casual sippers alike.
               We curate premium whisky, gin, vodka, wine, champagne, and beer with a focus on quality,

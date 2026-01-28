@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
+    <div className="mx-auto max-w-5xl px-5 py-16 sm:px-6">
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Contact Us</p>
@@ -15,7 +15,7 @@ export default function ContactPage() {
             <p>Mon–Fri · 9:00 AM – 7:00 PM</p>
           </div>
         </div>
-        <div className="glass rounded-3xl p-6">
+        <div className="glass rounded-3xl p-6 sm:p-8">
           <form className="space-y-4">
             <div>
               <label className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Name</label>
