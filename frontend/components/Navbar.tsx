@@ -1,12 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingBag, User, Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, User, Search, Menu, X, ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { clearTokens } from '../lib/auth';
+import { useRouter } from 'next/navigation';
 
 export function Navbar() {
   const [role, setRole] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -62,18 +66,53 @@ export function Navbar() {
           <Link href="/cart" className="rounded-full border border-black/10 p-2 hover:border-gold-400">
             <ShoppingBag size={18} />
           </Link>
-          <Link
-            href={
-              role === 'ADMIN' || role === 'STAFF'
-                ? '/admin'
-                : role
-                  ? '/account'
-                  : '/login'
-            }
-            className="rounded-full border border-black/10 p-2 hover:border-gold-400"
-          >
-            <User size={18} />
-          </Link>
+          {role === 'CUSTOMER' ? (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setUserOpen((open) => !open)}
+                className="flex items-center gap-1 rounded-full border border-black/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256] hover:border-gold-400"
+              >
+                <User size={16} />
+                <ChevronDown size={14} />
+              </button>
+              {userOpen && (
+                <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-2xl border border-black/10 bg-white/95 shadow-lg">
+                  <Link
+                    href="/customer/dashboard"
+                    className="block px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#6f6256] hover:bg-gold-50"
+                    onClick={() => setUserOpen(false)}
+                  >
+                    Customer Dashboard
+                  </Link>
+                  <button
+                    type="button"
+                    className="block w-full px-4 py-3 text-left text-xs uppercase tracking-[0.2em] text-[#6f6256] hover:bg-gold-50"
+                    onClick={() => {
+                      clearTokens();
+                      setUserOpen(false);
+                      router.push('/login');
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              href={
+                role === 'ADMIN' || role === 'STAFF'
+                  ? '/admin'
+                  : role
+                    ? '/account'
+                    : '/login'
+              }
+              className="rounded-full border border-black/10 p-2 hover:border-gold-400"
+            >
+              <User size={18} />
+            </Link>
+          )}
         </div>
       </div>
       <div

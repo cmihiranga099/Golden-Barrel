@@ -23,10 +23,11 @@ export default function AccountPage() {
         push('Please sign in to view your profile.');
       });
   }, [push]);
+
   return (
     <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
       <h1 className="display text-3xl">My Account</h1>
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <div className="glass rounded-2xl p-6">
           <h2 className="display text-xl text-gold-200">Profile</h2>
           <div className="mt-4 grid gap-3">
@@ -70,6 +71,7 @@ export default function AccountPage() {
         <div className="glass rounded-2xl p-6">
           <h2 className="display text-xl text-gold-200">Quick Links</h2>
           <div className="mt-4 grid gap-3 text-sm">
+            <Link href="/customer/dashboard" className="text-gold-200">Customer Dashboard</Link>
             <Link href="/account/orders" className="text-gold-200">Order History</Link>
             <Link href="/account/wishlist" className="text-gold-200">Wishlist</Link>
             <Link href="/account/addresses" className="text-gold-200">Address Book</Link>
