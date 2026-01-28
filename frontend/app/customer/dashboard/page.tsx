@@ -40,33 +40,33 @@ export default function CustomerDashboardPage() {
   };
 
   const statusTone: Record<string, string> = {
-    PENDING: 'bg-amber-100 text-amber-700',
-    PAID: 'bg-emerald-100 text-emerald-700',
-    PROCESSING: 'bg-sky-100 text-sky-700',
-    SHIPPED: 'bg-indigo-100 text-indigo-700',
-    DELIVERED: 'bg-green-100 text-green-700',
-    CANCELLED: 'bg-rose-100 text-rose-700',
-    REFUNDED: 'bg-slate-100 text-slate-700',
+    PENDING: 'bg-amber-500/20 text-amber-200',
+    PAID: 'bg-emerald-500/20 text-emerald-200',
+    PROCESSING: 'bg-sky-500/20 text-sky-200',
+    SHIPPED: 'bg-indigo-500/20 text-indigo-200',
+    DELIVERED: 'bg-green-500/20 text-green-200',
+    CANCELLED: 'bg-rose-500/20 text-rose-200',
+    REFUNDED: 'bg-slate-500/20 text-slate-200',
   };
 
   const formatOrderId = (id: string) => `#${id.slice(-6).toUpperCase()}`;
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
-      <div className="rounded-3xl border border-gold-400/20 bg-gradient-to-br from-[#fff8eb] via-white to-[#f7efe3] p-6 sm:p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Welcome back</p>
-        <h1 className="display mt-2 text-3xl">Your Dashboard</h1>
-        <p className="mt-2 text-sm text-[#4f4338]">
+      <div className="rounded-3xl border border-gold-400/20 bg-night-900/95 p-6 shadow-lg sm:p-8">
+        <p className="text-xs uppercase tracking-[0.3em] text-[#b7a590]">Welcome back</p>
+        <h1 className="display mt-2 text-3xl text-gold-200">Your Dashboard</h1>
+        <p className="mt-2 text-sm text-[#d8c9b6]">
           {profile?.name ? `${profile.name}, your recent activity is summarized below.` : 'Your recent activity is summarized below.'}
         </p>
         <div className="mt-4 flex flex-wrap gap-3 text-xs">
-          <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-gold-200">
+          <span className="rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 text-gold-200">
             Personalized picks
           </span>
-          <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-gold-200">
+          <span className="rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 text-gold-200">
             Track orders
           </span>
-          <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-gold-200">
+          <span className="rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 text-gold-200">
             Manage profile
           </span>
         </div>
@@ -78,20 +78,20 @@ export default function CustomerDashboardPage() {
           ['Total Spend', `$${totalSpent.toFixed(2)}`],
           ['Latest Status', `${statusLabels[lastStatus] || lastStatus}`],
         ].map(([label, value]) => (
-          <div key={label} className="glass rounded-2xl p-6 shadow-sm">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">{label}</p>
+          <div key={label} className="rounded-2xl border border-gold-400/20 bg-night-800/90 p-6 shadow-md">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#b7a590]">{label}</p>
             <p className="display mt-3 text-2xl text-gold-200">{value}</p>
           </div>
         ))}
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
-        <div className="glass rounded-2xl p-6">
+        <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <h2 className="display text-xl text-gold-200">Recent Orders</h2>
             <span className="text-xs text-[#6f6256]">Last 5</span>
           </div>
-          <div className="mt-4 overflow-x-auto rounded-xl border border-black/10">
+          <div className="mt-4 overflow-x-auto rounded-xl border border-black/10 bg-white">
             <div className="min-w-[520px]">
               <div className="grid grid-cols-[1.2fr,1fr,0.8fr,1fr] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
                 <span>Order</span>
@@ -119,19 +119,19 @@ export default function CustomerDashboardPage() {
             </div>
           </div>
           <div className="mt-4 grid gap-3 text-xs text-[#6f6256] sm:grid-cols-3">
-            <div className="rounded-xl border border-black/10 bg-white/70 px-3 py-2">
+            <div className="rounded-xl border border-black/10 bg-[#f9f6f0] px-3 py-2">
               Quick tip: Track orders from the order history page.
             </div>
-            <div className="rounded-xl border border-black/10 bg-white/70 px-3 py-2">
+            <div className="rounded-xl border border-black/10 bg-[#f9f6f0] px-3 py-2">
               Reorder your favorites in one click.
             </div>
-            <div className="rounded-xl border border-black/10 bg-white/70 px-3 py-2">
+            <div className="rounded-xl border border-black/10 bg-[#f9f6f0] px-3 py-2">
               Download receipts from order details.
             </div>
           </div>
         </div>
 
-        <div className="glass rounded-2xl p-6">
+        <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
           <h2 className="display text-xl text-gold-200">Payment Snapshot</h2>
           {latestOrder ? (
             <div className="mt-4 space-y-2 text-sm text-[#4f4338]">
@@ -152,16 +152,16 @@ export default function CustomerDashboardPage() {
           ) : (
             <p className="mt-4 text-sm text-[#6f6256]">No payment details yet.</p>
           )}
-          <div className="mt-6 rounded-xl border border-black/10 bg-white/70 p-4 text-sm text-[#4f4338]">
+          <div className="mt-6 rounded-xl border border-black/10 bg-[#f9f6f0] p-4 text-sm text-[#4f4338]">
             <p className="text-xs uppercase tracking-[0.2em] text-[#6f6256]">Profile</p>
-            <p className="mt-2 text-gold-200">{profile?.name || 'Customer'}</p>
+            <p className="mt-2 text-[#1f1b16]">{profile?.name || 'Customer'}</p>
             <p className="text-xs text-[#6f6256]">{profile?.email || 'Email not available'}</p>
           </div>
           <div className="mt-4 grid gap-2 text-xs text-[#6f6256]">
-            <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-center text-gold-200">
+            <span className="rounded-full border border-gold-400/50 bg-gold-50 px-3 py-1 text-center text-[#8a5b1f]">
               Secure payments
             </span>
-            <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-center text-gold-200">
+            <span className="rounded-full border border-gold-400/50 bg-gold-50 px-3 py-1 text-center text-[#8a5b1f]">
               21+ verified
             </span>
           </div>
