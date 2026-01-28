@@ -47,7 +47,7 @@ export default function AdminProductsPage() {
 
   return (
     <AdminGuard>
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Catalog</p>
@@ -62,7 +62,7 @@ export default function AdminProductsPage() {
           </button>
         </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="glass rounded-2xl p-6 shadow-sm">
             <h2 className="display text-xl text-gold-200">
               {editingId ? 'Edit Product' : 'Create Product'}
@@ -178,7 +178,7 @@ export default function AdminProductsPage() {
           <div className="glass rounded-2xl p-6 shadow-sm">
             <h2 className="display text-xl text-gold-200">Categories and Brands</h2>
             <div className="mt-4 grid gap-3">
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                 <input className="w-full rounded-md bg-white/70 p-3 text-sm" placeholder="New category" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
                 <button
                   className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
@@ -191,7 +191,7 @@ export default function AdminProductsPage() {
                   Add
                 </button>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                 <input className="w-full rounded-md bg-white/70 p-3 text-sm" placeholder="New brand" value={brandName} onChange={(e) => setBrandName(e.target.value)} />
                 <button
                   className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
@@ -213,7 +213,7 @@ export default function AdminProductsPage() {
                   {categories.map((cat) => (
                     <div key={cat._id} className="flex items-center justify-between border-b border-black/10 pb-2">
                       {editingCategoryId === cat._id ? (
-                        <div className="flex w-full items-center gap-2">
+                        <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
                           <input
                             className="w-full rounded-md bg-white/70 p-2"
                             placeholder="Name"
@@ -282,7 +282,7 @@ export default function AdminProductsPage() {
                   {brands.map((brand) => (
                     <div key={brand._id} className="flex items-center justify-between border-b border-black/10 pb-2">
                       {editingBrandId === brand._id ? (
-                        <div className="flex w-full items-center gap-2">
+                        <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
                           <input
                             className="w-full rounded-md bg-white/70 p-2"
                             placeholder="Name"
@@ -353,60 +353,62 @@ export default function AdminProductsPage() {
             <h2 className="display text-xl text-gold-200">Inventory</h2>
             <span className="text-xs text-[#6f6256]">{products.length} items</span>
           </div>
-          <div className="mt-4 overflow-hidden rounded-xl border border-black/10">
-            <div className="grid grid-cols-[2fr,1fr,1fr,auto] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
-              <span>Product</span>
-              <span>Price</span>
-              <span>Stock</span>
-              <span className="text-right">Actions</span>
-            </div>
-            <div className="divide-y divide-black/10 text-sm">
-              {products.map((product) => (
-                <div key={product._id} className="grid grid-cols-[2fr,1fr,1fr,auto] items-center px-4 py-3">
-                  <div>
-                    <p className="text-gold-200">{product.name}</p>
-                    <p className="text-xs text-[#6f6256]">{product.slug}</p>
+          <div className="mt-4 overflow-x-auto rounded-xl border border-black/10">
+            <div className="min-w-[720px]">
+              <div className="grid grid-cols-[2fr,1fr,1fr,auto] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
+                <span>Product</span>
+                <span>Price</span>
+                <span>Stock</span>
+                <span className="text-right">Actions</span>
+              </div>
+              <div className="divide-y divide-black/10 text-sm">
+                {products.map((product) => (
+                  <div key={product._id} className="grid grid-cols-[2fr,1fr,1fr,auto] items-center px-4 py-3">
+                    <div>
+                      <p className="text-gold-200">{product.name}</p>
+                      <p className="text-xs text-[#6f6256]">{product.slug}</p>
+                    </div>
+                    <span className="text-[#4f4338]">${product.price}</span>
+                    <span className="text-[#4f4338]">{product.stock}</span>
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
+                        onClick={() => {
+                          setEditingId(product._id);
+                          setDraft({
+                            name: product.name || '',
+                            slug: product.slug || '',
+                            categoryId: product.categoryId?._id || product.categoryId || '',
+                            brandId: product.brandId?._id || product.brandId || '',
+                            price: Number(product.price || 0),
+                            discountPrice: Number(product.discountPrice || 0),
+                            stock: Number(product.stock || 0),
+                            abv: Number(product.abv || 0),
+                            volume: Number(product.volume || 0),
+                            images: product.images?.length ? product.images : [''],
+                            description: product.description || '',
+                            tags: product.tags?.length ? product.tags : [''],
+                          });
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="text-xs text-[#6f6256]"
+                        onClick={async () => {
+                          await apiDelete(`/products/${product._id}`);
+                          await load();
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                  <span className="text-[#4f4338]">${product.price}</span>
-                  <span className="text-[#4f4338]">{product.stock}</span>
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      className="rounded-full border border-gold-400 px-3 py-1 text-xs text-gold-200"
-                      onClick={() => {
-                        setEditingId(product._id);
-                        setDraft({
-                          name: product.name || '',
-                          slug: product.slug || '',
-                          categoryId: product.categoryId?._id || product.categoryId || '',
-                          brandId: product.brandId?._id || product.brandId || '',
-                          price: Number(product.price || 0),
-                          discountPrice: Number(product.discountPrice || 0),
-                          stock: Number(product.stock || 0),
-                          abv: Number(product.abv || 0),
-                          volume: Number(product.volume || 0),
-                          images: product.images?.length ? product.images : [''],
-                          description: product.description || '',
-                          tags: product.tags?.length ? product.tags : [''],
-                        });
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="text-xs text-[#6f6256]"
-                      onClick={async () => {
-                        await apiDelete(`/products/${product._id}`);
-                        await load();
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
-              {products.length === 0 && (
-                <p className="px-4 py-4 text-xs text-[#6f6256]">No products found.</p>
-              )}
+                ))}
+                {products.length === 0 && (
+                  <p className="px-4 py-4 text-xs text-[#6f6256]">No products found.</p>
+                )}
+              </div>
             </div>
           </div>
         </div>

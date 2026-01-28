@@ -34,7 +34,7 @@ export default function AdminDashboard() {
 
   return (
     <AdminGuard>
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Dashboard</p>
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             ['Total Sales', `$${stats.totalSales.toFixed(2)}`],
             ['Orders', `${stats.orders}`],
@@ -66,21 +66,23 @@ export default function AdminDashboard() {
               <h2 className="display text-xl text-gold-200">Recent Orders</h2>
               <Link href="/admin/orders" className="text-xs text-[#6f6256]">View all</Link>
             </div>
-            <div className="mt-4 overflow-hidden rounded-xl border border-black/10">
-              <div className="grid grid-cols-[2fr,1fr] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
-                <span>Order</span>
-                <span>Status</span>
-              </div>
-              <div className="divide-y divide-black/10 text-sm">
-                {recentOrders.map((order) => (
-                  <div key={order._id} className="grid grid-cols-[2fr,1fr] px-4 py-3 text-[#4f4338]">
-                    <span className="truncate">{order._id}</span>
-                    <span className="text-xs uppercase text-[#6f6256]">{order.status}</span>
-                  </div>
-                ))}
-                {recentOrders.length === 0 && (
-                  <p className="px-4 py-4 text-xs text-[#6f6256]">No orders yet.</p>
-                )}
+            <div className="mt-4 overflow-x-auto rounded-xl border border-black/10">
+              <div className="min-w-[360px]">
+                <div className="grid grid-cols-[2fr,1fr] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
+                  <span>Order</span>
+                  <span>Status</span>
+                </div>
+                <div className="divide-y divide-black/10 text-sm">
+                  {recentOrders.map((order) => (
+                    <div key={order._id} className="grid grid-cols-[2fr,1fr] px-4 py-3 text-[#4f4338]">
+                      <span className="truncate">{order._id}</span>
+                      <span className="text-xs uppercase text-[#6f6256]">{order.status}</span>
+                    </div>
+                  ))}
+                  {recentOrders.length === 0 && (
+                    <p className="px-4 py-4 text-xs text-[#6f6256]">No orders yet.</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -91,8 +93,8 @@ export default function AdminDashboard() {
             </div>
             <div className="mt-4 space-y-3 text-sm text-[#4f4338]">
               {lowStock.map((product) => (
-                <div key={product._id} className="flex items-center justify-between rounded-xl border border-black/10 bg-white/70 px-4 py-3">
-                  <span className="truncate">{product.name}</span>
+                <div key={product._id} className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/70 px-4 py-3">
+                  <span className="min-w-0 truncate">{product.name}</span>
                   <span className="rounded-full border border-gold-400/40 px-3 py-1 text-xs text-gold-200">
                     {product.stock} left
                   </span>

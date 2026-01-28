@@ -653,6 +653,18 @@ video {
 .min-w-0{
   min-width: 0px;
 }
+.min-w-\[360px\]{
+  min-width: 360px;
+}
+.min-w-\[720px\]{
+  min-width: 720px;
+}
+.min-w-\[860px\]{
+  min-width: 860px;
+}
+.min-w-\[640px\]{
+  min-width: 640px;
+}
 .max-w-4xl{
   max-width: 56rem;
 }
@@ -773,6 +785,9 @@ video {
 }
 .overflow-hidden{
   overflow: hidden;
+}
+.overflow-x-auto{
+  overflow-x: auto;
 }
 .truncate{
   overflow: hidden;
