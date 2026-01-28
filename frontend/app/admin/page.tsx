@@ -9,6 +9,8 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState({ totalSales: 0, orders: 0, customers: 0 });
   const [recentOrders, setRecentOrders] = useState<any[]>([]);
   const [lowStock, setLowStock] = useState<any[]>([]);
+  const [salesSeries, setSalesSeries] = useState<number[]>([]);
+  const [statusCounts, setStatusCounts] = useState<Record<string, number>>({});
 
   const load = async () => {
     const [report, orders, users, products] = await Promise.all([
@@ -26,11 +28,36 @@ export default function AdminDashboard() {
     });
     setRecentOrders((orders || []).slice(0, 5));
     setLowStock((products || []).filter((p) => p.stock <= 10).slice(0, 5));
+    const totals = (orders || [])
+      .slice(0, 12)
+      .map((order: any) => Number(order.total || 0))
+      .reverse();
+    setSalesSeries(totals);
+    const counts: Record<string, number> = {};
+    (orders || []).forEach((order: any) => {
+      const status = order.status || 'PENDING';
+      counts[status] = (counts[status] || 0) + 1;
+    });
+    setStatusCounts(counts);
   };
 
   useEffect(() => {
     load().catch(() => {});
   }, []);
+
+  const hasSalesData = salesSeries.length > 0;
+  const chartSeries = hasSalesData
+    ? salesSeries
+    : [10, 14, 12, 18, 15, 20, 16, 24, 19, 26, 22, 28];
+  const hasStatusData = Object.entries(statusCounts).length > 0;
+  const statusEntries: [string, number][] = hasStatusData
+    ? Object.entries(statusCounts)
+    : [
+        ['PENDING', 3],
+        ['PAID', 5],
+        ['PROCESSING', 2],
+        ['SHIPPED', 4],
+      ];
 
   return (
     <AdminGuard>
@@ -60,6 +87,84 @@ export default function AdminDashboard() {
             </div>
           ))}
         </div>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr,1fr]">
+          <div className="glass rounded-2xl p-6 shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Sales Overview</p>
+                <h2 className="display mt-2 text-xl text-gold-200">Revenue Trend</h2>
+              </div>
+              <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-xs text-gold-200">
+                {hasSalesData ? 'Last 12 orders' : 'Sample'}
+              </span>
+            </div>
+            <div className="mt-6 rounded-2xl border border-gold-400/20 bg-gradient-to-br from-white via-[#fff8eb] to-white p-4">
+              <div className="flex items-end justify-between text-xs text-[#6f6256]">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+              <svg viewBox="0 0 240 80" className="mt-2 h-24 w-full">
+                <defs>
+                  <linearGradient id="salesLine" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#d4a750" stopOpacity="0.35" />
+                    <stop offset="100%" stopColor="#c18f3a" stopOpacity="0.85" />
+                  </linearGradient>
+                </defs>
+                <polyline
+                  fill="none"
+                  stroke="url(#salesLine)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  points={chartSeries
+                    .map((value, idx) => {
+                      const x = (idx / (chartSeries.length - 1 || 1)) * 230 + 5;
+                      const max = Math.max(...chartSeries, 1);
+                      const y = 75 - (value / max) * 60;
+                      return `${x},${y}`;
+                    })
+                    .join(' ')}
+                />
+                {chartSeries.map((value, idx) => {
+                  const x = (idx / (chartSeries.length - 1 || 1)) * 230 + 5;
+                  const max = Math.max(...chartSeries, 1);
+                  const y = 75 - (value / max) * 60;
+                  return <circle key={idx} cx={x} cy={y} r="2.6" fill="#c18f3a" />;
+                })}
+              </svg>
+              {!hasSalesData && (
+                <p className="mt-2 text-xs text-[#6f6256]">Live sales data will appear once orders exist.</p>
+              )}
+            </div>
+          </div>
+
+          <div className="glass rounded-2xl p-6 shadow-sm">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Orders Status</p>
+            <h2 className="display mt-2 text-xl text-gold-200">Fulfillment Mix</h2>
+            <div className="mt-6 space-y-4 text-sm">
+              {statusEntries.map(([status, count]) => {
+                const total = statusEntries.reduce((sum, [, value]) => sum + value, 0) || 1;
+                const pct = Math.round((count / total) * 100);
+                return (
+                  <div key={status}>
+                    <div className="flex items-center justify-between text-xs text-[#6f6256]">
+                      <span className="uppercase tracking-[0.2em]">{status}</span>
+                      <span>{pct}%</span>
+                    </div>
+                    <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/70">
+                      <div className="h-full rounded-full bg-gold-400" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+              {!hasStatusData && (
+                <p className="text-xs text-[#6f6256]">Status mix updates automatically as orders flow in.</p>
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <div className="glass rounded-2xl p-6 shadow-sm">
             <div className="flex items-center justify-between">
