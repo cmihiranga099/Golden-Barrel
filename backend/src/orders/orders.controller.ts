@@ -46,4 +46,11 @@ export class OrdersController {
   markPaid(@Param('id') id: string, @Body() dto: MarkPaidDto) {
     return this.ordersService.markPaid(id, dto);
   }
+
+  @UseGuards(RolesGuard)
+  @RolesDecorator('ADMIN', 'STAFF')
+  @Post('seed')
+  seedSample(@Body('count') count?: number) {
+    return this.ordersService.seedSampleOrders(typeof count === 'number' ? count : 12);
+  }
 }

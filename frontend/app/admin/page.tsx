@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { AdminGuard } from '../../components/admin/AdminGuard';
-import { apiGet } from '../../lib/api';
+import { apiGet, apiPost } from '../../lib/api';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ totalSales: 0, orders: 0, customers: 0 });
@@ -11,6 +11,7 @@ export default function AdminDashboard() {
   const [lowStock, setLowStock] = useState<any[]>([]);
   const [salesSeries, setSalesSeries] = useState<number[]>([]);
   const [statusCounts, setStatusCounts] = useState<Record<string, number>>({});
+  const [seeding, setSeeding] = useState(false);
 
   const load = async () => {
     const [report, orders, users, products] = await Promise.all([
@@ -45,19 +46,21 @@ export default function AdminDashboard() {
     load().catch(() => {});
   }, []);
 
+  const seedSampleOrders = async () => {
+    setSeeding(true);
+    try {
+      await apiPost('/orders/seed', { count: 12 });
+      await load();
+    } catch {
+      // best-effort; no toast in admin overview
+    } finally {
+      setSeeding(false);
+    }
+  };
+
   const hasSalesData = salesSeries.length > 0;
-  const chartSeries = hasSalesData
-    ? salesSeries
-    : [10, 14, 12, 18, 15, 20, 16, 24, 19, 26, 22, 28];
   const hasStatusData = Object.entries(statusCounts).length > 0;
-  const statusEntries: [string, number][] = hasStatusData
-    ? Object.entries(statusCounts)
-    : [
-        ['PENDING', 3],
-        ['PAID', 5],
-        ['PROCESSING', 2],
-        ['SHIPPED', 4],
-      ];
+  const statusEntries: [string, number][] = Object.entries(statusCounts);
 
   return (
     <AdminGuard>
@@ -67,12 +70,21 @@ export default function AdminDashboard() {
             <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Dashboard</p>
             <h1 className="display mt-2 text-3xl">Admin Overview</h1>
           </div>
-          <Link
-            href="/admin/reports"
-            className="rounded-full border border-gold-400 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold-200"
-          >
-            View Reports
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <button
+              className="rounded-full border border-black/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]"
+              onClick={seedSampleOrders}
+              disabled={seeding}
+            >
+              {seeding ? 'Seeding...' : 'Generate Sample Orders'}
+            </button>
+            <Link
+              href="/admin/reports"
+              className="rounded-full border border-gold-400 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold-200"
+            >
+              View Reports
+            </Link>
+          </div>
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,45 +108,48 @@ export default function AdminDashboard() {
                 <h2 className="display mt-2 text-xl text-gold-200">Revenue Trend</h2>
               </div>
               <span className="rounded-full border border-gold-400/40 bg-white/70 px-3 py-1 text-xs text-gold-200">
-                {hasSalesData ? 'Last 12 orders' : 'Sample'}
+                Last 12 orders
               </span>
             </div>
             <div className="mt-6 rounded-2xl border border-gold-400/20 bg-gradient-to-br from-white via-[#fff8eb] to-white p-4">
-              <div className="flex items-end justify-between text-xs text-[#6f6256]">
-                <span>Low</span>
-                <span>High</span>
-              </div>
-              <svg viewBox="0 0 240 80" className="mt-2 h-24 w-full">
-                <defs>
-                  <linearGradient id="salesLine" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#d4a750" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="#c18f3a" stopOpacity="0.85" />
-                  </linearGradient>
-                </defs>
-                <polyline
-                  fill="none"
-                  stroke="url(#salesLine)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  points={chartSeries
-                    .map((value, idx) => {
-                      const x = (idx / (chartSeries.length - 1 || 1)) * 230 + 5;
-                      const max = Math.max(...chartSeries, 1);
+              {hasSalesData ? (
+                <>
+                  <div className="flex items-end justify-between text-xs text-[#6f6256]">
+                    <span>Low</span>
+                    <span>High</span>
+                  </div>
+                  <svg viewBox="0 0 240 80" className="mt-2 h-24 w-full">
+                    <defs>
+                      <linearGradient id="salesLine" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#d4a750" stopOpacity="0.35" />
+                        <stop offset="100%" stopColor="#c18f3a" stopOpacity="0.85" />
+                      </linearGradient>
+                    </defs>
+                    <polyline
+                      fill="none"
+                      stroke="url(#salesLine)"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      points={salesSeries
+                        .map((value, idx) => {
+                          const x = (idx / (salesSeries.length - 1 || 1)) * 230 + 5;
+                          const max = Math.max(...salesSeries, 1);
+                          const y = 75 - (value / max) * 60;
+                          return `${x},${y}`;
+                        })
+                        .join(' ')}
+                    />
+                    {salesSeries.map((value, idx) => {
+                      const x = (idx / (salesSeries.length - 1 || 1)) * 230 + 5;
+                      const max = Math.max(...salesSeries, 1);
                       const y = 75 - (value / max) * 60;
-                      return `${x},${y}`;
-                    })
-                    .join(' ')}
-                />
-                {chartSeries.map((value, idx) => {
-                  const x = (idx / (chartSeries.length - 1 || 1)) * 230 + 5;
-                  const max = Math.max(...chartSeries, 1);
-                  const y = 75 - (value / max) * 60;
-                  return <circle key={idx} cx={x} cy={y} r="2.6" fill="#c18f3a" />;
-                })}
-              </svg>
-              {!hasSalesData && (
-                <p className="mt-2 text-xs text-[#6f6256]">Live sales data will appear once orders exist.</p>
+                      return <circle key={idx} cx={x} cy={y} r="2.6" fill="#c18f3a" />;
+                    })}
+                  </svg>
+                </>
+              ) : (
+                <p className="text-sm text-[#6f6256]">No sales data yet.</p>
               )}
             </div>
           </div>
@@ -143,23 +158,24 @@ export default function AdminDashboard() {
             <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Orders Status</p>
             <h2 className="display mt-2 text-xl text-gold-200">Fulfillment Mix</h2>
             <div className="mt-6 space-y-4 text-sm">
-              {statusEntries.map(([status, count]) => {
-                const total = statusEntries.reduce((sum, [, value]) => sum + value, 0) || 1;
-                const pct = Math.round((count / total) * 100);
-                return (
-                  <div key={status}>
-                    <div className="flex items-center justify-between text-xs text-[#6f6256]">
-                      <span className="uppercase tracking-[0.2em]">{status}</span>
-                      <span>{pct}%</span>
+              {hasStatusData ? (
+                statusEntries.map(([status, count]) => {
+                  const total = statusEntries.reduce((sum, [, value]) => sum + value, 0) || 1;
+                  const pct = Math.round((count / total) * 100);
+                  return (
+                    <div key={status}>
+                      <div className="flex items-center justify-between text-xs text-[#6f6256]">
+                        <span className="uppercase tracking-[0.2em]">{status}</span>
+                        <span>{pct}%</span>
+                      </div>
+                      <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/70">
+                        <div className="h-full rounded-full bg-gold-400" style={{ width: `${pct}%` }} />
+                      </div>
                     </div>
-                    <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/70">
-                      <div className="h-full rounded-full bg-gold-400" style={{ width: `${pct}%` }} />
-                    </div>
-                  </div>
-                );
-              })}
-              {!hasStatusData && (
-                <p className="text-xs text-[#6f6256]">Status mix updates automatically as orders flow in.</p>
+                  );
+                })
+              ) : (
+                <p className="text-sm text-[#6f6256]">No order data yet.</p>
               )}
             </div>
           </div>
