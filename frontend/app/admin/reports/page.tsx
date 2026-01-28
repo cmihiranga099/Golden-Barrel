@@ -33,7 +33,7 @@ export default function AdminReportsPage() {
 
   return (
     <AdminGuard>
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-[#6f6256]">Analytics</p>
@@ -48,7 +48,7 @@ export default function AdminReportsPage() {
           </button>
         </div>
         <div className="mt-6 glass rounded-2xl p-6 shadow-sm">
-          <div className="grid gap-4 md:grid-cols-[1fr,1fr,auto]">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1fr,1fr,auto]">
             <input
               type="date"
               className="rounded-md bg-white/70 p-3 text-sm"
@@ -62,7 +62,7 @@ export default function AdminReportsPage() {
               onChange={(e) => setTo(e.target.value)}
             />
             <button
-              className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
+              className="w-full rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200 lg:w-auto"
               onClick={loadReport}
             >
               Run Report
@@ -70,7 +70,7 @@ export default function AdminReportsPage() {
           </div>
 
           {report && (
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-black/10 bg-white/70 p-4">
                 <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Total Sales</p>
                 <p className="display mt-2 text-2xl text-gold-200">${Number(report.totalSales).toFixed(2)}</p>
