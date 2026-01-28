@@ -86,55 +86,55 @@ export default function CustomerDashboardPage() {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
-        <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl border border-gold-400/20 bg-night-800/90 p-6 shadow-md">
           <div className="flex items-center justify-between">
             <h2 className="display text-xl text-gold-200">Recent Orders</h2>
-            <span className="text-xs text-[#6f6256]">Last 5</span>
+            <span className="text-xs text-[#b7a590]">Last 5</span>
           </div>
-          <div className="mt-4 overflow-x-auto rounded-xl border border-black/10 bg-white">
+          <div className="mt-4 overflow-x-auto rounded-xl border border-gold-400/10 bg-night-900/90">
             <div className="min-w-[520px]">
-              <div className="grid grid-cols-[1.2fr,1fr,0.8fr,1fr] bg-white/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#6f6256]">
+              <div className="grid grid-cols-[1.2fr,1fr,0.8fr,1fr] bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#b7a590]">
                 <span>Order</span>
                 <span>Date</span>
                 <span>Status</span>
                 <span className="text-right">Total</span>
               </div>
-              <div className="divide-y divide-black/10 text-sm">
+              <div className="divide-y divide-white/10 text-sm">
                 {orders.slice(0, 5).map((order) => (
-                  <div key={order._id} className="grid grid-cols-[1.2fr,1fr,0.8fr,1fr] items-center px-4 py-3 text-[#4f4338]">
+                  <div key={order._id} className="grid grid-cols-[1.2fr,1fr,0.8fr,1fr] items-center px-4 py-3 text-[#d8c9b6]">
                     <span className="truncate text-gold-200">{formatOrderId(order._id)}</span>
-                    <span className="text-xs text-[#6f6256]">{new Date(order.createdAt).toDateString()}</span>
-                    <span className={`inline-flex w-fit rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${statusTone[order.status] || 'bg-slate-100 text-slate-700'}`}>
+                    <span className="text-xs text-[#b7a590]">{new Date(order.createdAt).toDateString()}</span>
+                    <span className={`inline-flex w-fit rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${statusTone[order.status] || 'bg-slate-500/20 text-slate-200'}`}>
                       {statusLabels[order.status] || order.status}
                     </span>
-                    <span className="text-right">${Number(order.total).toFixed(2)}</span>
+                    <span className="text-right text-gold-200">${Number(order.total).toFixed(2)}</span>
                   </div>
                 ))}
                 {orders.length === 0 && (
-                  <div className="px-4 py-6 text-sm text-[#6f6256]">
+                  <div className="px-4 py-6 text-sm text-[#b7a590]">
                     No orders yet. Once you place an order, it will appear here.
                   </div>
                 )}
               </div>
             </div>
           </div>
-          <div className="mt-4 grid gap-3 text-xs text-[#6f6256] sm:grid-cols-3">
-            <div className="rounded-xl border border-black/10 bg-[#f9f6f0] px-3 py-2">
+          <div className="mt-4 grid gap-3 text-xs text-[#b7a590] sm:grid-cols-3">
+            <div className="rounded-xl border border-gold-400/20 bg-night-900/80 px-3 py-2">
               Quick tip: Track orders from the order history page.
             </div>
-            <div className="rounded-xl border border-black/10 bg-[#f9f6f0] px-3 py-2">
+            <div className="rounded-xl border border-gold-400/20 bg-night-900/80 px-3 py-2">
               Reorder your favorites in one click.
             </div>
-            <div className="rounded-xl border border-black/10 bg-[#f9f6f0] px-3 py-2">
+            <div className="rounded-xl border border-gold-400/20 bg-night-900/80 px-3 py-2">
               Download receipts from order details.
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl border border-gold-400/20 bg-night-800/90 p-6 shadow-md">
           <h2 className="display text-xl text-gold-200">Payment Snapshot</h2>
           {latestOrder ? (
-            <div className="mt-4 space-y-2 text-sm text-[#4f4338]">
+            <div className="mt-4 space-y-2 text-sm text-[#d8c9b6]">
               <div className="flex justify-between">
                 <span>Method</span>
                 <span className="text-gold-200">{latestOrder.paymentMethod}</span>
@@ -147,21 +147,21 @@ export default function CustomerDashboardPage() {
                 <span>Last Charge</span>
                 <span className="text-gold-200">${Number(latestOrder.total).toFixed(2)}</span>
               </div>
-              <p className="text-xs text-[#6f6256]">Based on your latest order.</p>
+              <p className="text-xs text-[#b7a590]">Based on your latest order.</p>
             </div>
           ) : (
-            <p className="mt-4 text-sm text-[#6f6256]">No payment details yet.</p>
+            <p className="mt-4 text-sm text-[#b7a590]">No payment details yet.</p>
           )}
-          <div className="mt-6 rounded-xl border border-black/10 bg-[#f9f6f0] p-4 text-sm text-[#4f4338]">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6f6256]">Profile</p>
-            <p className="mt-2 text-[#1f1b16]">{profile?.name || 'Customer'}</p>
-            <p className="text-xs text-[#6f6256]">{profile?.email || 'Email not available'}</p>
+          <div className="mt-6 rounded-xl border border-gold-400/20 bg-night-900/80 p-4 text-sm text-[#d8c9b6]">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#b7a590]">Profile</p>
+            <p className="mt-2 text-gold-200">{profile?.name || 'Customer'}</p>
+            <p className="text-xs text-[#b7a590]">{profile?.email || 'Email not available'}</p>
           </div>
-          <div className="mt-4 grid gap-2 text-xs text-[#6f6256]">
-            <span className="rounded-full border border-gold-400/50 bg-gold-50 px-3 py-1 text-center text-[#8a5b1f]">
+          <div className="mt-4 grid gap-2 text-xs text-[#b7a590]">
+            <span className="rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 text-center text-gold-200">
               Secure payments
             </span>
-            <span className="rounded-full border border-gold-400/50 bg-gold-50 px-3 py-1 text-center text-[#8a5b1f]">
+            <span className="rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 text-center text-gold-200">
               21+ verified
             </span>
           </div>

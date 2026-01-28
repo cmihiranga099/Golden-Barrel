@@ -841,6 +841,9 @@ video {
 .divide-black\/10 > :not([hidden]) ~ :not([hidden]){
   border-color: rgb(0 0 0 / 0.1);
 }
+.divide-white\/10 > :not([hidden]) ~ :not([hidden]){
+  border-color: rgb(255 255 255 / 0.1);
+}
 .self-start{
   align-self: flex-start;
 }
@@ -900,6 +903,9 @@ video {
 }
 .border-gold-400\/50{
   border-color: rgb(212 167 80 / 0.5);
+}
+.border-gold-400\/10{
+  border-color: rgb(212 167 80 / 0.1);
 }
 .bg-black\/80{
   background-color: rgb(0 0 0 / 0.8);
@@ -1014,6 +1020,12 @@ video {
 }
 .bg-night-900\/95{
   background-color: rgb(11 10 9 / 0.95);
+}
+.bg-night-900\/80{
+  background-color: rgb(11 10 9 / 0.8);
+}
+.bg-night-900\/90{
+  background-color: rgb(11 10 9 / 0.9);
 }
 .bg-gradient-to-br{
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
