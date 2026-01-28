@@ -1,11 +1,13 @@
 import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { RegisterDto, LoginDto, ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
+import { RegisterDto, LoginDto, ForgotPasswordDto, ResetPasswordDto, GoogleAuthDto } from './dto/auth.dto';
 import { hashPassword, comparePassword } from '../common/utils/password';
 import { v4 as uuidv4 } from 'uuid';
+import { OAuth2Client } from 'google-auth-library';
 
 const passwordResetTokens = new Map<string, { userId: string; expiresAt: number }>();
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 @Injectable()
 export class AuthService {
@@ -130,5 +132,48 @@ export class AuthService {
     await user.save();
     passwordResetTokens.delete(dto.token);
     return { success: true };
+  }
+
+  async googleLogin(dto: GoogleAuthDto) {
+    if (!process.env.GOOGLE_CLIENT_ID) {
+      throw new BadRequestException('Google sign-in not configured');
+    }
+    const ticket = await googleClient.verifyIdToken({
+      idToken: dto.idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    if (!payload?.email) {
+      throw new UnauthorizedException('Invalid Google token');
+    }
+    const email = payload.email.toLowerCase();
+    const name = payload.name || email.split('@')[0];
+    let user = await this.usersService.findByEmail(email);
+    if (user && user.isBlocked) {
+      throw new UnauthorizedException('Account is blocked');
+    }
+    if (!user) {
+      if (!dto.dob) {
+        throw new BadRequestException('Date of birth required for first-time Google sign-in');
+      }
+      if (!this.isOfLegalAge(dto.dob)) {
+        throw new BadRequestException('Must be of legal drinking age');
+      }
+      const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS || 12);
+      const passwordHash = await hashPassword(uuidv4(), saltRounds);
+      user = await this.usersService.createUser({
+        email,
+        passwordHash,
+        name,
+        dob: new Date(dto.dob),
+        isAgeVerified: true,
+        role: 'CUSTOMER',
+      });
+    }
+    const tokens = await this.signTokens(user);
+    const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS || 12);
+    user.refreshTokenHash = await hashPassword(tokens.refreshToken, saltRounds);
+    await user.save();
+    return { userId: user.id, ...tokens };
   }
 }
