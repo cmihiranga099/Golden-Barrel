@@ -24,7 +24,7 @@ export default function AccountPage() {
       });
   }, [push]);
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
+    <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
       <h1 className="display text-3xl">My Account</h1>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <div className="glass rounded-2xl p-6">
@@ -44,7 +44,7 @@ export default function AccountPage() {
             />
           </div>
           <button
-            className="mt-4 rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
+            className="mt-4 w-full rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200 sm:w-auto"
             onClick={async () => {
               try {
                 const updated = await updateProfile({ name, phone });
@@ -58,7 +58,7 @@ export default function AccountPage() {
             Update Profile
           </button>
           <button
-            className="mt-3 rounded-full border border-black/10 px-4 py-2 text-sm text-[#6f6256]"
+            className="mt-3 w-full rounded-full border border-black/10 px-4 py-2 text-sm text-[#6f6256] sm:w-auto"
             onClick={() => {
               clearTokens();
               push('Signed out.');

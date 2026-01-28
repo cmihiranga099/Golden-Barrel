@@ -1178,6 +1178,10 @@ h1, h2, h3, .display {
     flex-direction: row;
   }
 
+  .sm\:flex-wrap{
+    flex-wrap: wrap;
+  }
+
   .sm\:items-center{
     align-items: center;
   }
