@@ -28,17 +28,17 @@ export default function CartPage() {
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
+    <div className="mx-auto max-w-5xl px-5 py-12 sm:px-6">
       <h1 className="display text-3xl">Your Cart</h1>
       {items.length === 0 ? (
         <p className="mt-6 text-sm text-[#6f6256]">Your cart is empty.</p>
       ) : (
-        <div className="mt-6 grid gap-6 md:grid-cols-[2fr,1fr]">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[2fr,1fr]">
           <div className="space-y-4">
             {items.map((item) => (
-              <div key={item.productId} className="glass flex items-center justify-between rounded-2xl p-4">
-                <div>
-                  <p className="text-gold-200">{item.name}</p>
+              <div key={item.productId} className="glass flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="truncate text-gold-200">{item.name}</p>
                   <p className="text-xs text-[#6f6256]">${item.price}</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -53,7 +53,7 @@ export default function CartPage() {
                         updateCartItem(item.productId, qty).catch(() => {});
                       }
                     }}
-                    className="w-16 rounded-md bg-white/70 p-2 text-center"
+                    className="w-full rounded-md bg-white/70 p-2 text-center sm:w-16"
                   />
                   <button
                     onClick={() => {

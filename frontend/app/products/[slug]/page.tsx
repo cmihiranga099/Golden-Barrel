@@ -22,16 +22,16 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
 
   if (!product) {
     return (
-      <div className="mx-auto max-w-4xl px-6 py-16">
+      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-6">
         <p className="text-sm text-[#6f6256]">Product not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
-      <div className="grid gap-10 md:grid-cols-2">
-        <div className="grid gap-4">
+    <div className="mx-auto max-w-5xl px-5 py-16 sm:px-6">
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
           {product.images?.slice(0, 2).map((img, idx) => (
             <img key={idx} src={img} alt={product.name} className="rounded-2xl border border-black/10" />
           ))}
@@ -42,7 +42,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
             {product.categoryId?.name || 'Category'} | {product.brandId?.name || 'Brand'}
           </p>
           <p className="mt-2 text-sm text-[#6f6256]">{product.abv}% ABV | {product.volume}ml</p>
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             {product.discountPrice ? (
               <>
                 <span className="text-2xl font-semibold text-gold-200">${product.discountPrice}</span>
@@ -80,11 +80,11 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
       </div>
 
       <section className="mt-16">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="display text-2xl">Best Sellers</h2>
           <a href="/products?sort=bestSelling" className="text-sm text-gold-200">See all</a>
         </div>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {bestSellers.slice(0, 3).map((item) => (
             <ProductCard key={item._id} product={item} />
           ))}
@@ -92,11 +92,11 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
       </section>
 
       <section className="mt-16">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="display text-2xl">New Arrivals</h2>
           <a href="/products?sort=newest" className="text-sm text-gold-200">See all</a>
         </div>
-        <div className="mt-6 grid gap-6 md:grid-cols-4">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {newArrivals.slice(0, 4).map((item) => (
             <ProductCard key={item._id} product={item} />
           ))}

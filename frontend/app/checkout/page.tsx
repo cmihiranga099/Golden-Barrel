@@ -134,9 +134,9 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
+    <div className="mx-auto max-w-5xl px-5 py-12 sm:px-6">
       <h1 className="display text-3xl">Checkout</h1>
-      <div className="mt-8 grid gap-6 md:grid-cols-[2fr,1fr]">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[2fr,1fr]">
         <div className="space-y-6">
           <div className="glass rounded-2xl p-6">
             <h2 className="display text-xl text-gold-200">Delivery Details</h2>
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
                 value={shippingInfo.line1}
                 onChange={(e) => setShippingInfo({ ...shippingInfo, line1: e.target.value })}
               />
-              <div className="grid gap-3 md:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <input
                   className="rounded-md bg-white/70 p-3"
                   placeholder="City"
@@ -167,7 +167,7 @@ export default function CheckoutPage() {
                   onChange={(e) => setShippingInfo({ ...shippingInfo, state: e.target.value })}
                 />
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <input
                   className="rounded-md bg-white/70 p-3"
                   placeholder="Postal code"
