@@ -1426,6 +1426,16 @@ h1, h2, h3, .display {
   color: rgb(111 98 86 / var(--tw-text-opacity, 1));
 }
 
+.placeholder\:text-\[\#8f7f6f\]::-moz-placeholder{
+  --tw-text-opacity: 1;
+  color: rgb(143 127 111 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-\[\#8f7f6f\]::placeholder{
+  --tw-text-opacity: 1;
+  color: rgb(143 127 111 / var(--tw-text-opacity, 1));
+}
+
 .hover\:border-gold-400:hover{
   --tw-border-opacity: 1;
   border-color: rgb(212 167 80 / var(--tw-border-opacity, 1));

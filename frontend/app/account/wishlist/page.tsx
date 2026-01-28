@@ -25,16 +25,19 @@ export default function WishlistPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-12 sm:px-6">
-      <h1 className="display text-3xl">Wishlist</h1>
+      <div className="rounded-3xl border border-gold-400/20 bg-night-900/95 p-6 shadow-lg sm:p-8">
+        <p className="text-xs uppercase tracking-[0.3em] text-[#b7a590]">Wishlist</p>
+        <h1 className="display mt-2 text-3xl text-gold-200">Saved Items</h1>
+      </div>
       {items.length === 0 ? (
-        <p className="mt-6 text-sm text-[#6f6256]">Your wishlist is empty.</p>
+        <p className="mt-6 text-sm text-[#b7a590]">Your wishlist is empty.</p>
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {items.map((item) => (
-            <div key={item.productId} className="glass flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div key={item.productId} className="flex flex-col gap-3 rounded-2xl border border-gold-400/20 bg-night-800/90 p-4 shadow-md sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
                 <p className="truncate text-gold-200">{item.name}</p>
-                <p className="text-xs text-[#6f6256]">Saved for later</p>
+                <p className="text-xs text-[#b7a590]">Saved for later</p>
               </div>
               <button
                 onClick={() => {
@@ -43,7 +46,7 @@ export default function WishlistPage() {
                     removeWishlistItem(item.productId).catch(() => {});
                   }
                 }}
-                className="text-xs text-[#6f6256]"
+                className="text-xs text-[#b7a590]"
               >
                 Remove
               </button>

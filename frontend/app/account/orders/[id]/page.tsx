@@ -16,8 +16,11 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
-      <h1 className="display text-3xl">Order {params.id}</h1>
-      <div className="mt-6 glass rounded-2xl p-6">
+      <div className="rounded-3xl border border-gold-400/20 bg-night-900/95 p-6 shadow-lg sm:p-8">
+        <p className="text-xs uppercase tracking-[0.3em] text-[#b7a590]">Order</p>
+        <h1 className="display mt-2 text-3xl text-gold-200">#{params.id.slice(-6).toUpperCase()}</h1>
+      </div>
+      <div className="mt-6 rounded-2xl border border-gold-400/20 bg-night-800/90 p-6 shadow-md">
         <h2 className="display text-xl text-gold-200">Status Timeline</h2>
         <div className="mt-4 space-y-3">
           {timeline.map((step, idx) => (
@@ -29,7 +32,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
               />
               <span
                 className={
-                  order && timeline.indexOf(order.status) >= idx ? 'text-gold-200' : 'text-[#6f6256]'
+                  order && timeline.indexOf(order.status) >= idx ? 'text-gold-200' : 'text-[#b7a590]'
                 }
               >
                 {step}
@@ -38,7 +41,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           ))}
         </div>
         {order && (
-          <div className="mt-6 text-sm text-[#4f4338]">
+          <div className="mt-6 text-sm text-[#d8c9b6]">
             <p>Payment: {order.paymentStatus}</p>
             <p>Total: ${Number(order.total).toFixed(2)}</p>
           </div>
