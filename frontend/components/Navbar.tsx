@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingBag, User, Search } from 'lucide-react';
+import { ShoppingBag, User, Search, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export function Navbar() {
   const [role, setRole] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -37,7 +38,7 @@ export function Navbar() {
             </Link>
           )}
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <form
             action="/products"
             method="GET"
@@ -50,6 +51,14 @@ export function Navbar() {
               className="ml-2 bg-transparent text-sm text-[#1f1b16] placeholder:text-[#6f6256] outline-none"
             />
           </form>
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="rounded-full border border-black/10 p-2 md:hidden"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
           <Link href="/cart" className="rounded-full border border-black/10 p-2 hover:border-gold-400">
             <ShoppingBag size={18} />
           </Link>
@@ -65,6 +74,43 @@ export function Navbar() {
           >
             <User size={18} />
           </Link>
+        </div>
+      </div>
+      <div
+        className={`md:hidden ${menuOpen ? 'block' : 'hidden'} border-t border-black/10 bg-white/90 px-6 py-4`}
+      >
+        <form
+          action="/products"
+          method="GET"
+          className="flex items-center rounded-full border border-black/10 bg-white/60 px-3 py-2"
+        >
+          <Search size={16} className="text-[#6f6256]" />
+          <input
+            name="q"
+            placeholder="Search by name or brand"
+            className="ml-2 w-full bg-transparent text-sm text-[#1f1b16] placeholder:text-[#6f6256] outline-none"
+          />
+        </form>
+        <div className="mt-4 grid gap-3 text-sm">
+          <Link href="/" onClick={() => setMenuOpen(false)} className="hover:text-gold-200">Home</Link>
+          <Link href="/about" onClick={() => setMenuOpen(false)} className="hover:text-gold-200">About</Link>
+          <Link href="/products" onClick={() => setMenuOpen(false)} className="hover:text-gold-200">Shop</Link>
+          <Link href="/reviews" onClick={() => setMenuOpen(false)} className="hover:text-gold-200">Reviews</Link>
+          <Link href="/contact" onClick={() => setMenuOpen(false)} className="hover:text-gold-200">Contact</Link>
+          {role === 'CUSTOMER' && (
+            <Link href="/account" onClick={() => setMenuOpen(false)} className="hover:text-gold-200">
+              Account
+            </Link>
+          )}
+          {(role === 'ADMIN' || role === 'STAFF') && (
+            <Link
+              href="/admin"
+              onClick={() => setMenuOpen(false)}
+              className="text-gold-200 hover:text-gold-200"
+            >
+              Dashboard
+            </Link>
+          )}
         </div>
       </div>
     </header>

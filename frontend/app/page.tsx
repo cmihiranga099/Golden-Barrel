@@ -75,26 +75,26 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="mx-auto grid max-w-6xl items-center gap-8 px-6 py-16 md:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl items-center gap-8 px-5 py-12 sm:px-6 sm:py-16 md:grid-cols-2">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-gold-200">Golden Barrel</p>
-          <h1 className="display mt-4 text-4xl md:text-6xl">
+          <h1 className="display mt-4 text-3xl sm:text-4xl md:text-6xl">
             Curated Spirits for the Modern Connoisseur
           </h1>
-          <p className="mt-4 text-sm text-[#4f4338]">
+          <p className="mt-4 text-sm text-[#4f4338] sm:text-base">
             Discover rare releases, small-batch expressions, and luxurious pairings in a dark, golden
             atmosphere.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/products"
-              className="rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
+              className="w-full rounded-full bg-gold-500 px-6 py-3 text-center text-sm font-semibold text-black sm:w-auto"
             >
               Shop Collection
             </Link>
             <Link
               href="/products?sort=newest"
-              className="rounded-full border border-gold-400 px-6 py-3 text-sm font-semibold text-gold-200"
+              className="w-full rounded-full border border-gold-400 px-6 py-3 text-center text-sm font-semibold text-gold-200 sm:w-auto"
             >
               New Arrivals
             </Link>
@@ -105,17 +105,17 @@ export default async function HomePage() {
           <img
             src="/hero.jpg"
             alt="Golden Barrel premium bottle"
-            className="relative h-[360px] w-full max-w-[420px] rounded-3xl border border-gold-400/30 object-cover shadow-glow md:h-[420px]"
+            className="relative h-[280px] w-full max-w-[420px] rounded-3xl border border-gold-400/30 object-cover shadow-glow sm:h-[360px] md:h-[420px]"
           />
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="display text-2xl">Featured Categories</h2>
           <Link href="/products" className="text-sm text-gold-200">View all</Link>
         </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {['Whisky', 'Vodka', 'Wine'].map((cat) => (
             <div key={cat} className="glass rounded-2xl p-6">
               <p className="text-xs uppercase tracking-[0.3em] text-[#6f6256]">Collection</p>
@@ -155,11 +155,11 @@ export default async function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="display text-2xl">Best Sellers</h2>
           <Link href="/products?sort=bestSelling" className="text-sm text-gold-200">See all</Link>
         </div>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {(bestSellers.length ? bestSellers.slice(0, 3) : []).map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
@@ -167,11 +167,11 @@ export default async function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="display text-2xl">New Arrivals</h2>
           <Link href="/products?sort=newest" className="text-sm text-gold-200">See all</Link>
         </div>
-        <div className="mt-6 grid gap-6 md:grid-cols-4">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {(newArrivals.length ? newArrivals.slice(0, 4) : []).map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

@@ -614,6 +614,9 @@ video {
 .h-full{
   height: 100%;
 }
+.h-\[280px\]{
+  height: 280px;
+}
 .max-h-12{
   max-height: 3rem;
 }
@@ -943,6 +946,10 @@ video {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.px-5{
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
 .pb-2{
   padding-bottom: 0.5rem;
 }
@@ -1145,8 +1152,48 @@ h1, h2, h3, .display {
 
 @media (min-width: 640px){
 
+  .sm\:h-\[360px\]{
+    height: 360px;
+  }
+
+  .sm\:w-auto{
+    width: auto;
+  }
+
   .sm\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:flex-row{
+    flex-direction: row;
+  }
+
+  .sm\:items-center{
+    align-items: center;
+  }
+
+  .sm\:justify-between{
+    justify-content: space-between;
+  }
+
+  .sm\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .sm\:py-16{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .sm\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .sm\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
@@ -1154,6 +1201,10 @@ h1, h2, h3, .display {
 
   .md\:flex{
     display: flex;
+  }
+
+  .md\:hidden{
+    display: none;
   }
 
   .md\:h-\[420px\]{
@@ -1222,6 +1273,10 @@ h1, h2, h3, .display {
 
   .lg\:grid-cols-5{
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

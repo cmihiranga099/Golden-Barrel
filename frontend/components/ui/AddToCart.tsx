@@ -13,9 +13,9 @@ export function AddToCart({ product }: { product: Product }) {
   const { push } = useToast();
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-col gap-3 sm:flex-row">
       <button
-        className="rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black"
+        className="w-full rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-black sm:w-auto"
         onClick={() => {
         addItem({
           productId: product._id,
@@ -33,7 +33,7 @@ export function AddToCart({ product }: { product: Product }) {
         Add to Cart
       </button>
       <button
-        className="rounded-full border border-gold-400 px-6 py-3 text-sm font-semibold text-gold-200"
+        className="w-full rounded-full border border-gold-400 px-6 py-3 text-sm font-semibold text-gold-200 sm:w-auto"
         onClick={() => {
           add({ productId: product._id, name: product.name, image: product.images?.[0] });
           if (getTokens()?.accessToken) {
