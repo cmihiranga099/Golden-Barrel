@@ -15,7 +15,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
   }, [params.id]);
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
+    <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
       <h1 className="display text-3xl">Order {params.id}</h1>
       <div className="mt-6 glass rounded-2xl p-6">
         <h2 className="display text-xl text-gold-200">Status Timeline</h2>

@@ -959,6 +959,9 @@ video {
 .pt-24{
   padding-top: 6rem;
 }
+.text-left{
+  text-align: left;
+}
 .text-center{
   text-align: center;
 }
@@ -1202,6 +1205,10 @@ h1, h2, h3, .display {
   .sm\:py-16{
     padding-top: 4rem;
     padding-bottom: 4rem;
+  }
+
+  .sm\:text-right{
+    text-align: right;
   }
 
   .sm\:text-4xl{

@@ -30,7 +30,7 @@ export default function AddressBookPage() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
+    <div className="mx-auto max-w-5xl px-5 py-12 sm:px-6">
       <h1 className="display text-3xl">Address Book</h1>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <div className="glass rounded-2xl p-6">
@@ -99,7 +99,7 @@ export default function AddressBookPage() {
               onChange={(e) => setDraft({ ...draft, country: e.target.value })}
             />
             <button
-              className="rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200"
+              className="w-full rounded-full border border-gold-400 px-4 py-2 text-sm text-gold-200 sm:w-auto"
               onClick={() => {
                 const next = [...addresses, draft];
                 saveAddresses(next)
